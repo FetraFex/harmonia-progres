@@ -167,8 +167,8 @@ export function HeroSection() {
       </motion.nav>
 
       {/* ── Content Grid (pushed to bottom) ── */}
-      <div className="relative z-10 flex-1 flex flex-col justify-end p-6 sm:p-10 md:p-14 lg:p-16">
-        <div className="max-w-[1400px] w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end">
+      <div className="relative z-10 flex-1 flex flex-col justify-end px-32 py-10 md:py-14 lg:py-16">
+        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end">
           {/* LEFT: Content */}
           <div data-hero-content className="lg:col-span-7 space-y-6">
             <motion.div
