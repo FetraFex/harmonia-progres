@@ -183,6 +183,20 @@ export function HeroSection() {
                 </span>
               </motion.div>
 
+              {/* Trust Pill */}
+              <motion.div
+                variants={fadeUp}
+                className="trust-pill mb-5"
+              >
+                <div className="avatar-stack">
+                  <div className="mini-avatar">AD</div>
+                  <div className="mini-avatar">KM</div>
+                  <div className="mini-avatar plus">+</div>
+                </div>
+                <span className="trust-stars" aria-hidden="true">★★★★★</span>
+                <span className="trust-text">1 200+ donateurs actifs</span>
+              </motion.div>
+
               <h1 className="space-y-0">
                 {["Construire l’avenir", "entrepreneurial", "de Manakara."].map(
                   (line, i) => (
