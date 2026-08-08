@@ -1,87 +1,125 @@
-import Link from "next/link";
-import { NAV_LINKS, SITE } from "@/constants";
+import React from "react";
+import { PrismLogo } from "@/components/ui/Icons";
 
 export function Footer() {
   return (
-    <footer className="mt-auto border-t border-border bg-surface">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
-          <div className="space-y-4">
-            <div className="flex items-center space-x-2">
-              <span className="text-xl font-bold text-primary">Harmonia</span>
-              <span className="text-xl font-light text-accent">Progres</span>
-            </div>
-            <p className="text-sm text-text-secondary">{SITE.description}</p>
+    <footer className="border-t border-glass-border bg-void-2/60 relative z-10 pt-16 pb-12 px-4">
+      <div className="max-w-[1280px] mx-auto space-y-12">
+        {/* 4 Columns Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
+          {/* Brand Column (Spans 2 on lg) */}
+          <div className="lg:col-span-2 space-y-4">
+            <a href="#" className="flex items-center gap-3 inline-flex">
+              <PrismLogo className="w-7 h-7" />
+              <span className="font-display font-semibold text-xl tracking-tight text-text-primary">
+                Fondation Lucide
+              </span>
+            </a>
+            <p className="text-sm text-text-secondary max-w-sm leading-relaxed">
+              Organisation non gouvernementale dédiée à l&apos;accès à l&apos;eau potable, à
+              la résilience climatique et à l&apos;éducation avec une transparence financière
+              et géographique intégrale.
+            </p>
           </div>
 
-          <div>
-            <h4 className="mb-4 font-semibold text-text">Quick Links</h4>
-            <ul className="space-y-2 text-sm">
-              {NAV_LINKS.slice(0, 6).map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-text-secondary transition-colors hover:text-primary"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="mb-4 font-semibold text-text">Contact</h4>
+          {/* Navigation Column */}
+          <div className="space-y-3">
+            <h4 className="font-display text-sm font-bold uppercase tracking-wider text-text-primary">
+              Navigation
+            </h4>
             <ul className="space-y-2 text-sm text-text-secondary">
-              <li>{SITE.address}</li>
               <li>
-                <a href={`mailto:${SITE.email}`} className="hover:text-primary">
-                  {SITE.email}
+                <a href="#mission" className="hover:text-teal transition-colors">
+                  Mission
                 </a>
               </li>
               <li>
-                <a href={`tel:${SITE.phone}`} className="hover:text-primary">
-                  {SITE.phone}
+                <a href="#actions" className="hover:text-teal transition-colors">
+                  Actions
+                </a>
+              </li>
+              <li>
+                <a href="#presence" className="hover:text-teal transition-colors">
+                  Impact
+                </a>
+              </li>
+              <li>
+                <a href="#newsletter" className="hover:text-teal transition-colors">
+                  Actualités
                 </a>
               </li>
             </ul>
           </div>
 
-          <div>
-            <h4 className="mb-4 font-semibold text-text">Follow Us</h4>
-            <div className="flex space-x-4">
-              <a
-                href={SITE.social.facebook}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-text-secondary transition-colors hover:text-primary"
-              >
-                Facebook
-              </a>
-              <a
-                href={SITE.social.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-text-secondary transition-colors hover:text-primary"
-              >
-                LinkedIn
-              </a>
-              <a
-                href={SITE.social.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-text-secondary transition-colors hover:text-primary"
-              >
-                Instagram
-              </a>
-            </div>
+          {/* Ressources Column */}
+          <div className="space-y-3">
+            <h4 className="font-display text-sm font-bold uppercase tracking-wider text-text-primary">
+              Ressources
+            </h4>
+            <ul className="space-y-2 text-sm text-text-secondary">
+              <li>
+                <a href="#" className="hover:text-teal transition-colors">
+                  Rapports annuels
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-teal transition-colors">
+                  Espace Presse
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-teal transition-colors">
+                  Carrières & Bénévolat
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Légal Column */}
+          <div className="space-y-3">
+            <h4 className="font-display text-sm font-bold uppercase tracking-wider text-text-primary">
+              Légal
+            </h4>
+            <ul className="space-y-2 text-sm text-text-secondary">
+              <li>
+                <a href="#" className="hover:text-teal transition-colors">
+                  Mentions légales
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-teal transition-colors">
+                  Politique de confidentialité
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-teal transition-colors">
+                  Gestion des cookies
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
 
-        <div className="mt-8 border-t border-border pt-8 text-center text-sm text-text-secondary">
-          <p>
-            © {new Date().getFullYear()} {SITE.name}. All rights reserved.
-          </p>
+        {/* Bottom Bar */}
+        <div className="pt-8 border-t border-glass-border flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-text-muted">
+          <div>
+            © 2026 Fondation Lucide. Tous droits réservés.
+          </div>
+          {/* Text-only social links per brief */}
+          <div className="flex items-center gap-6">
+            <a href="#" className="hover:text-teal transition-colors">
+              LinkedIn
+            </a>
+            <a href="#" className="hover:text-teal transition-colors">
+              X (Twitter)
+            </a>
+            <a href="#" className="hover:text-teal transition-colors">
+              GitHub
+            </a>
+            <a href="#" className="hover:text-teal transition-colors">
+              Instagram
+            </a>
+          </div>
         </div>
       </div>
     </footer>

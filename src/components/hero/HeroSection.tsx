@@ -16,7 +16,7 @@ const NAV_LINKS = [
   { label: "Le Projet", href: "#mission" },
   { label: "Nos Actions", href: "#actions" },
   { label: "Impact", href: "#stats" },
-  { label: "Actualit\u00e9s", href: "#newsletter" },
+  { label: "Actualités", href: "#newsletter" },
 ];
 
 const containerVariants: Variants = {
@@ -115,7 +115,7 @@ export function HeroSection() {
         <Link
           href="/"
           className="flex items-center gap-2.5 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal rounded-lg"
-          aria-label="Harmonia Progr\u00e8s \u2014 Accueil"
+          aria-label="Harmonia Progrès — Accueil"
         >
           <div className="w-8 h-8 rounded-full bg-teal/20 border border-teal/40 flex items-center justify-center transition-transform group-hover:scale-110 duration-300">
             <svg
@@ -132,7 +132,7 @@ export function HeroSection() {
             </svg>
           </div>
           <span className="font-display font-semibold text-sm text-white tracking-tight">
-            Harmonia Progr\u00e8s
+            Harmonia Progrès
           </span>
         </Link>
 
@@ -184,7 +184,7 @@ export function HeroSection() {
               </motion.div>
 
               <h1 className="space-y-0">
-                {["Construire l\u2019avenir", "entrepreneurial", "de Manakara."].map(
+                {["Construire l’avenir", "entrepreneurial", "de Manakara."].map(
                   (line, i) => (
                     <motion.span
                       key={line}
@@ -214,10 +214,10 @@ export function HeroSection() {
                 variants={fadeUp}
                 className="mt-6 max-w-[520px] text-[15px] md:text-[17px] leading-relaxed text-white/65 font-body"
               >
-                Nous accompagnons les jeunes, artisans, p\u00eacheurs et
-                entrepreneurs locaux gr\u00e2ce \u00e0 la formation,
-                l&rsquo;accompagnement et l&rsquo;acc\u00e8s aux
-                opportunit\u00e9s.
+                Nous accompagnons les jeunes, artisans, pêcheurs et
+                entrepreneurs locaux grâce à la formation,
+                l&rsquo;accompagnement et l&rsquo;accès aux
+                opportunités.
               </motion.p>
 
               <motion.div
@@ -228,7 +228,7 @@ export function HeroSection() {
                   onClick={() => scrollTo("mission")}
                   className="group px-7 py-3.5 rounded-[14px] bg-teal text-void font-semibold text-sm hover:bg-teal/90 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-teal/25 active:scale-[0.98] flex items-center gap-2.5 cursor-pointer"
                 >
-                  D\u00e9couvrir le projet
+                  Découvrir le projet
                   <svg
                     className="w-4 h-4 transition-transform group-hover:translate-x-0.5"
                     viewBox="0 0 24 24"

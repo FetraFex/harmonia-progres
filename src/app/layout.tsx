@@ -36,30 +36,30 @@ const instrumentSerif = Instrument_Serif({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://harmonia-progres.org"),
-  title: "Harmonia Progr\u00e8s \u2014 Soutenir l\u2019entrepreneuriat local \u00e0 Manakara",
+  title: "Harmonia Progrès — Soutenir l’entrepreneuriat local à Manakara",
   description:
-    "Harmonia Progr\u00e8s accompagne les jeunes, artisans, p\u00eacheurs et entrepreneurs de Manakara gr\u00e2ce \u00e0 la formation, l\u2019assistance technique et l\u2019acc\u00e8s au financement.",
+    "Harmonia Progrès accompagne les jeunes, artisans, pêcheurs et entrepreneurs de Manakara grâce à la formation, l’assistance technique et l’accès au financement.",
   keywords: [
     "ONG",
-    "Harmonia Progr\u00e8s",
+    "Harmonia Progrès",
     "Manakara",
     "Madagascar",
     "Entrepreneuriat",
     "Formation",
-    "D\u00e9veloppement local",
+    "Développement local",
     "Artisans",
-    "P\u00eacheurs",
+    "Pêcheurs",
     "Jeunes entrepreneurs",
   ],
-  authors: [{ name: "Harmonia Progr\u00e8s" }],
+  authors: [{ name: "Harmonia Progrès" }],
   openGraph: {
     type: "website",
     locale: "fr_FR",
     url: "https://harmonia-progres.org",
-    siteName: "Harmonia Progr\u00e8s",
-    title: "Harmonia Progr\u00e8s \u2014 Soutenir l\u2019entrepreneuriat local \u00e0 Manakara",
+    siteName: "Harmonia Progrès",
+    title: "Harmonia Progrès — Soutenir l’entrepreneuriat local à Manakara",
     description:
-      "Construire l\u2019avenir entrepreneurial de Manakara. Accompagner les jeunes, artisans et entrepreneurs locaux.",
+      "Construire l’avenir entrepreneurial de Manakara. Accompagner les jeunes, artisans et entrepreneurs locaux.",
   },
   twitter: {
     card: "summary_large_image",

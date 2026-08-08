@@ -13,7 +13,7 @@ export function ScrollIndicator() {
       aria-hidden="true"
     >
       <span className="text-[10px] uppercase tracking-[0.2em] text-white/40 font-medium">
-        D\u00e9couvrir
+        Découvrir
       </span>
       <motion.div
         className="w-px h-8 bg-gradient-to-b from-white/50 to-transparent"
