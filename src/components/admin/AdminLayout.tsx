@@ -4,12 +4,21 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { useState } from "react";
+import {
+  LayoutDashboard,
+  FileText,
+  Star,
+  Settings,
+  LogOut,
+  Menu,
+  X,
+} from "lucide-react";
 
 const navItems = [
-  { label: "Dashboard", href: "/admin", icon: "📊" },
-  { label: "Candidatures", href: "/admin/candidatures", icon: "📋" },
-  { label: "Évaluations", href: "/admin/evaluations", icon: "⭐" },
-  { label: "Paramètres", href: "/admin/parametres", icon: "⚙️" },
+  { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
+  { label: "Candidatures", href: "/admin/candidatures", icon: FileText },
+  { label: "Évaluations", href: "/admin/evaluations", icon: Star },
+  { label: "Paramètres", href: "/admin/parametres", icon: Settings },
 ];
 
 export function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -31,7 +40,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
         <div className="px-6 h-16 flex items-center border-b border-white/10">
           <Link href="/" className="font-['Space_Grotesk'] text-lg font-bold">
             <span className="text-white">H</span>
-            <span className="text-[var(--lime)]">ARMONIA</span>
+            <span className="text-teal">ARMONIA</span>
           </Link>
           <span className="ml-2 text-xs text-gray-500 font-medium">Admin</span>
         </div>
@@ -51,7 +60,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
                     : "text-gray-400 hover:text-white hover:bg-white/5"
                 }`}
               >
-                <span>{item.icon}</span>
+                <item.icon className="w-4 h-4" strokeWidth={1.5} />
                 {item.label}
               </Link>
             );
@@ -64,7 +73,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
             onClick={handleLogout}
             className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition w-full"
           >
-            <span>🚪</span>
+            <LogOut className="w-4 h-4" strokeWidth={1.5} />
             Déconnexion
           </button>
         </div>
@@ -78,16 +87,17 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
       {/* Main */}
       <div className="flex-1 lg:ml-64">
         {/* Mobile header */}
-        <header className="lg:hidden h-14 border-b border-[var(--border)] bg-white flex items-center px-4">
+        <header className="lg:hidden h-14 border-b border-gray-200 bg-white flex items-center px-4">
           <button onClick={() => setSidebarOpen(true)} className="p-2 -ml-2">
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
+            <Menu className="w-5 h-5 text-gray-700" strokeWidth={1.5} />
           </button>
           <span className="ml-3 font-['Space_Grotesk'] font-bold text-sm">
-            <span className="text-[var(--black)]">H</span>
-            <span className="text-[var(--lime)]">ARMONIA</span>
+            <span className="text-gray-900">H</span>
+            <span className="text-teal">ARMONIA</span>
           </span>
+          <button onClick={() => setSidebarOpen(false)} className="ml-auto p-2">
+            <X className="w-5 h-5 text-gray-700" strokeWidth={1.5} />
+          </button>
         </header>
 
         <main className="p-6 lg:p-8">{children}</main>

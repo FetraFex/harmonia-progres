@@ -8,11 +8,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { createClient } from "@/lib/supabase/client";
 import { motion } from "framer-motion";
-import { Mail, Lock, User, Eye, EyeOff, Loader2, CheckCircle2 } from "lucide-react";
+import { Lock, Eye, EyeOff, Loader2, CheckCircle2 } from "lucide-react";
 
-const signupSchema = z.object({
-  fullName: z.string().min(2, "Le nom doit contenir au moins 2 caractères"),
-  email: z.string().email("Adresse email invalide"),
+const schema = z.object({
   password: z.string().min(6, "Le mot de passe doit contenir au moins 6 caractères"),
   confirmPassword: z.string(),
 }).refine((data) => data.password === data.confirmPassword, {
@@ -20,17 +18,12 @@ const signupSchema = z.object({
   path: ["confirmPassword"],
 });
 
-type SignupData = z.infer<typeof signupSchema>;
+type UpdatePasswordData = z.infer<typeof schema>;
 
-const inputClass =
-  "w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 pl-10 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-teal focus:border-transparent transition text-sm";
-const labelClass = "block text-sm font-medium text-gray-300 mb-1.5";
-const errorClass = "text-xs text-red-400 mt-1";
-
-export default function SignupPage() {
-  const [error, setError] = useState<string | null>(null);
+export default function UpdatePasswordPage() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const supabase = createClient();
@@ -39,30 +32,27 @@ export default function SignupPage() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignupData>({
-    resolver: zodResolver(signupSchema),
+  } = useForm<UpdatePasswordData>({
+    resolver: zodResolver(schema),
   });
 
-  async function onSubmit(data: SignupData) {
+  async function onSubmit(data: UpdatePasswordData) {
     setLoading(true);
     setError(null);
 
-    const { error: authError } = await supabase.auth.signUp({
-      email: data.email,
+    const { error: updateError } = await supabase.auth.updateUser({
       password: data.password,
-      options: {
-        data: { full_name: data.fullName },
-      },
     });
 
-    if (authError) {
-      setError(authError.message);
+    if (updateError) {
+      setError(updateError.message);
       setLoading(false);
       return;
     }
 
     setSuccess(true);
     setLoading(false);
+    setTimeout(() => router.push("/auth/login"), 3000);
   }
 
   if (success) {
@@ -77,18 +67,11 @@ export default function SignupPage() {
             <CheckCircle2 className="w-8 h-8 text-teal" strokeWidth={1.5} />
           </div>
           <h1 className="font-['Space_Grotesk'] text-3xl font-bold text-white mb-4">
-            Vérifiez votre email
+            Mot de passe mis à jour
           </h1>
-          <p className="text-gray-400 mb-8 leading-relaxed">
-            Un lien de confirmation a été envoyé à votre adresse email.
-            Cliquez dessus pour activer votre compte.
+          <p className="text-gray-400 mb-8">
+            Vous allez être redirigé vers la connexion...
           </p>
-          <Link
-            href="/auth/login"
-            className="inline-block rounded-xl bg-teal px-8 py-3 font-['Space_Grotesk'] font-bold text-void transition hover:scale-[1.02]"
-          >
-            Aller à la connexion
-          </Link>
         </motion.div>
       </main>
     );
@@ -110,10 +93,10 @@ export default function SignupPage() {
             </span>
           </Link>
           <h1 className="font-['Space_Grotesk'] text-3xl font-bold text-white">
-            Créer un compte
+            Nouveau mot de passe
           </h1>
           <p className="mt-2 text-gray-400">
-            Rejoignez le programme MIASA Jeunes Entrepreneurs
+            Choisissez un nouveau mot de passe pour votre compte
           </p>
         </div>
 
@@ -125,44 +108,16 @@ export default function SignupPage() {
           )}
 
           <div>
-            <label htmlFor="fullName" className={labelClass}>Nom complet</label>
-            <div className="relative">
-              <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" strokeWidth={1.5} />
-              <input
-                id="fullName"
-                type="text"
-                {...register("fullName")}
-                className={inputClass}
-                placeholder="Prénom et Nom"
-              />
-            </div>
-            {errors.fullName && <p className={errorClass}>{errors.fullName.message}</p>}
-          </div>
-
-          <div>
-            <label htmlFor="email" className={labelClass}>Email</label>
-            <div className="relative">
-              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" strokeWidth={1.5} />
-              <input
-                id="email"
-                type="email"
-                {...register("email")}
-                className={inputClass}
-                placeholder="vous@exemple.com"
-              />
-            </div>
-            {errors.email && <p className={errorClass}>{errors.email.message}</p>}
-          </div>
-
-          <div>
-            <label htmlFor="password" className={labelClass}>Mot de passe</label>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-1.5">
+              Nouveau mot de passe
+            </label>
             <div className="relative">
               <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" strokeWidth={1.5} />
               <input
                 id="password"
                 type={showPassword ? "text" : "password"}
                 {...register("password")}
-                className={inputClass}
+                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 pl-10 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-teal focus:border-transparent transition text-sm"
                 placeholder="6 caractères minimum"
               />
               <button
@@ -173,22 +128,24 @@ export default function SignupPage() {
                 {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
             </div>
-            {errors.password && <p className={errorClass}>{errors.password.message}</p>}
+            {errors.password && <p className="text-xs text-red-400 mt-1">{errors.password.message}</p>}
           </div>
 
           <div>
-            <label htmlFor="confirmPassword" className={labelClass}>Confirmer le mot de passe</label>
+            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-300 mb-1.5">
+              Confirmer le mot de passe
+            </label>
             <div className="relative">
               <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" strokeWidth={1.5} />
               <input
                 id="confirmPassword"
                 type={showPassword ? "text" : "password"}
                 {...register("confirmPassword")}
-                className={inputClass}
+                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 pl-10 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-teal focus:border-transparent transition text-sm"
                 placeholder="Retapez votre mot de passe"
               />
             </div>
-            {errors.confirmPassword && <p className={errorClass}>{errors.confirmPassword.message}</p>}
+            {errors.confirmPassword && <p className="text-xs text-red-400 mt-1">{errors.confirmPassword.message}</p>}
           </div>
 
           <button
@@ -199,23 +156,13 @@ export default function SignupPage() {
             {loading ? (
               <>
                 <Loader2 className="w-5 h-5 animate-spin" />
-                Création en cours...
+                Mise à jour...
               </>
             ) : (
-              "Créer mon compte"
+              "Mettre à jour le mot de passe"
             )}
           </button>
         </form>
-
-        <p className="mt-8 text-center text-sm text-gray-400">
-          Déjà un compte ?{" "}
-          <Link
-            href="/auth/login"
-            className="font-medium text-teal hover:underline"
-          >
-            Se connecter
-          </Link>
-        </p>
       </motion.div>
     </main>
   );

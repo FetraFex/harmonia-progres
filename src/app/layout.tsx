@@ -3,6 +3,7 @@ import { Space_Grotesk, Inter, JetBrains_Mono, Instrument_Serif, Geist } from "n
 import { Toaster } from "sonner";
 import { AmbientBackground } from "@/components/ui/AmbientBackground";
 import { ScrollProgressBar } from "@/components/ui/ScrollProgressBar";
+import { AuthProvider } from "@/contexts/AuthContext";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
@@ -84,10 +85,12 @@ export default function RootLayout({
       className={cn("h-full", "antialiased", spaceGrotesk.variable, inter.variable, jetbrainsMono.variable, instrumentSerif.variable, "font-sans", geist.variable)}
     >
       <body className="min-h-full bg-void text-text-primary font-body flex flex-col relative selection:bg-teal selection:text-void">
-        <ScrollProgressBar />
-        <AmbientBackground />
-        <main className="flex-1 relative z-10">{children}</main>
-        <Toaster position="top-right" richColors theme="dark" />
+        <AuthProvider>
+          <ScrollProgressBar />
+          <AmbientBackground />
+          <main className="flex-1 relative z-10">{children}</main>
+          <Toaster position="top-right" richColors theme="dark" />
+        </AuthProvider>
       </body>
     </html>
   );
