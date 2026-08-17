@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { motion } from "framer-motion";
-import type { Application, ApplicationStatusHistory } from "@/types/database";
+import type { Application, ApplicationStatusHistory, ApplicationStatus } from "@/types/database";
 
 const STATUS_CONFIG: Record<ApplicationStatus, { label: string; color: string; bg: string }> = {
   draft: { label: "Brouillon", color: "text-gray-600", bg: "bg-gray-100" },

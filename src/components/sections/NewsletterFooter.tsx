@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
 import Image from "next/image";
 import Link from "next/link";
+import { createClient } from "@/lib/supabase/client";
 
 const footerColumns = [
   {
@@ -44,17 +45,34 @@ const footerColumns = [
 export function NewsletterFooter() {
   const { ref, isRevealed } = useRevealOnScroll<HTMLDivElement>();
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !email.includes("@")) {
       toast.error("Veuillez entrer une adresse email valide.");
       return;
     }
-    toast.success("Inscription réussie !", {
-      description: "Vous recevrez les actualités du projet HARMONIA PROGRES.",
-    });
-    setEmail("");
+
+    setLoading(true);
+    const supabase = createClient();
+    const { error } = await supabase
+      .from("newsletter_subscribers")
+      .insert({ email });
+
+    if (error) {
+      if (error.code === "23505") {
+        toast.info("Vous êtes déjà inscrit !");
+      } else {
+        toast.error("Une erreur est survenue. Réessayez.");
+      }
+    } else {
+      toast.success("Inscription réussie !", {
+        description: "Vous recevrez les actualités du projet HARMONIA PROGRES.",
+      });
+      setEmail("");
+    }
+    setLoading(false);
   };
 
   return (
@@ -102,9 +120,10 @@ export function NewsletterFooter() {
               />
               <button
                 type="submit"
-                className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-teal text-void font-bold text-sm hover:bg-teal/90 transition-all hover:scale-105 active:scale-95 shadow-md shadow-teal/20 whitespace-nowrap cursor-pointer"
+                disabled={loading}
+                className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-teal text-void font-bold text-sm hover:bg-teal/90 transition-all hover:scale-105 active:scale-95 shadow-md shadow-teal/20 whitespace-nowrap cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Je m&apos;inscris
+                {loading ? "Inscription..." : "Je m'inscris"}
               </button>
             </form>
 
