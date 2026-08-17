@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
+import React from "react";
 import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
 import { useCountUp } from "@/hooks/useCountUp";
 import { ArrowRightIcon } from "@/components/ui/Icons";
@@ -78,26 +78,6 @@ const statsData = [
 
 export function LocalEconomySection() {
   const { ref, isRevealed } = useRevealOnScroll<HTMLDivElement>();
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const container = scrollContainerRef.current;
-    if (!container) return;
-
-    const handleWheel = (e: WheelEvent) => {
-      if (Math.abs(e.deltaY) < 5) return;
-      const { scrollLeft, scrollWidth, clientWidth } = container;
-      const atStart = scrollLeft <= 0 && e.deltaY < 0;
-      const atEnd = scrollLeft + clientWidth >= scrollWidth - 1 && e.deltaY > 0;
-      if (!atStart && !atEnd) {
-        e.preventDefault();
-        container.scrollLeft += e.deltaY;
-      }
-    };
-
-    container.addEventListener("wheel", handleWheel, { passive: false });
-    return () => container.removeEventListener("wheel", handleWheel);
-  }, []);
 
   return (
     <section
@@ -105,7 +85,7 @@ export function LocalEconomySection() {
       ref={ref}
       className="relative z-10"
     >
-      {/* Stats Row */}
+      {/* Header + Stats */}
       <div className="px-32 max-w-[1280px] mx-auto pt-16 md:pt-24 pb-12 md:pb-16">
         <div
           className={`mb-12 transition-all duration-700 ${
@@ -140,51 +120,49 @@ export function LocalEconomySection() {
         </div>
       </div>
 
-      {/* Horizontal Sector Panels */}
-      <div
-        ref={scrollContainerRef}
-        className="flex gap-6 overflow-x-auto px-32 pb-16 md:pb-24 snap-x snap-mandatory scrollbar-hide"
-        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-      >
+      {/* Vertical Sector Cards */}
+      <div className="px-32 max-w-[1280px] mx-auto pb-16 md:pb-24 space-y-6">
         {sectors.map((sector, idx) => (
           <article
             key={sector.number}
-            className={`group shrink-0 w-[min(85vw,600px)] snap-center relative overflow-hidden rounded-3xl border border-white/[0.06] hover:border-teal/20 transition-all duration-500 cursor-pointer ${
+            className={`group relative overflow-hidden rounded-3xl border border-white/[0.06] hover:border-teal/20 transition-all duration-500 ${
               isRevealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
             style={{ transitionDelay: `${300 + idx * 150}ms` }}
           >
-            {/* Image Area */}
-            <div className="relative h-[280px] md:h-[340px] overflow-hidden">
-              <div
-                className={`absolute inset-0 bg-gradient-to-br ${sector.gradient} transition-transform duration-700 group-hover:scale-110`}
-              />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="font-display text-[120px] md:text-[160px] font-bold text-white/[0.04] select-none leading-none">
-                  {sector.number}
-                </span>
+            <div className="flex flex-col md:flex-row">
+              {/* Image Area */}
+              <div className="relative h-[200px] md:h-auto md:w-[400px] shrink-0 overflow-hidden">
+                <div
+                  className={`absolute inset-0 bg-gradient-to-br ${sector.gradient} transition-transform duration-700 group-hover:scale-110`}
+                />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="font-display text-[100px] md:text-[140px] font-bold text-white/[0.04] select-none leading-none">
+                    {sector.number}
+                  </span>
+                </div>
+                <div className="absolute top-6 left-6">
+                  <span className="font-mono text-xs text-teal font-semibold tracking-wider">
+                    {sector.number}
+                  </span>
+                </div>
               </div>
-              <div className="absolute top-6 left-6">
-                <span className="font-mono text-xs text-teal font-semibold tracking-wider">
-                  {sector.number}
-                </span>
-              </div>
-            </div>
 
-            {/* Content */}
-            <div className="p-8 space-y-4 bg-white/[0.02]">
-              <h3 className="font-display text-2xl md:text-3xl font-bold text-text-primary group-hover:text-teal transition-colors duration-300">
-                {sector.title}
-              </h3>
-              <span className="block text-xs font-mono font-semibold uppercase tracking-wider text-teal/70">
-                {sector.products}
-              </span>
-              <p className="text-sm text-text-secondary leading-relaxed">
-                {sector.description}
-              </p>
-              <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-text-muted group-hover:text-teal transition-colors pt-2">
-                <span>Explorer</span>
-                <ArrowRightIcon className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              {/* Content */}
+              <div className="flex-1 p-8 space-y-4 bg-white/[0.02]">
+                <h3 className="font-display text-2xl md:text-3xl font-bold text-text-primary group-hover:text-teal transition-colors duration-300">
+                  {sector.title}
+                </h3>
+                <span className="block text-xs font-mono font-semibold uppercase tracking-wider text-teal/70">
+                  {sector.products}
+                </span>
+                <p className="text-sm text-text-secondary leading-relaxed">
+                  {sector.description}
+                </p>
+                <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-text-muted group-hover:text-teal transition-colors pt-2">
+                  <span>Explorer</span>
+                  <ArrowRightIcon className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                </div>
               </div>
             </div>
 
