@@ -39,18 +39,18 @@ export default function DocumentsPage() {
           <>
             <p>Ces documents ne sont pas tous obligatoires, mais ils renforcent votre candidature.</p>
             <p>Formats acceptés : PDF, JPG, PNG. Taille maximale : 5 Mo par fichier.</p>
-            <p className="text-xs text-[var(--text-muted)] mt-2">
+            <p className="text-xs text-text-muted mt-2">
               {uploadedCount} sur {DOCUMENT_TYPES.length} document(s) téléchargé(s).
             </p>
           </>
         }
       >
         <div className="space-y-6">
-          <div className="rounded-xl border border-[var(--border)] bg-white p-5">
-            <h3 className="font-['Space_Grotesk'] font-semibold text-sm text-[var(--black)] mb-2">
+          <div className="rounded-xl glass p-5">
+            <h3 className="font-['Space_Grotesk'] font-semibold text-sm text-text-primary mb-2">
               Documents à téléverser
             </h3>
-            <p className="text-sm text-[var(--text-muted)] mb-5">
+            <p className="text-sm text-text-muted mb-5">
               Téléversez les documents que vous souhaitez joindre à votre candidature.
             </p>
 
@@ -66,11 +66,11 @@ export default function DocumentsPage() {
             </div>
           </div>
 
-          <div className="rounded-xl bg-gray-50 border border-[var(--border)] p-4 flex items-start gap-3">
-            <div className="w-5 h-5 mt-0.5 shrink-0 rounded bg-[var(--lime)]/10 flex items-center justify-center">
-              <Check className="w-3.5 h-3.5 text-[var(--black)]" strokeWidth={2} />
+          <div className="rounded-xl glass p-4 flex items-start gap-3">
+            <div className="w-5 h-5 mt-0.5 shrink-0 rounded bg-teal/10 flex items-center justify-center">
+              <Check className="w-3.5 h-3.5 text-teal" strokeWidth={2} />
             </div>
-            <p className="text-sm text-[var(--text-muted)] leading-relaxed">
+            <p className="text-sm text-text-muted leading-relaxed">
               Aucun document n&apos;est obligatoire pour soumettre votre candidature.
               Vous pourrez en ajouter plus tard si nécessaire.
             </p>

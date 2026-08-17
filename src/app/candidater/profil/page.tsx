@@ -10,12 +10,12 @@ import { profileSchema, type ProfileData } from "@/types/schemas";
 import { Briefcase, GraduationCap, BriefcaseBusiness, Lightbulb } from "lucide-react";
 
 const inputClass =
-  "w-full rounded-xl border border-[var(--border)] bg-white px-4 py-3 pl-10 text-[var(--black)] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--lime)] focus:border-transparent transition text-sm";
-const labelClass = "block text-sm font-medium text-[var(--black)] mb-1.5";
-const errorClass = "text-xs text-red-500 mt-1";
+  "w-full rounded-xl glass px-4 py-3 pl-10 text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-teal focus:border-transparent transition text-sm";
+const labelClass = "block text-sm font-medium text-text-primary mb-1.5";
+const errorClass = "text-xs text-red-400 mt-1";
 
 function FieldIcon({ icon: Icon }: { icon: React.ElementType }) {
-  return <Icon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-muted)]" strokeWidth={1.5} />;
+  return <Icon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" strokeWidth={1.5} />;
 }
 
 export default function ProfilPage() {
@@ -90,7 +90,7 @@ export default function ProfilPage() {
                 id="experience_professionnelle"
                 {...register("experience_professionnelle")}
                 rows={3}
-                className="w-full rounded-xl border border-[var(--border)] bg-white px-4 py-3 pl-10 text-[var(--black)] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--lime)] focus:border-transparent transition text-sm"
+                className="w-full rounded-xl glass px-4 py-3 pl-10 text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-teal focus:border-transparent transition text-sm"
                 placeholder="Décrivez brièvement votre expérience..."
               />
             </div>
@@ -104,7 +104,7 @@ export default function ProfilPage() {
                 id="experience_entrepreneuriale"
                 {...register("experience_entrepreneuriale")}
                 rows={3}
-                className="w-full rounded-xl border border-[var(--border)] bg-white px-4 py-3 pl-10 text-[var(--black)] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--lime)] focus:border-transparent transition text-sm"
+                className="w-full rounded-xl glass px-4 py-3 pl-10 text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-teal focus:border-transparent transition text-sm"
                 placeholder="Avez-vous déjà lancé un projet ou une activité ?"
               />
             </div>

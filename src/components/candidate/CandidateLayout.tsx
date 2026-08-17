@@ -5,14 +5,7 @@ import { CandidateHeader } from "./CandidateHeader";
 
 export function CandidateLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div
-      className="min-h-screen bg-white text-gray-900"
-      style={{
-        "--text-primary": "#0F172A",
-        "--text-muted": "#475569",
-        "--text-secondary": "#334155",
-      } as React.CSSProperties}
-    >
+    <div className="min-h-screen bg-void text-text-primary">
       <CandidateHeader />
       <main>{children}</main>
     </div>

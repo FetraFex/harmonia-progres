@@ -8,15 +8,15 @@ import { CandidateLayout } from "@/components/candidate/CandidateLayout";
 import { FormStepLayout } from "@/components/candidate/FormStepLayout";
 import { FormNavigation } from "@/components/candidate/FormNavigation";
 import { projectSchema, type ProjectData, ACTIVITY_TYPES } from "@/types/schemas";
-import { Wheat, Palette, Fish, Sprout, PenTool, Package, Anchor, Ship, Warehouse, ShoppingBag } from "lucide-react";
+import { Wheat, Palette, Fish, Sprout, PenTool, Anchor, ShoppingBag } from "lucide-react";
 
 const inputClass =
-  "w-full rounded-xl border border-[var(--border)] bg-white px-4 py-3 pl-10 text-[var(--black)] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--lime)] focus:border-transparent transition text-sm";
-const labelClass = "block text-sm font-medium text-[var(--black)] mb-1.5";
-const errorClass = "text-xs text-red-500 mt-1";
+  "w-full rounded-xl glass px-4 py-3 pl-10 text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-teal focus:border-transparent transition text-sm";
+const labelClass = "block text-sm font-medium text-text-primary mb-1.5";
+const errorClass = "text-xs text-red-400 mt-1";
 
 function FieldIcon({ icon: Icon }: { icon: React.ElementType }) {
-  return <Icon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-muted)]" strokeWidth={1.5} />;
+  return <Icon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" strokeWidth={1.5} />;
 }
 
 const SECTOR_ICONS: Record<string, React.ElementType> = {
@@ -66,9 +66,8 @@ export default function ProjetPage() {
         }
       >
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          {/* Project name */}
-          <div className="rounded-xl border border-[var(--border)] bg-white p-5">
-            <h3 className="font-['Space_Grotesk'] font-semibold text-sm text-[var(--black)] mb-4">
+          <div className="rounded-xl glass p-5">
+            <h3 className="font-['Space_Grotesk'] font-semibold text-sm text-text-primary mb-4">
               Identité du projet
             </h3>
             <div className="space-y-4">
@@ -83,9 +82,8 @@ export default function ProjetPage() {
             </div>
           </div>
 
-          {/* Sector */}
-          <div className="rounded-xl border border-[var(--border)] bg-white p-5">
-            <h3 className="font-['Space_Grotesk'] font-semibold text-sm text-[var(--black)] mb-4">
+          <div className="rounded-xl glass p-5">
+            <h3 className="font-['Space_Grotesk'] font-semibold text-sm text-text-primary mb-4">
               Secteur d&apos;activité
             </h3>
             <div className="grid grid-cols-3 gap-3">
@@ -96,24 +94,23 @@ export default function ProjetPage() {
                     key={s}
                     className={`rounded-xl border-2 p-4 text-center cursor-pointer transition ${
                       watchedSector === s
-                        ? "border-[var(--lime)] bg-[var(--lime)]/5"
-                        : "border-[var(--border)] bg-white hover:border-gray-300"
+                        ? "border-teal bg-teal/5"
+                        : "border-glass-border hover:border-glass-border-strong"
                     }`}
                   >
                     <input type="radio" value={s} {...register("sector")} className="sr-only" />
-                    <div className="w-10 h-10 mx-auto mb-2 rounded-lg bg-gray-50 flex items-center justify-center">
-                      <Icon className="w-5 h-5 text-[var(--black)]" strokeWidth={1.5} />
+                    <div className="w-10 h-10 mx-auto mb-2 rounded-lg bg-glass-bg flex items-center justify-center">
+                      <Icon className="w-5 h-5 text-teal" strokeWidth={1.5} />
                     </div>
-                    <span className="text-sm font-medium text-[var(--black)] capitalize">{s}</span>
+                    <span className="text-sm font-medium text-text-primary capitalize">{s}</span>
                   </label>
                 );
               })}
             </div>
           </div>
 
-          {/* Activity type */}
-          <div className="rounded-xl border border-[var(--border)] bg-white p-5">
-            <h3 className="font-['Space_Grotesk'] font-semibold text-sm text-[var(--black)] mb-4">
+          <div className="rounded-xl glass p-5">
+            <h3 className="font-['Space_Grotesk'] font-semibold text-sm text-text-primary mb-4">
               Type d&apos;activité
             </h3>
             <div>
@@ -131,9 +128,8 @@ export default function ProjetPage() {
             </div>
           </div>
 
-          {/* Description */}
-          <div className="rounded-xl border border-[var(--border)] bg-white p-5">
-            <h3 className="font-['Space_Grotesk'] font-semibold text-sm text-[var(--black)] mb-4">
+          <div className="rounded-xl glass p-5">
+            <h3 className="font-['Space_Grotesk'] font-semibold text-sm text-text-primary mb-4">
               Description
             </h3>
             <div className="space-y-4">
@@ -143,7 +139,7 @@ export default function ProjetPage() {
                   id="project_description"
                   {...register("project_description")}
                   rows={4}
-                  className="w-full rounded-xl border border-[var(--border)] bg-white px-4 py-3 pl-10 text-[var(--black)] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--lime)] focus:border-transparent transition text-sm"
+                  className="w-full rounded-xl glass px-4 py-3 pl-10 text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-teal focus:border-transparent transition text-sm"
                   placeholder="Décrivez votre projet en quelques lignes..."
                 />
                 {errors.project_description && <p className={errorClass}>{errors.project_description.message}</p>}
@@ -157,7 +153,7 @@ export default function ProjetPage() {
                     id="problem_identified"
                     {...register("problem_identified")}
                     rows={3}
-                    className="w-full rounded-xl border border-[var(--border)] bg-white px-4 py-3 pl-10 text-[var(--black)] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--lime)] focus:border-transparent transition text-sm"
+                    className="w-full rounded-xl glass px-4 py-3 pl-10 text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-teal focus:border-transparent transition text-sm"
                     placeholder="Quel problème cherchez-vous à résoudre ?"
                   />
                 </div>
@@ -172,7 +168,7 @@ export default function ProjetPage() {
                     id="solution_proposed"
                     {...register("solution_proposed")}
                     rows={3}
-                    className="w-full rounded-xl border border-[var(--border)] bg-white px-4 py-3 pl-10 text-[var(--black)] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--lime)] focus:border-transparent transition text-sm"
+                    className="w-full rounded-xl glass px-4 py-3 pl-10 text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-teal focus:border-transparent transition text-sm"
                     placeholder="Comment votre projet résout ce problème ?"
                   />
                 </div>
@@ -187,7 +183,7 @@ export default function ProjetPage() {
                     id="target_market"
                     {...register("target_market")}
                     rows={3}
-                    className="w-full rounded-xl border border-[var(--border)] bg-white px-4 py-3 pl-10 text-[var(--black)] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--lime)] focus:border-transparent transition text-sm"
+                    className="w-full rounded-xl glass px-4 py-3 pl-10 text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-teal focus:border-transparent transition text-sm"
                     placeholder="À qui s'adresse votre produit ou service ?"
                   />
                 </div>

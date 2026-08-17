@@ -20,14 +20,14 @@ export function FormStepLayout({
   return (
     <div className="max-w-6xl mx-auto px-6 py-10 md:py-16">
       <div className="mb-10">
-        <span className="font-['JetBrains_Mono'] text-[11px] font-semibold text-[var(--text-muted)] uppercase tracking-widest">
+        <span className="font-['JetBrains_Mono'] text-[11px] font-semibold text-text-muted uppercase tracking-widest">
           Étape {stepNumber}
         </span>
-        <h1 className="mt-3 font-['Space_Grotesk'] text-2xl md:text-3xl font-bold text-[var(--black)] tracking-tight">
+        <h1 className="mt-3 font-['Space_Grotesk'] text-2xl md:text-3xl font-bold text-text-primary tracking-tight">
           {title}
         </h1>
         {subtitle && (
-          <p className="mt-2 text-sm text-[var(--text-muted)] max-w-lg">{subtitle}</p>
+          <p className="mt-2 text-sm text-text-muted max-w-lg">{subtitle}</p>
         )}
       </div>
 
@@ -35,11 +35,11 @@ export function FormStepLayout({
         <div className="lg:col-span-2">{children}</div>
         {assistance && (
           <aside className="hidden lg:block">
-            <div className="sticky top-24 rounded-2xl border border-[var(--border)] bg-white p-6">
-              <h3 className="font-['Space_Grotesk'] font-semibold text-sm text-[var(--black)] mb-3">
+            <div className="sticky top-24 rounded-2xl glass p-6">
+              <h3 className="font-['Space_Grotesk'] font-semibold text-sm text-text-primary mb-3">
                 Besoin d&apos;aide ?
               </h3>
-              <div className="text-[13px] text-[var(--text-muted)] leading-relaxed space-y-3">
+              <div className="text-[13px] text-text-muted leading-relaxed space-y-3">
                 {assistance}
               </div>
             </div>

@@ -9,8 +9,8 @@ import { FormNavigation } from "@/components/candidate/FormNavigation";
 import { motivationSchema, type MotivationData } from "@/types/schemas";
 import { Check } from "lucide-react";
 
-const labelClass = "block text-sm font-medium text-[var(--black)] mb-1.5";
-const errorClass = "text-xs text-red-500 mt-1";
+const labelClass = "block text-sm font-medium text-text-primary mb-1.5";
+const errorClass = "text-xs text-red-400 mt-1";
 
 const NEED_OPTIONS = [
   { value: "formation", label: "Formation" },
@@ -58,8 +58,8 @@ export default function MotivationPage() {
         }
       >
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          <div className="rounded-xl border border-[var(--border)] bg-white p-5">
-            <h3 className="font-['Space_Grotesk'] font-semibold text-sm text-[var(--black)] mb-4">
+          <div className="rounded-xl glass p-5">
+            <h3 className="font-['Space_Grotesk'] font-semibold text-sm text-text-primary mb-4">
               Votre motivation
             </h3>
             <div>
@@ -70,15 +70,15 @@ export default function MotivationPage() {
                 id="motivation"
                 {...register("motivation")}
                 rows={5}
-                className="w-full rounded-xl border border-[var(--border)] bg-white px-4 py-3 text-[var(--black)] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--lime)] focus:border-transparent transition text-sm"
+                className="w-full rounded-xl glass px-4 py-3 text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-teal focus:border-transparent transition text-sm"
                 placeholder="Partagez votre motivation, vos objectifs..."
               />
               {errors.motivation && <p className={errorClass}>{errors.motivation.message}</p>}
             </div>
           </div>
 
-          <div className="rounded-xl border border-[var(--border)] bg-white p-5">
-            <h3 className="font-['Space_Grotesk'] font-semibold text-sm text-[var(--black)] mb-4">
+          <div className="rounded-xl glass p-5">
+            <h3 className="font-['Space_Grotesk'] font-semibold text-sm text-text-primary mb-4">
               Vos besoins
             </h3>
             <div>
@@ -95,8 +95,8 @@ export default function MotivationPage() {
                           key={need.value}
                           className={`rounded-xl border-2 p-3 cursor-pointer transition text-sm flex items-center gap-2 ${
                             isSelected
-                              ? "border-[var(--lime)] bg-[var(--lime)]/5 font-medium"
-                              : "border-[var(--border)] bg-white hover:border-gray-300"
+                              ? "border-teal bg-teal/5 font-medium"
+                              : "border-glass-border hover:border-glass-border-strong"
                           }`}
                         >
                           <input
@@ -112,11 +112,11 @@ export default function MotivationPage() {
                             className="sr-only"
                           />
                           <div className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 ${
-                            isSelected ? "bg-[var(--lime)] border-[var(--lime)]" : "border-[var(--border)]"
+                            isSelected ? "bg-teal border-teal" : "border-glass-border"
                           }`}>
-                            {isSelected && <Check className="w-3 h-3 text-[var(--black)]" strokeWidth={3} />}
+                            {isSelected && <Check className="w-3 h-3 text-void" strokeWidth={3} />}
                           </div>
-                          <span>{need.label}</span>
+                          <span className="text-text-primary">{need.label}</span>
                         </label>
                       );
                     })}
@@ -127,8 +127,8 @@ export default function MotivationPage() {
             </div>
           </div>
 
-          <div className="rounded-xl border border-[var(--border)] bg-white p-5">
-            <h3 className="font-['Space_Grotesk'] font-semibold text-sm text-[var(--black)] mb-4">
+          <div className="rounded-xl glass p-5">
+            <h3 className="font-['Space_Grotesk'] font-semibold text-sm text-text-primary mb-4">
               Vos objectifs
             </h3>
             <div>
@@ -139,7 +139,7 @@ export default function MotivationPage() {
                 id="accomplishments"
                 {...register("accomplishments")}
                 rows={4}
-                className="w-full rounded-xl border border-[var(--border)] bg-white px-4 py-3 text-[var(--black)] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--lime)] focus:border-transparent transition text-sm"
+                className="w-full rounded-xl glass px-4 py-3 text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-teal focus:border-transparent transition text-sm"
                 placeholder="Décrivez votre vision d'avenir..."
               />
               {errors.accomplishments && <p className={errorClass}>{errors.accomplishments.message}</p>}

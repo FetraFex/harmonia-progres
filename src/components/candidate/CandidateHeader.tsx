@@ -20,11 +20,11 @@ export function CandidateHeader() {
   const isFormStep = currentIdx >= 0;
 
   return (
-    <header className="border-b border-[var(--border)] bg-white sticky top-0 z-50">
+    <header className="border-b border-glass-border bg-void/80 backdrop-blur-xl sticky top-0 z-50">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3">
           <Image
-            src="/images/logo/logo-transparent-dark.png"
+            src="/images/logo/logo-transparent-light.png"
             alt="Harmonia Progrès"
             width={140}
             height={36}
@@ -43,10 +43,10 @@ export function CandidateHeader() {
                   href={step.href}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition ${
                     isActive
-                      ? "bg-[var(--lime)] text-[var(--black)]"
+                      ? "bg-teal text-void"
                       : isDone
-                        ? "bg-[var(--black)]/5 text-[var(--black)]"
-                        : "text-[var(--text-muted)] hover:bg-gray-50"
+                        ? "bg-teal/20 text-teal"
+                        : "text-text-muted hover:bg-glass-bg"
                   }`}
                 >
                   {isDone ? (
@@ -63,7 +63,7 @@ export function CandidateHeader() {
 
         <Link
           href="/candidater/suivi"
-          className="text-sm font-medium text-[var(--text-muted)] hover:text-[var(--black)] transition"
+          className="text-sm font-medium text-text-muted hover:text-text-primary transition"
         >
           Suivi
         </Link>

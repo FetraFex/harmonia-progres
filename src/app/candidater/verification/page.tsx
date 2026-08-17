@@ -171,22 +171,21 @@ export default function VerificationPage() {
           </ReviewSection>
 
           <ReviewSection title="Documents">
-            <div className="flex items-center gap-2 text-sm text-[var(--text-muted)]">
+            <div className="flex items-center gap-2 text-sm text-text-muted">
               <FileCheck className="w-4 h-4" strokeWidth={1.5} />
               <span>Documents joints vérifiés</span>
             </div>
           </ReviewSection>
 
-          {/* Consent */}
-          <div className="rounded-xl border border-[var(--border)] bg-white p-5">
+          <div className="rounded-xl glass p-5">
             <label className="flex items-start gap-3 cursor-pointer">
               <input
                 type="checkbox"
                 checked={consent}
                 onChange={(e) => setConsent(e.target.checked)}
-                className="mt-1 h-5 w-5 rounded border-[var(--border)] text-[var(--lime)] focus:ring-[var(--lime)]"
+                className="mt-1 h-5 w-5 rounded border-glass-border text-teal focus:ring-teal"
               />
-              <span className="text-sm text-[var(--black)] leading-relaxed">
+              <span className="text-sm text-text-primary leading-relaxed">
                 Je certifie que les informations fournies sont exactes et j&apos;accepte que
                 mes informations soient utilisées dans le cadre de la gestion de ma candidature
                 au programme MIASA Jeunes Entrepreneurs.
@@ -195,23 +194,23 @@ export default function VerificationPage() {
           </div>
 
           {error && (
-            <div className="rounded-xl bg-red-50 border border-red-200 p-4 text-sm text-red-700 flex items-start gap-3">
+            <div className="rounded-xl bg-red-500/10 border border-red-500/20 p-4 text-sm text-red-400 flex items-start gap-3">
               <AlertTriangle className="w-5 h-5 shrink-0 mt-0.5" strokeWidth={1.5} />
               <span>{error}</span>
             </div>
           )}
 
-          <div className="flex justify-between mt-10 pt-6 border-t border-[var(--border)]">
+          <div className="flex justify-between mt-10 pt-6 border-t border-glass-border">
             <button
               onClick={() => router.push("/candidater/documents")}
-              className="rounded-xl border border-[var(--border)] px-6 py-3 font-medium text-[var(--black)] transition hover:bg-gray-50"
+              className="rounded-xl glass px-6 py-3 font-medium text-text-primary transition hover:bg-glass-bg-strong"
             >
               Précédent
             </button>
             <button
               onClick={handleSubmit}
               disabled={loading || !consent}
-              className="flex items-center gap-2 rounded-xl bg-[var(--lime)] px-8 py-3 font-['Space_Grotesk'] font-bold text-[var(--black)] transition hover:scale-[1.02] disabled:opacity-40 disabled:cursor-not-allowed"
+              className="flex items-center gap-2 rounded-xl bg-teal px-8 py-3 font-['Space_Grotesk'] font-bold text-void transition hover:scale-[1.02] disabled:opacity-40 disabled:cursor-not-allowed"
             >
               {loading ? "Envoi en cours..." : "Soumettre ma candidature"}
               {!loading && <Send className="w-4 h-4" strokeWidth={2} />}

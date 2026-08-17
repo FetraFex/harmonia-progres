@@ -68,25 +68,25 @@ export function FileUploader({
 
   if (file) {
     return (
-      <div className="rounded-xl border border-[var(--border)] bg-white p-4">
+      <div className="rounded-xl glass p-4">
         <div className="flex items-center gap-4">
-          <div className="w-10 h-10 rounded-lg bg-[var(--lime)]/10 flex items-center justify-center">
-            <FileText className="w-5 h-5 text-[var(--black)]" />
+          <div className="w-10 h-10 rounded-lg bg-teal/10 flex items-center justify-center">
+            <FileText className="w-5 h-5 text-teal" />
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-[var(--black)] truncate">{file.name}</p>
-            <p className="text-xs text-[var(--text-muted)]">{formatSize(file.size)}</p>
+            <p className="text-sm font-medium text-text-primary truncate">{file.name}</p>
+            <p className="text-xs text-text-muted">{formatSize(file.size)}</p>
           </div>
           <div className="flex items-center gap-3">
             {uploadProgress === 100 && (
-              <span className="flex items-center gap-1 text-xs font-medium text-green-600">
+              <span className="flex items-center gap-1 text-xs font-medium text-teal">
                 <Check className="w-3.5 h-3.5" />
                 Téléchargé
               </span>
             )}
             <button
               onClick={() => onFileSelect(null)}
-              className="p-1.5 rounded-lg text-[var(--text-muted)] hover:text-red-500 hover:bg-red-50 transition"
+              className="p-1.5 rounded-lg text-text-muted hover:text-red-400 hover:bg-red-500/10 transition"
             >
               <X className="w-4 h-4" />
             </button>
@@ -94,13 +94,13 @@ export function FileUploader({
         </div>
         {uploadProgress < 100 && (
           <div className="mt-3">
-            <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+            <div className="h-1.5 bg-glass-bg rounded-full overflow-hidden">
               <div
-                className="h-full bg-[var(--lime)] rounded-full transition-all duration-300"
+                className="h-full bg-teal rounded-full transition-all duration-300"
                 style={{ width: `${uploadProgress}%` }}
               />
             </div>
-            <p className="text-xs text-[var(--text-muted)] mt-1">{uploadProgress}%</p>
+            <p className="text-xs text-text-muted mt-1">{uploadProgress}%</p>
           </div>
         )}
       </div>
@@ -109,7 +109,7 @@ export function FileUploader({
 
   return (
     <div>
-      <label className="block text-sm font-medium text-[var(--black)] mb-1.5">{label}</label>
+      <label className="block text-sm font-medium text-text-primary mb-1.5">{label}</label>
       <div
         onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
         onDragLeave={() => setIsDragging(false)}
@@ -117,8 +117,8 @@ export function FileUploader({
         onClick={() => inputRef.current?.click()}
         className={`rounded-xl border-2 border-dashed p-6 text-center cursor-pointer transition ${
           isDragging
-            ? "border-[var(--lime)] bg-[var(--lime)]/5"
-            : "border-[var(--border)] bg-white hover:border-gray-300"
+            ? "border-teal bg-teal/5"
+            : "border-glass-border hover:border-glass-border-strong"
         }`}
       >
         <input
@@ -128,17 +128,17 @@ export function FileUploader({
           onChange={handleChange}
           className="hidden"
         />
-        <Upload className="w-8 h-8 mx-auto text-[var(--text-muted)] mb-3" strokeWidth={1.5} />
-        <p className="text-sm text-[var(--text-muted)]">
+        <Upload className="w-8 h-8 mx-auto text-text-muted mb-3" strokeWidth={1.5} />
+        <p className="text-sm text-text-muted">
           Glissez un fichier ici ou{" "}
-          <span className="font-medium text-[var(--black)]">parcourir</span>
+          <span className="font-medium text-teal">parcourir</span>
         </p>
-        <p className="text-xs text-[var(--text-muted)] mt-1.5">
+        <p className="text-xs text-text-muted mt-1.5">
           PDF, JPG, PNG — max {maxSize} Mo
         </p>
       </div>
       {error && (
-        <p className="text-xs text-red-500 mt-1.5 flex items-center gap-1">
+        <p className="text-xs text-red-400 mt-1.5 flex items-center gap-1">
           {error}
         </p>
       )}
