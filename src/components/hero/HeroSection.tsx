@@ -141,12 +141,15 @@ export function HeroSection() {
           </div>
 
           <div className="flex items-center gap-3">
-            <button
-              onClick={() => scrollTo("contact")}
-              className="px-6 py-2.5 rounded-full bg-teal text-void text-[13px] font-semibold hover:bg-teal/90 transition-all hover:scale-105 active:scale-95 shadow-md shadow-teal/20 cursor-pointer"
+            <Link
+              href="/auth/login"
+              className="px-6 py-2.5 rounded-full border border-white/20 text-white text-[13px] font-semibold hover:bg-white/10 transition-all flex items-center gap-2"
             >
-              Contact
-            </button>
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5zm6-10.125a1.875 1.875 0 11-3.75 0 1.875 1.875 0 013.75 0zm1.294 6.336a6.721 6.721 0 01-3.17.789 6.721 6.721 0 01-3.168-.789 3.376 3.376 0 016.338 0z" />
+              </svg>
+              Rejoindre le programme
+            </Link>
 
             <button
               className="md:hidden flex flex-col gap-[5px] p-2 cursor-pointer"
@@ -233,11 +236,11 @@ export function HeroSection() {
                 variants={fadeUp}
                 className="flex flex-wrap items-center gap-4 pt-3"
               >
-                <button
-                  onClick={() => scrollTo("mission")}
-                  className="group px-7 py-3.5 rounded-[14px] bg-teal text-void font-semibold text-sm hover:bg-teal/90 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-teal/25 active:scale-[0.98] flex items-center gap-2.5 cursor-pointer"
+                <Link
+                  href="/candidater"
+                  className="group px-7 py-3.5 rounded-[14px] bg-teal text-void font-semibold text-sm hover:bg-teal/90 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-teal/25 active:scale-[0.98] flex items-center gap-2.5"
                 >
-                  Découvrir le projet
+                  Candidater
                   <svg
                     className="w-4 h-4 transition-transform group-hover:translate-x-0.5"
                     viewBox="0 0 24 24"
@@ -251,13 +254,13 @@ export function HeroSection() {
                     <line x1="5" y1="12" x2="19" y2="12" />
                     <polyline points="12 5 19 12 12 19" />
                   </svg>
-                </button>
+                </Link>
 
                 <button
-                  onClick={() => scrollTo("actions")}
+                  onClick={() => scrollTo("opportunite")}
                   className="px-7 py-3.5 rounded-[14px] border border-white/[0.18] bg-white/[0.05] text-white font-semibold text-sm hover:bg-white/[0.1] transition-all duration-200 hover:-translate-y-0.5 cursor-pointer"
                 >
-                  Devenir partenaire
+                  En savoir plus
                 </button>
               </motion.div>
             </motion.div>
