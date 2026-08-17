@@ -13,7 +13,6 @@ export function OpportunitySection() {
       id="opportunite"
       ref={ref}
       className="py-16 md:py-24 px-32 max-w-[1280px] mx-auto relative z-10 scroll-mt-24"
-      style={{ backgroundColor: "#050505" }}
     >
       <div
         className={`space-y-16 transition-all duration-700 ${
@@ -22,23 +21,23 @@ export function OpportunitySection() {
       >
         {/* Header */}
         <div className="max-w-3xl space-y-6">
-          <span className="text-xs font-mono font-semibold uppercase tracking-[0.2em] text-text-muted">
+          <span className="text-xs font-mono font-semibold uppercase tracking-[0.2em] text-[#64748B]">
             NOTRE ENGAGEMENT
           </span>
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-tight text-text-primary">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-tight text-[var(--black)]">
             HARMONIA PROGRES{" "}
             <span className="font-serif italic font-normal text-teal">
               pour les jeunes entrepreneurs
             </span>
           </h2>
-          <p className="text-base sm:text-lg text-text-secondary leading-relaxed max-w-2xl">
+          <p className="text-base sm:text-lg text-[#334155] leading-relaxed max-w-2xl">
             À travers le projet MIASA Jeunes Entrepreneurs, nous créons des passerelles entre les
             talents, les ressources et les opportunités afin de permettre aux jeunes de transformer
             leurs compétences en activités génératrices de revenus durables. De l&apos;identification
             des porteurs de projets à l&apos;accès aux marchés, nous les accompagnons dans le
             renforcement de leurs compétences et la structuration de leurs initiatives.
           </p>
-          <p className="text-sm text-text-muted leading-relaxed max-w-2xl">
+          <p className="text-sm text-[#64748B] leading-relaxed max-w-2xl">
             Notre ambition : faire de l&apos;entrepreneuriat un levier de développement local en
             valorisant les savoir-faire et les ressources des secteurs agricole, artisanal et
             halieutique de la région Fitovinany.
@@ -57,7 +56,7 @@ export function OpportunitySection() {
                 }`}
                 style={{ transitionDelay: `${300 + idx * 150}ms` }}
               >
-                <span className="font-display text-sm font-semibold text-text-secondary tracking-wide">
+                <span className="font-display text-sm font-semibold text-[#334155] tracking-wide">
                   {node}
                 </span>
                 <span className="w-2.5 h-2.5 rounded-full bg-teal/60 shrink-0" />
