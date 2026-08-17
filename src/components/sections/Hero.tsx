@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import {
-  PrismLogo,
   StarIcon,
   ArrowRightIcon,
   LaurelWreathIcon,
@@ -39,10 +38,13 @@ export function Hero() {
       {/* Top Center Peeking Badge (overlapping top edge) */}
       <div className="relative z-20 flex justify-center -mb-6">
         <div className="glass px-4 py-2 rounded-full shadow-2xl shadow-teal/20 animate-prism-bob border-glass-border-strong flex items-center gap-2 backdrop-blur-2xl">
-          <PrismLogo className="w-6 h-6" />
-          <span className="text-xs font-mono font-semibold tracking-wider text-teal uppercase">
-            Fondation Lucide
-          </span>
+          <Image
+            src="/images/logo/logo-transparent-dark.png"
+            alt="Harmonia Progrès"
+            width={120}
+            height={32}
+            className="h-5 w-auto object-contain"
+          />
         </div>
       </div>
 
@@ -51,7 +53,7 @@ export function Hero() {
         {/* Background Image Layer (generated high-res landscape asset) */}
         <Image
           src="/images/hero-bg.png"
-          alt="Fondation Lucide Impact Background"
+          alt="Harmonia Progrès Impact Background"
           fill
           priority
           sizes="100vw"
@@ -66,9 +68,10 @@ export function Hero() {
             loop
             playsInline
             onError={() => setVideoError(true)}
-            className="absolute inset-0 w-full h-full object-cover z-0 opacity-35 scale-105 transition-opacity duration-1000"
+            className="absolute inset-0 w-full h-full min-w-full min-h-full object-cover object-center z-0 opacity-35 transition-opacity duration-1000 pointer-events-none"
+            style={{ objectFit: "cover" }}
           >
-            <source src="/videos/hero-loop.mp4" type="video/mp4" />
+            <source src="/videos/harmonia-progres-1-rm.mp4" type="video/mp4" />
           </video>
         )}
 
@@ -86,12 +89,13 @@ export function Hero() {
         {/* TOP NAVBAR (Embedded inside the hero card per reference design) */}
         <nav className="relative z-20 glass px-6 py-3.5 rounded-full flex items-center justify-between shadow-xl backdrop-blur-2xl border-glass-border">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-teal/20 flex items-center justify-center border border-teal/40">
-              <span className="w-3 h-3 rounded-full bg-teal" />
-            </div>
-            <span className="font-display font-semibold text-lg text-text-primary tracking-tight">
-              Lucide
-            </span>
+            <Image
+              src="/images/logo/logo-transparent-dark.png"
+              alt="Harmonia Progrès"
+              width={140}
+              height={36}
+              className="h-8 w-auto object-contain"
+            />
           </div>
 
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-text-secondary">

@@ -17,7 +17,7 @@ export function Newsletter() {
     }
 
     toast.success("Inscription réussie !", {
-      description: "Vous recevrez notre prochain rapport d'impact trimestriel.",
+      description: "Vous recevrez les actualités du projet HARMONIA PROGRES.",
     });
     setEmail("");
   };
@@ -26,7 +26,7 @@ export function Newsletter() {
     <section
       id="newsletter"
       ref={ref}
-      className="py-16 md:py-20 px-4 max-w-[860px] mx-auto relative z-10 scroll-mt-24"
+      className="py-16 md:py-20 px-32 max-w-[860px] mx-auto relative z-10 scroll-mt-24"
     >
       <div
         className={`glass p-8 sm:p-12 rounded-3xl border-glass-border text-center shadow-xl transition-all duration-700 ${
@@ -38,11 +38,12 @@ export function Newsletter() {
         </div>
 
         <h3 className="font-display text-2xl sm:text-3xl font-bold text-text-primary tracking-tight">
-          Recevez notre rapport d&apos;impact trimestriel
+          Suivre l&apos;aventure HARMONIA PROGRES
         </h3>
 
         <p className="mt-3 text-sm sm:text-base text-text-secondary max-w-md mx-auto">
-          Chiffres vérifiés, aucune surprise, jamais de spam.
+          Recevez les actualités du projet, les opportunités de candidature et
+          les initiatives menées dans la région.
         </p>
 
         <form
@@ -61,9 +62,15 @@ export function Newsletter() {
             type="submit"
             className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-teal text-void font-bold text-sm hover:bg-teal/90 transition-all hover:scale-105 active:scale-95 shadow-md shadow-teal/20 whitespace-nowrap cursor-pointer"
           >
-            S&apos;abonner
+            Je m&apos;inscris
           </button>
         </form>
+
+        <p className="mt-4 text-[11px] text-text-muted leading-relaxed max-w-sm mx-auto">
+          En vous inscrivant, vous acceptez de recevoir nos communications.
+          Vous pourrez vous désabonner à tout moment. Aucune donnée n&apos;est
+          partagée avec des tiers.
+        </p>
       </div>
     </section>
   );

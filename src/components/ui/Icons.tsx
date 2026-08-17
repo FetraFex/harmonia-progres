@@ -11,7 +11,7 @@ export function PrismLogo({ className = "w-7 h-7" }: { className?: string }) {
     >
       <defs>
         <linearGradient id="prism-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#33D6C0" />
+          <stop offset="0%" stopColor="#CEFB48" />
           <stop offset="100%" stopColor="#F2966B" />
         </linearGradient>
       </defs>
@@ -21,7 +21,7 @@ export function PrismLogo({ className = "w-7 h-7" }: { className?: string }) {
         stroke="url(#prism-grad)"
         strokeWidth="1.8"
         strokeLinejoin="round"
-        fill="rgba(51, 214, 192, 0.08)"
+        fill="rgba(206, 251, 72, 0.08)"
       />
       {/* Inner Facet Lines */}
       <path

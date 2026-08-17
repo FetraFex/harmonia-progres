@@ -1,99 +1,103 @@
 import React from "react";
-import { PrismLogo } from "@/components/ui/Icons";
+import Image from "next/image";
+import Link from "next/link";
 
 export function Footer() {
   return (
     <footer className="border-t border-glass-border bg-void-2/60 relative z-10 pt-16 pb-12 px-4">
       <div className="max-w-[1280px] mx-auto space-y-12">
-        {/* 4 Columns Grid */}
+        {/* 5 Columns Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
-          {/* Brand Column (Spans 2 on lg) */}
+          {/* Brand Column */}
           <div className="lg:col-span-2 space-y-4">
-            <a href="#" className="flex items-center gap-3 inline-flex">
-              <PrismLogo className="w-7 h-7" />
-              <span className="font-display font-semibold text-xl tracking-tight text-text-primary">
-                Fondation Lucide
-              </span>
-            </a>
+            <Link href="/" className="flex items-center gap-3 inline-flex">
+              <Image
+                src="/images/logo/logo-transparent-dark.png"
+                alt="Harmonia Progrès"
+                width={160}
+                height={44}
+                className="h-9 w-auto object-contain"
+              />
+            </Link>
             <p className="text-sm text-text-secondary max-w-sm leading-relaxed">
-              Organisation non gouvernementale dédiée à l&apos;accès à l&apos;eau potable, à
-              la résilience climatique et à l&apos;éducation avec une transparence financière
-              et géographique intégrale.
+              Organisation non gouvernementale dédiée au développement économique
+              et à l&apos;accompagnement des jeunes entrepreneurs, artisans et
+              pêcheurs à Manakara, Madagascar.
             </p>
           </div>
 
-          {/* Navigation Column */}
+          {/* PROJET Column */}
           <div className="space-y-3">
             <h4 className="font-display text-sm font-bold uppercase tracking-wider text-text-primary">
-              Navigation
+              Projet
             </h4>
             <ul className="space-y-2 text-sm text-text-secondary">
               <li>
-                <a href="#mission" className="hover:text-teal transition-colors">
-                  Mission
+                <a href="#jeunes-entrepreneurs" className="hover:text-teal transition-colors">
+                  Jeunes Entrepreneurs
                 </a>
               </li>
               <li>
-                <a href="#actions" className="hover:text-teal transition-colors">
-                  Actions
+                <a href="#a-propos" className="hover:text-teal transition-colors">
+                  Notre mission
                 </a>
               </li>
               <li>
-                <a href="#presence" className="hover:text-teal transition-colors">
-                  Impact
+                <a href="#programme" className="hover:text-teal transition-colors">
+                  Programme
                 </a>
               </li>
               <li>
-                <a href="#newsletter" className="hover:text-teal transition-colors">
-                  Actualités
+                <a href="#secteurs" className="hover:text-teal transition-colors">
+                  Nos secteurs
                 </a>
               </li>
             </ul>
           </div>
 
-          {/* Ressources Column */}
+          {/* TERRITOIRE Column */}
           <div className="space-y-3">
             <h4 className="font-display text-sm font-bold uppercase tracking-wider text-text-primary">
-              Ressources
+              Territoire
             </h4>
             <ul className="space-y-2 text-sm text-text-secondary">
               <li>
-                <a href="#" className="hover:text-teal transition-colors">
-                  Rapports annuels
+                <a href="#territoire" className="hover:text-teal transition-colors">
+                  Manakara
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-teal transition-colors">
-                  Espace Presse
+                <a href="#territoire" className="hover:text-teal transition-colors">
+                  Vohipeno
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-teal transition-colors">
-                  Carrières & Bénévolat
+                <a href="#territoire" className="hover:text-teal transition-colors">
+                  Fitovinany
                 </a>
               </li>
             </ul>
           </div>
 
-          {/* Légal Column */}
+          {/* PARTICIPER Column */}
           <div className="space-y-3">
             <h4 className="font-display text-sm font-bold uppercase tracking-wider text-text-primary">
-              Légal
+              Participer
             </h4>
             <ul className="space-y-2 text-sm text-text-secondary">
               <li>
-                <a href="#" className="hover:text-teal transition-colors">
-                  Mentions légales
+                <a href="#programme" className="hover:text-teal transition-colors">
+                  Candidater
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-teal transition-colors">
-                  Politique de confidentialité
+                <a href="#partenaires" className="hover:text-teal transition-colors">
+                  Devenir partenaire
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-teal transition-colors">
-                  Gestion des cookies
+                <a href="#contact" className="hover:text-teal transition-colors">
+                  Nous contacter
                 </a>
               </li>
             </ul>
@@ -103,22 +107,7 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-glass-border flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-text-muted">
           <div>
-            © 2026 Fondation Lucide. Tous droits réservés.
-          </div>
-          {/* Text-only social links per brief */}
-          <div className="flex items-center gap-6">
-            <a href="#" className="hover:text-teal transition-colors">
-              LinkedIn
-            </a>
-            <a href="#" className="hover:text-teal transition-colors">
-              X (Twitter)
-            </a>
-            <a href="#" className="hover:text-teal transition-colors">
-              GitHub
-            </a>
-            <a href="#" className="hover:text-teal transition-colors">
-              Instagram
-            </a>
+            © 2026 HARMONIA PROGRES — MIASA Jeunes Entrepreneurs
           </div>
         </div>
       </div>

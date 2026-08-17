@@ -35,7 +35,7 @@ export function HeroVideo({ src, poster, className = "" }: HeroVideoProps) {
     if (poster) {
       return (
         <div
-          className={`absolute inset-0 bg-cover bg-center ${className}`}
+          className={`absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat ${className}`}
           style={{ backgroundImage: `url(${poster})` }}
           role="img"
           aria-label="Hero background"
@@ -51,14 +51,15 @@ export function HeroVideo({ src, poster, className = "" }: HeroVideoProps) {
       muted
       loop
       playsInline
-      preload="metadata"
+      preload="auto"
       poster={poster}
       onError={handleError}
-      className={`absolute inset-0 w-full h-full object-cover ${className}`}
+      className={`absolute inset-0 w-full h-full min-w-full min-h-full object-cover object-center pointer-events-none ${className}`}
+      style={{ objectFit: "cover" }}
       aria-hidden="true"
-      initial={{ opacity: 0, scale: 1.05 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 1.5, ease: "easeOut" }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1.2, ease: "easeOut" }}
     >
       <source src={src} type="video/mp4" />
     </motion.video>

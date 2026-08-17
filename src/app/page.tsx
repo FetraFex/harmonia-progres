@@ -1,11 +1,15 @@
 import { HeroSection } from "@/components/hero/HeroSection";
+import { OpportunitySection } from "@/components/sections/OpportunitySection";
 import { StatsBand } from "@/components/sections/StatsBand";
-import { Mission } from "@/components/sections/Mission";
-import { Actions } from "@/components/sections/Actions";
-import { Presence } from "@/components/sections/Presence";
-import { Testimonial } from "@/components/sections/Testimonial";
-import { PartnersMarquee } from "@/components/sections/PartnersMarquee";
-import { DonationCta } from "@/components/sections/DonationCta";
+import { SectorsSection } from "@/components/sections/SectorsSection";
+import { EntrepreneursSection } from "@/components/sections/EntrepreneursSection";
+import { ProgramSection } from "@/components/sections/ProgramSection";
+import { TerritorySection } from "@/components/sections/TerritorySection";
+import { VisionSection } from "@/components/sections/VisionSection";
+import { AboutSection } from "@/components/sections/AboutSection";
+import { ImpactStatement } from "@/components/sections/ImpactStatement";
+import { PartnersSection } from "@/components/sections/PartnersSection";
+import { SupportCta } from "@/components/sections/SupportCta";
 import { Newsletter } from "@/components/sections/Newsletter";
 import { Footer } from "@/components/layout/Footer";
 
@@ -13,13 +17,17 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
+      <OpportunitySection />
       <StatsBand />
-      <Mission />
-      <Actions />
-      <Presence />
-      <Testimonial />
-      <PartnersMarquee />
-      <DonationCta />
+      <SectorsSection />
+      <EntrepreneursSection />
+      <ProgramSection />
+      <TerritorySection />
+      <VisionSection />
+      <AboutSection />
+      <ImpactStatement />
+      <PartnersSection />
+      <SupportCta />
       <Newsletter />
       <Footer />
     </>

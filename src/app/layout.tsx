@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Inter, JetBrains_Mono, Instrument_Serif } from "next/font/google";
+import { Space_Grotesk, Inter, JetBrains_Mono, Instrument_Serif, Geist } from "next/font/google";
 import { Toaster } from "sonner";
 import { AmbientBackground } from "@/components/ui/AmbientBackground";
 import { ScrollProgressBar } from "@/components/ui/ScrollProgressBar";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -78,7 +81,7 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
-      className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} ${instrumentSerif.variable} h-full antialiased`}
+      className={cn("h-full", "antialiased", spaceGrotesk.variable, inter.variable, jetbrainsMono.variable, instrumentSerif.variable, "font-sans", geist.variable)}
     >
       <body className="min-h-full bg-void text-text-primary font-body flex flex-col relative selection:bg-teal selection:text-void">
         <ScrollProgressBar />

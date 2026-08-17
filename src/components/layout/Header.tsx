@@ -13,8 +13,8 @@ export function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 glass border-b border-border">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-50">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between py-4">
         <Link href="/" className="flex items-center space-x-2">
           <span className="text-2xl font-bold text-primary">Harmonia</span>
           <span className="text-2xl font-light text-accent">Progres</span>
@@ -56,7 +56,7 @@ export function Header() {
       </nav>
 
       {open && (
-        <div className="md:hidden border-t border-border bg-surface px-4 py-4">
+        <div className="md:hidden px-4 py-4">
           <div className="flex flex-col space-y-2">
             {NAV_LINKS.map((link) => (
               <Link
