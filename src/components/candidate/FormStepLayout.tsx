@@ -18,8 +18,8 @@ export function FormStepLayout({
   assistance,
 }: FormStepLayoutProps) {
   return (
-    <div className="max-w-6xl mx-auto px-6 py-10 md:py-16">
-      <div className="mb-10">
+    <div className="max-w-6xl mx-auto px-6 py-8 lg:py-12 flex flex-col justify-center lg:min-h-[calc(100vh-64px)]">
+      <div className="mb-8">
         <span className="font-['JetBrains_Mono'] text-[11px] font-semibold text-text-muted uppercase tracking-widest">
           Étape {stepNumber}
         </span>
@@ -35,7 +35,7 @@ export function FormStepLayout({
         <div className="lg:col-span-2">{children}</div>
         {assistance && (
           <aside className="hidden lg:block">
-            <div className="sticky top-24 rounded-2xl glass p-6">
+            <div className="sticky top-8 rounded-2xl glass p-6">
               <h3 className="font-['Space_Grotesk'] font-semibold text-sm text-text-primary mb-3">
                 Besoin d&apos;aide ?
               </h3>

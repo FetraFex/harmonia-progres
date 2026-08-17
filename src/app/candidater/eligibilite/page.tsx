@@ -57,13 +57,12 @@ export default function EligibilitePage() {
     answers.sector !== "" &&
     answers.isProjectHolder === "oui";
 
-  const isNotEligible =
-    (answers.district === "autre" || answers.sector === "") && step === 2;
+  const isNotEligible = !isEligible;
 
   function handleSelect(value: string) {
     setAnswers((prev) => ({ ...prev, [current.key]: value }));
     setTimeout(() => {
-      if (step < 2) setStep(step + 1);
+      if (step < 3) setStep(step + 1);
     }, 300);
   }
 
@@ -108,7 +107,7 @@ export default function EligibilitePage() {
                   <button
                     key={opt.value}
                     onClick={() => handleSelect(opt.value)}
-                    className={`w-full text-left rounded-xl border-2 p-5 flex items-center gap-4 transition ${
+                    className={`w-full text-left rounded-xl border p-5 flex items-center gap-4 transition ${
                       answers[current.key] === opt.value
                         ? "border-teal bg-teal/5"
                         : "border-glass-border hover:border-glass-border-strong"

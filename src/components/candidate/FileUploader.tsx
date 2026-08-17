@@ -115,7 +115,7 @@ export function FileUploader({
         onDragLeave={() => setIsDragging(false)}
         onDrop={handleDrop}
         onClick={() => inputRef.current?.click()}
-        className={`rounded-xl border-2 border-dashed p-6 text-center cursor-pointer transition ${
+        className={`rounded-xl border border-dashed p-6 text-center cursor-pointer transition ${
           isDragging
             ? "border-teal bg-teal/5"
             : "border-glass-border hover:border-glass-border-strong"

@@ -92,7 +92,7 @@ export default function ProjetPage() {
                 return (
                   <label
                     key={s}
-                    className={`rounded-xl border-2 p-4 text-center cursor-pointer transition ${
+                    className={`rounded-xl border p-4 text-center cursor-pointer transition ${
                       watchedSector === s
                         ? "border-teal bg-teal/5"
                         : "border-glass-border hover:border-glass-border-strong"

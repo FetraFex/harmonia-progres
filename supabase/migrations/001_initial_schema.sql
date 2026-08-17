@@ -1,10 +1,9 @@
 -- ──────────────────────────────────────────────
 -- HARMONIA PROGRES — Database Schema
 -- MIASA Jeunes Entrepreneurs
--- Run this in Supabase SQL Editor or via migration
+-- Run this in Supabase SQL Editor
 -- ──────────────────────────────────────────────
 
--- Enable UUID generation
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 -- ── ENUM TYPES ────────────────────────────────
@@ -12,12 +11,16 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE TYPE user_role AS ENUM ('admin', 'evaluator');
 
 CREATE TYPE application_status AS ENUM (
+  'new',
   'draft',
   'submitted',
   'under_review',
+  'shortlisted',
+  'interview',
   'accepted',
   'rejected',
-  'waitlisted'
+  'waitlisted',
+  'withdrawn'
 );
 
 CREATE TYPE sector AS ENUM ('artisanat', 'halieutique', 'agriculture');
@@ -33,8 +36,6 @@ CREATE TYPE education_level AS ENUM (
 );
 
 -- ── TABLE: profiles ───────────────────────────
--- Extends Supabase Auth users with app-specific data.
--- Auth handles passwords/sessions; this stores profile info.
 
 CREATE TABLE profiles (
   id          UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
@@ -44,7 +45,6 @@ CREATE TABLE profiles (
   updated_at  TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
--- Auto-create profile on signup
 CREATE OR REPLACE FUNCTION handle_new_user()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -59,7 +59,6 @@ CREATE OR REPLACE TRIGGER on_auth_user_created
   FOR EACH ROW EXECUTE FUNCTION handle_new_user();
 
 -- ── TABLE: applications ───────────────────────
--- Candidate applications for the MIASA program.
 
 CREATE TABLE applications (
   id                UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -72,30 +71,35 @@ CREATE TABLE applications (
   email             TEXT NOT NULL,
   phone             TEXT NOT NULL,
   date_of_birth     DATE,
-  gender            TEXT,
+  district          TEXT NOT NULL,
+  commune           TEXT,
   address           TEXT,
-  city              TEXT NOT NULL,
-  region            TEXT NOT NULL DEFAULT 'Fitovinany',
 
-  -- Education
+  -- Profile
+  situation             TEXT,
   education_level       education_level NOT NULL DEFAULT 'secondary',
-  education_institution TEXT,
-  education_field       TEXT,
+  experience_professionnelle     TEXT,
+  experience_entrepreneuriale    TEXT,
 
-  -- Entrepreneurial project
+  -- Project
   project_name        TEXT NOT NULL,
-  project_description TEXT NOT NULL,
   sector              sector NOT NULL,
-  project_stage       TEXT,
-  existing_business   BOOLEAN NOT NULL DEFAULT false,
-  business_name       TEXT,
+  activity_type       TEXT,
+  project_description TEXT NOT NULL,
+  problem_identified  TEXT,
+  solution_proposed   TEXT,
+  target_market       TEXT,
 
   -- Motivation
-  motivation      TEXT NOT NULL,
-  expectations    TEXT,
+  motivation          TEXT NOT NULL,
+  needs               TEXT[],
+  accomplishments     TEXT,
+
+  -- Consent
+  consent             BOOLEAN NOT NULL DEFAULT false,
 
   -- Status
-  status          application_status NOT NULL DEFAULT 'draft',
+  status          application_status NOT NULL DEFAULT 'new',
   reviewed_by     UUID REFERENCES profiles(id),
   reviewed_at     TIMESTAMPTZ,
   admin_notes     TEXT,
@@ -105,6 +109,8 @@ CREATE TABLE applications (
 );
 
 -- Auto-generate reference number: HP-YYYY-XXXX
+CREATE SEQUENCE IF NOT EXISTS application_ref_seq START 1;
+
 CREATE OR REPLACE FUNCTION generate_reference_number()
 RETURNS TRIGGER AS $$
 DECLARE
@@ -118,8 +124,6 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE SEQUENCE IF NOT EXISTS application_ref_seq START 1;
-
 CREATE OR REPLACE TRIGGER set_reference_number
   BEFORE INSERT ON applications
   FOR EACH ROW
@@ -127,12 +131,11 @@ CREATE OR REPLACE TRIGGER set_reference_number
   EXECUTE FUNCTION generate_reference_number();
 
 -- ── TABLE: application_documents ──────────────
--- Files uploaded by candidates (CV, business plan, etc.)
 
 CREATE TABLE application_documents (
   id              UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   application_id  UUID NOT NULL REFERENCES applications(id) ON DELETE CASCADE,
-  document_type   TEXT NOT NULL, -- 'cv', 'business_plan', 'id_card', 'other'
+  document_type   TEXT NOT NULL,
   file_name       TEXT NOT NULL,
   file_path       TEXT NOT NULL,
   file_size       BIGINT,
@@ -141,12 +144,16 @@ CREATE TABLE application_documents (
 );
 
 -- ── TABLE: application_evaluations ────────────
--- Admin/evaluator reviews of applications.
 
 CREATE TABLE application_evaluations (
   id              UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   application_id  UUID NOT NULL REFERENCES applications(id) ON DELETE CASCADE,
   evaluator_id    UUID NOT NULL REFERENCES profiles(id),
+  pertinence          INTEGER CHECK (pertinence >= 1 AND pertinence <= 5),
+  faisabilite         INTEGER CHECK (faisabilite >= 1 AND faisabilite <= 5),
+  motivation_score    INTEGER CHECK (motivation_score >= 1 AND motivation_score <= 5),
+  potentiel_economique INTEGER CHECK (potentiel_economique >= 1 AND potentiel_economique <= 5),
+  impact_local        INTEGER CHECK (impact_local >= 1 AND impact_local <= 5),
   score           INTEGER CHECK (score >= 0 AND score <= 100),
   strengths       TEXT,
   weaknesses      TEXT,
@@ -157,7 +164,6 @@ CREATE TABLE application_evaluations (
 );
 
 -- ── TABLE: application_status_history ─────────
--- Audit trail for status changes.
 
 CREATE TABLE application_status_history (
   id              UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -169,7 +175,6 @@ CREATE TABLE application_status_history (
   created_at      TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
--- Auto-log status changes
 CREATE OR REPLACE FUNCTION log_status_change()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -230,128 +235,65 @@ ALTER TABLE application_status_history ENABLE ROW LEVEL SECURITY;
 ALTER TABLE newsletter_subscribers ENABLE ROW LEVEL SECURITY;
 ALTER TABLE contact_messages ENABLE ROW LEVEL SECURITY;
 
--- Profiles: users can read/update their own
+-- Profiles
 CREATE POLICY "Users can view own profile"
-  ON profiles FOR SELECT
-  USING (auth.uid() = id);
+  ON profiles FOR SELECT USING (auth.uid() = id);
 
 CREATE POLICY "Users can update own profile"
-  ON profiles FOR UPDATE
-  USING (auth.uid() = id);
+  ON profiles FOR UPDATE USING (auth.uid() = id);
 
--- Applications: users can CRUD their own
+-- Applications
 CREATE POLICY "Users can view own applications"
-  ON applications FOR SELECT
-  USING (auth.uid() = user_id);
+  ON applications FOR SELECT USING (auth.uid() = user_id);
 
 CREATE POLICY "Users can create applications"
-  ON applications FOR INSERT
-  WITH CHECK (auth.uid() = user_id);
+  ON applications FOR INSERT WITH CHECK (auth.uid() = user_id);
 
 CREATE POLICY "Users can update own applications"
-  ON applications FOR UPDATE
-  USING (auth.uid() = user_id AND status = 'draft');
+  ON applications FOR UPDATE USING (auth.uid() = user_id AND status = 'draft');
 
--- Admins can view/update all applications
 CREATE POLICY "Admins can view all applications"
   ON applications FOR SELECT
-  USING (
-    EXISTS (
-      SELECT 1 FROM profiles
-      WHERE profiles.id = auth.uid()
-      AND profiles.role = 'admin'
-    )
-  );
+  USING (EXISTS (SELECT 1 FROM profiles WHERE profiles.id = auth.uid() AND profiles.role = 'admin'));
 
 CREATE POLICY "Admins can update all applications"
   ON applications FOR UPDATE
-  USING (
-    EXISTS (
-      SELECT 1 FROM profiles
-      WHERE profiles.id = auth.uid()
-      AND profiles.role = 'admin'
-    )
-  );
+  USING (EXISTS (SELECT 1 FROM profiles WHERE profiles.id = auth.uid() AND profiles.role = 'admin'));
 
--- Documents: users can manage their own application's docs
+-- Documents
 CREATE POLICY "Users can view own documents"
   ON application_documents FOR SELECT
-  USING (
-    EXISTS (
-      SELECT 1 FROM applications
-      WHERE applications.id = application_documents.application_id
-      AND applications.user_id = auth.uid()
-    )
-  );
+  USING (EXISTS (SELECT 1 FROM applications WHERE applications.id = application_documents.application_id AND applications.user_id = auth.uid()));
 
 CREATE POLICY "Users can insert own documents"
   ON application_documents FOR INSERT
-  WITH CHECK (
-    EXISTS (
-      SELECT 1 FROM applications
-      WHERE applications.id = application_documents.application_id
-      AND applications.user_id = auth.uid()
-    )
-  );
+  WITH CHECK (EXISTS (SELECT 1 FROM applications WHERE applications.id = application_documents.application_id AND applications.user_id = auth.uid()));
 
 -- Evaluations: only admins
 CREATE POLICY "Admins can manage evaluations"
   ON application_evaluations FOR ALL
-  USING (
-    EXISTS (
-      SELECT 1 FROM profiles
-      WHERE profiles.id = auth.uid()
-      AND profiles.role = 'admin'
-    )
-  );
+  USING (EXISTS (SELECT 1 FROM profiles WHERE profiles.id = auth.uid() AND profiles.role = 'admin'));
 
 -- Status history: only admins
 CREATE POLICY "Admins can view status history"
   ON application_status_history FOR SELECT
-  USING (
-    EXISTS (
-      SELECT 1 FROM profiles
-      WHERE profiles.id = auth.uid()
-      AND profiles.role = 'admin'
-    )
-  );
+  USING (EXISTS (SELECT 1 FROM profiles WHERE profiles.id = auth.uid() AND profiles.role = 'admin'));
 
--- Newsletter: anyone can subscribe, only admins can read
+-- Newsletter
 CREATE POLICY "Anyone can subscribe"
-  ON newsletter_subscribers FOR INSERT
-  WITH CHECK (true);
+  ON newsletter_subscribers FOR INSERT WITH CHECK (true);
 
 CREATE POLICY "Admins can view subscribers"
   ON newsletter_subscribers FOR SELECT
-  USING (
-    EXISTS (
-      SELECT 1 FROM profiles
-      WHERE profiles.id = auth.uid()
-      AND profiles.role = 'admin'
-    )
-  );
+  USING (EXISTS (SELECT 1 FROM profiles WHERE profiles.id = auth.uid() AND profiles.role = 'admin'));
 
--- Contact: anyone can insert, only admins can read
+-- Contact
 CREATE POLICY "Anyone can submit contact"
-  ON contact_messages FOR INSERT
-  WITH CHECK (true);
+  ON contact_messages FOR INSERT WITH CHECK (true);
 
 CREATE POLICY "Admins can view contact messages"
   ON contact_messages FOR SELECT
-  USING (
-    EXISTS (
-      SELECT 1 FROM profiles
-      WHERE profiles.id = auth.uid()
-      AND profiles.role = 'admin'
-    )
-  );
-
--- ── STORAGE BUCKETS ───────────────────────────
--- Create via Supabase Dashboard > Storage:
---   Bucket: application-documents
---     - Authenticated users can upload
---     - Users can read only their own files
---     - Admins can read all files
+  USING (EXISTS (SELECT 1 FROM profiles WHERE profiles.id = auth.uid() AND profiles.role = 'admin'));
 
 -- ── updated_at TRIGGER ────────────────────────
 
@@ -364,13 +306,10 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE TRIGGER profiles_updated_at
-  BEFORE UPDATE ON profiles
-  FOR EACH ROW EXECUTE FUNCTION update_updated_at();
+  BEFORE UPDATE ON profiles FOR EACH ROW EXECUTE FUNCTION update_updated_at();
 
 CREATE OR REPLACE TRIGGER applications_updated_at
-  BEFORE UPDATE ON applications
-  FOR EACH ROW EXECUTE FUNCTION update_updated_at();
+  BEFORE UPDATE ON applications FOR EACH ROW EXECUTE FUNCTION update_updated_at();
 
 CREATE OR REPLACE TRIGGER evaluations_updated_at
-  BEFORE UPDATE ON application_evaluations
-  FOR EACH ROW EXECUTE FUNCTION update_updated_at();
+  BEFORE UPDATE ON application_evaluations FOR EACH ROW EXECUTE FUNCTION update_updated_at();

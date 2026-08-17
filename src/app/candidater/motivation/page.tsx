@@ -93,7 +93,7 @@ export default function MotivationPage() {
                       return (
                         <label
                           key={need.value}
-                          className={`rounded-xl border-2 p-3 cursor-pointer transition text-sm flex items-center gap-2 ${
+                          className={`rounded-xl border p-3 cursor-pointer transition text-sm flex items-center gap-2 ${
                             isSelected
                               ? "border-teal bg-teal/5 font-medium"
                               : "border-glass-border hover:border-glass-border-strong"

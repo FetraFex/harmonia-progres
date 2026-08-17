@@ -8,7 +8,7 @@ import type { Application, ApplicationStatusHistory } from "@/types/database";
 import { Search, Hash, Mail, ArrowLeft, Building, Wheat, Fish, Palette, Check } from "lucide-react";
 
 const STATUS_CONFIG: Record<string, { label: string; color: string; bg: string }> = {
-  new: { label: "Nouveau", color: "text-gray-400", bg: "bg-gray-500/10" },
+  new: { label: "Nouveau", color: "text-text-muted", bg: "bg-glass-bg-strong0/10" },
   submitted: { label: "Candidature reçue", color: "text-blue-400", bg: "bg-blue-500/10" },
   under_review: { label: "En évaluation", color: "text-amber-400", bg: "bg-amber-500/10" },
   shortlisted: { label: "Présélectionné", color: "text-indigo-400", bg: "bg-indigo-500/10" },
@@ -16,7 +16,7 @@ const STATUS_CONFIG: Record<string, { label: string; color: string; bg: string }
   accepted: { label: "Accepté", color: "text-teal", bg: "bg-teal/10" },
   rejected: { label: "Non retenu", color: "text-red-400", bg: "bg-red-500/10" },
   waitlisted: { label: "Liste d'attente", color: "text-orange-400", bg: "bg-orange-500/10" },
-  withdrawn: { label: "Retiré", color: "text-gray-400", bg: "bg-gray-500/10" },
+  withdrawn: { label: "Retiré", color: "text-text-muted", bg: "bg-glass-bg-strong0/10" },
 };
 
 const TIMELINE_STEPS = [
