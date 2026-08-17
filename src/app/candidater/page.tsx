@@ -32,7 +32,14 @@ const sectors = ["AGRICULTURE", "ARTISANAT", "HALIEUTIQUE"];
 
 export default function CandidaterPage() {
   return (
-    <div className="min-h-screen bg-[#FAFAF8]">
+    <div
+      className="min-h-screen bg-white text-gray-900"
+      style={{
+        "--text-primary": "#0F172A",
+        "--text-muted": "#475569",
+        "--text-secondary": "#334155",
+      } as React.CSSProperties}
+    >
       {/* Hero */}
       <section className="px-6 py-16 md:py-24 max-w-5xl mx-auto">
         <motion.div
