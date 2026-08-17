@@ -23,18 +23,25 @@ export function OpportunitySection() {
         {/* Header */}
         <div className="max-w-3xl space-y-6">
           <span className="text-xs font-mono font-semibold uppercase tracking-[0.2em] text-text-muted">
-            L&apos;OPPORTUNITÉ
+            NOTRE ENGAGEMENT
           </span>
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-tight text-text-primary">
-            Des ressources locales. Des talents.{" "}
+            HARMONIA PROGRES{" "}
             <span className="font-serif italic font-normal text-teal">
-              De nouvelles opportunités.
+              pour les jeunes entrepreneurs
             </span>
           </h2>
           <p className="text-base sm:text-lg text-text-secondary leading-relaxed max-w-2xl">
-            De jeunes hommes et femmes font face à des difficultés d&apos;emploi et de
-            revenus, alors même que le territoire regorge de ressources agricoles,
-            halieutiques et artisanales à valoriser.
+            À travers le projet MIASA Jeunes Entrepreneurs, nous créons des passerelles entre les
+            talents, les ressources et les opportunités afin de permettre aux jeunes de transformer
+            leurs compétences en activités génératrices de revenus durables. De l&apos;identification
+            des porteurs de projets à l&apos;accès aux marchés, nous les accompagnons dans le
+            renforcement de leurs compétences et la structuration de leurs initiatives.
+          </p>
+          <p className="text-sm text-text-muted leading-relaxed max-w-2xl">
+            Notre ambition : faire de l&apos;entrepreneuriat un levier de développement local en
+            valorisant les savoir-faire et les ressources des secteurs agricole, artisanal et
+            halieutique de la région Fitovinany.
           </p>
         </div>
 
