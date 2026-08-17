@@ -2,39 +2,71 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { AdminLayout } from "@/components/admin/AdminLayout";
-import type { Application, ApplicationStatusHistory } from "@/types/database";
+import { motion } from "framer-motion";
+import type { Application, ApplicationStatusHistory, ApplicationDocument, ApplicationEvaluation } from "@/types/database";
+import {
+  ArrowLeft,
+  Calendar,
+  Mail,
+  Phone,
+  MapPin,
+  Building,
+  GraduationCap,
+  Briefcase,
+  Target,
+  Sparkles,
+  CheckCircle2,
+  Clock,
+  Download,
+  Star,
+  FileText,
+  Save,
+  AlertTriangle,
+  ChevronDown,
+  Wheat,
+  Palette,
+  Fish,
+  Loader2,
+} from "lucide-react";
 
-const STATUS_CONFIG: Record<string, { label: string; color: string; bg: string }> = {
-  new: { label: "Nouveau", color: "text-gray-600", bg: "bg-gray-100" },
-  submitted: { label: "Soumis", color: "text-blue-600", bg: "bg-blue-100" },
-  under_review: { label: "En évaluation", color: "text-amber-600", bg: "bg-amber-100" },
-  shortlisted: { label: "Présélectionné", color: "text-indigo-600", bg: "bg-indigo-100" },
-  interview: { label: "Entretien", color: "text-purple-600", bg: "bg-purple-100" },
-  accepted: { label: "Accepté", color: "text-green-600", bg: "bg-green-100" },
-  rejected: { label: "Non retenu", color: "text-red-600", bg: "bg-red-100" },
-  waitlisted: { label: "Liste d'attente", color: "text-orange-600", bg: "bg-orange-100" },
-  withdrawn: { label: "Retiré", color: "text-gray-600", bg: "bg-gray-100" },
+const STATUS_CONFIG: Record<string, { label: string; color: string; bg: string; border: string }> = {
+  new: { label: "Nouveau", color: "text-gray-400", bg: "bg-gray-500/10", border: "border-gray-500/20" },
+  submitted: { label: "Soumis", color: "text-blue-400", bg: "bg-blue-500/10", border: "border-blue-500/20" },
+  under_review: { label: "En évaluation", color: "text-amber-400", bg: "bg-amber-500/10", border: "border-amber-500/20" },
+  shortlisted: { label: "Présélectionné", color: "text-indigo-400", bg: "bg-indigo-500/10", border: "border-indigo-500/20" },
+  interview: { label: "Entretien", color: "text-purple-400", bg: "bg-purple-500/10", border: "border-purple-500/20" },
+  accepted: { label: "Accepté", color: "text-teal", bg: "bg-teal/10", border: "border-teal/30" },
+  rejected: { label: "Non retenu", color: "text-red-400", bg: "bg-red-500/10", border: "border-red-500/20" },
+  waitlisted: { label: "Liste d'attente", color: "text-orange-400", bg: "bg-orange-500/10", border: "border-orange-500/20" },
+  withdrawn: { label: "Retiré", color: "text-gray-500", bg: "bg-gray-500/10", border: "border-gray-500/20" },
 };
 
 const EDUCATION: Record<string, string> = {
-  none: "Aucun",
+  none: "Aucun diplôme",
   primary: "Primaire",
   secondary: "Secondaire",
-  vocational: "Professionnel",
-  bachelor: "Licence",
-  master: "Master",
+  vocational: "Formation professionnelle",
+  bachelor: "Licence / Bac+3",
+  master: "Master / Bac+5",
   other: "Autre",
 };
 
 const SITUATION: Record<string, string> = {
   etudiant: "Étudiant",
   salarie: "Salarié",
-  chomeur: "Chômeur",
-  independant: "Indépendant",
+  chomeur: "Sans emploi",
+  independant: "Indépendant / Artisan / Pêcheur",
   retraite: "Retraité",
   autre: "Autre",
+};
+
+const SECTOR_ICONS: Record<string, React.ElementType> = {
+  agriculture: Wheat,
+  artisanat: Palette,
+  halieutique: Fish,
 };
 
 export default function CandidatureDetailPage() {
@@ -45,9 +77,27 @@ export default function CandidatureDetailPage() {
 
   const [application, setApplication] = useState<Application | null>(null);
   const [history, setHistory] = useState<ApplicationStatusHistory[]>([]);
+  const [documents, setDocuments] = useState<ApplicationDocument[]>([]);
+  const [evaluations, setEvaluations] = useState<ApplicationEvaluation[]>([]);
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
   const [statusDropdownOpen, setStatusDropdownOpen] = useState(false);
+  const [statusReason, setStatusReason] = useState("");
+
+  // Evaluation Form State
+  const [evalScores, setEvalScores] = useState({
+    pertinence: 4,
+    faisabilite: 4,
+    motivation_score: 4,
+    potentiel_economique: 4,
+    impact_local: 4,
+  });
+  const [evalStrengths, setEvalStrengths] = useState("");
+  const [evalWeaknesses, setEvalWeaknesses] = useState("");
+  const [evalRecommendation, setEvalRecommendation] = useState("Favorable");
+  const [evalNotes, setEvalNotes] = useState("");
+  const [evalSubmitting, setEvalSubmitting] = useState(false);
+  const [evalSuccess, setEvalSuccess] = useState(false);
 
   useEffect(() => {
     async function load() {
@@ -70,13 +120,26 @@ export default function CandidatureDetailPage() {
 
       setApplication(appData as Application);
 
-      const { data: histData } = await supabase
-        .from("application_status_history")
-        .select("*")
-        .eq("application_id", id)
-        .order("created_at", { ascending: false });
+      const [histRes, docsRes, evalRes] = await Promise.all([
+        supabase
+          .from("application_status_history")
+          .select("*")
+          .eq("application_id", id)
+          .order("created_at", { ascending: false }),
+        supabase
+          .from("application_documents")
+          .select("*")
+          .eq("application_id", id),
+        supabase
+          .from("application_evaluations")
+          .select("*")
+          .eq("application_id", id)
+          .order("created_at", { ascending: false }),
+      ]);
 
-      setHistory((histData as ApplicationStatusHistory[]) || []);
+      setHistory((histRes.data as ApplicationStatusHistory[]) || []);
+      setDocuments((docsRes.data as ApplicationDocument[]) || []);
+      setEvaluations((evalRes.data as ApplicationEvaluation[]) || []);
       setLoading(false);
     }
     load();
@@ -87,7 +150,7 @@ export default function CandidatureDetailPage() {
 
     if (newStatus === "rejected") {
       const confirmed = window.confirm(
-        "Êtes-vous sûr de vouloir refuser cette candidature ? Cette action est irréversible."
+        "Confirmez-vous le refus de cette candidature ?"
       );
       if (!confirmed) return;
     }
@@ -96,12 +159,13 @@ export default function CandidatureDetailPage() {
     setUpdating(true);
 
     const oldStatus = application.status;
+    const { data: { user } } = await supabase.auth.getUser();
 
     await supabase
       .from("applications")
       .update({
         status: newStatus,
-        reviewed_by: (await supabase.auth.getUser()).data.user?.id ?? null,
+        reviewed_by: user?.id ?? null,
         reviewed_at: new Date().toISOString(),
       })
       .eq("id", id);
@@ -110,8 +174,8 @@ export default function CandidatureDetailPage() {
       application_id: id,
       old_status: oldStatus,
       new_status: newStatus,
-      changed_by: (await supabase.auth.getUser()).data.user?.id ?? null,
-      reason: null,
+      changed_by: user?.id ?? null,
+      reason: statusReason || null,
     });
 
     setApplication((prev) =>
@@ -130,30 +194,66 @@ export default function CandidatureDetailPage() {
         application_id: id,
         old_status: oldStatus,
         new_status: newStatus as Application["status"],
-        changed_by: null,
-        reason: null,
+        changed_by: user?.id ?? null,
+        reason: statusReason || null,
         created_at: new Date().toISOString(),
       },
       ...prev,
     ]);
 
+    setStatusReason("");
     setUpdating(false);
+  }
+
+  async function handleSaveEvaluation(e: React.FormEvent) {
+    e.preventDefault();
+    setEvalSubmitting(true);
+    setEvalSuccess(false);
+
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+
+    const totalScore =
+      evalScores.pertinence +
+      evalScores.faisabilite +
+      evalScores.motivation_score +
+      evalScores.potentiel_economique +
+      evalScores.impact_local;
+
+    const newEvalPayload = {
+      application_id: id,
+      evaluator_id: user.id,
+      score: totalScore,
+      pertinence: evalScores.pertinence,
+      faisabilite: evalScores.faisabilite,
+      motivation_score: evalScores.motivation_score,
+      potentiel_economique: evalScores.potentiel_economique,
+      impact_local: evalScores.impact_local,
+      strengths: evalStrengths || null,
+      weaknesses: evalWeaknesses || null,
+      recommendation: evalRecommendation || null,
+      notes: evalNotes || null,
+    };
+
+    const { data, error } = await supabase
+      .from("application_evaluations")
+      .insert(newEvalPayload)
+      .select()
+      .single();
+
+    if (!error && data) {
+      setEvaluations((prev) => [data as ApplicationEvaluation, ...prev]);
+      setEvalSuccess(true);
+    }
+    setEvalSubmitting(false);
   }
 
   if (loading) {
     return (
       <AdminLayout>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 space-y-6">
-            <div className="h-10 w-48 bg-white rounded-lg border border-[var(--border)] animate-pulse" />
-            {[...Array(4)].map((_, i) => (
-              <div key={i} className="h-40 bg-white rounded-xl border border-[var(--border)] animate-pulse" />
-            ))}
-          </div>
-          <div className="space-y-6">
-            <div className="h-32 bg-white rounded-xl border border-[var(--border)] animate-pulse" />
-            <div className="h-64 bg-white rounded-xl border border-[var(--border)] animate-pulse" />
-          </div>
+        <div className="flex flex-col items-center justify-center min-h-[400px] gap-4">
+          <Loader2 className="w-8 h-8 text-teal animate-spin" />
+          <p className="text-xs text-text-muted font-medium">Chargement du dossier…</p>
         </div>
       </AdminLayout>
     );
@@ -162,257 +262,488 @@ export default function CandidatureDetailPage() {
   if (!application) return null;
 
   const currentConfig = STATUS_CONFIG[application.status] || STATUS_CONFIG.new;
+  const SectorIcon = SECTOR_ICONS[application.sector] || Building;
 
   return (
     <AdminLayout>
-      <div className="space-y-6">
-        {/* Back link + header */}
-        <div>
-          <button
-            onClick={() => router.push("/admin/candidatures")}
-            className="text-sm text-[var(--text-muted)] hover:text-[var(--black)] mb-2 inline-flex items-center gap-1"
+      <div className="space-y-8">
+        {/* Navigation & Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+        >
+          <Link
+            href="/admin/candidatures"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-text-muted hover:text-teal transition mb-4"
           >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-            Retour aux candidatures
-          </button>
-          <div className="flex items-center gap-3 flex-wrap">
-            <h1 className="font-['Space_Grotesk'] text-2xl font-bold text-[var(--black)]">
-              {application.first_name} {application.last_name}
-            </h1>
-            <span className="font-['JetBrains_Mono'] text-xs text-[var(--text-muted)]">
-              {application.reference_number}
-            </span>
-          </div>
-        </div>
+            <ArrowLeft className="w-4 h-4" />
+            <span>Retour à la liste des candidatures</span>
+          </Link>
 
-        {/* Two-column layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* LEFT — 2/3 */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Personal info */}
-            <section className="bg-white rounded-xl border border-[var(--border)] p-6">
-              <h2 className="font-['Space_Grotesk'] font-bold text-[var(--black)] mb-4">
-                Informations personnelles
-              </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-                <div>
-                  <p className="text-[var(--text-muted)] mb-0.5">Nom complet</p>
-                  <p className="text-[var(--black)] font-medium">{application.first_name} {application.last_name}</p>
-                </div>
-                <div>
-                  <p className="text-[var(--text-muted)] mb-0.5">Email</p>
-                  <p className="text-[var(--black)]">{application.email}</p>
-                </div>
-                <div>
-                  <p className="text-[var(--text-muted)] mb-0.5">Téléphone</p>
-                  <p className="text-[var(--black)]">{application.phone}</p>
-                </div>
-                <div>
-                  <p className="text-[var(--text-muted)] mb-0.5">Date de naissance</p>
-                  <p className="text-[var(--black)]">
-                    {application.date_of_birth
-                      ? new Date(application.date_of_birth).toLocaleDateString("fr-FR")
-                      : "—"}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-[var(--text-muted)] mb-0.5">District</p>
-                  <p className="text-[var(--black)] capitalize">{application.district}</p>
-                </div>
-                <div>
-                  <p className="text-[var(--text-muted)] mb-0.5">Commune</p>
-                  <p className="text-[var(--black)]">{application.commune}</p>
-                </div>
-                {application.address && (
-                  <div className="sm:col-span-2">
-                    <p className="text-[var(--text-muted)] mb-0.5">Adresse</p>
-                    <p className="text-[var(--black)]">{application.address}</p>
-                  </div>
-                )}
-              </div>
-            </section>
-
-            {/* Education / Profile */}
-            <section className="bg-white rounded-xl border border-[var(--border)] p-6">
-              <h2 className="font-['Space_Grotesk'] font-bold text-[var(--black)] mb-4">
-                Éducation & profil
-              </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-                <div>
-                  <p className="text-[var(--text-muted)] mb-0.5">Situation actuelle</p>
-                  <p className="text-[var(--black)]">{SITUATION[application.situation] || application.situation}</p>
-                </div>
-                <div>
-                  <p className="text-[var(--text-muted)] mb-0.5">Niveau d&apos;étude</p>
-                  <p className="text-[var(--black)]">{EDUCATION[application.education_level] || application.education_level}</p>
-                </div>
-                {application.experience_professionnelle && (
-                  <div className="sm:col-span-2">
-                    <p className="text-[var(--text-muted)] mb-0.5">Expérience professionnelle</p>
-                    <p className="text-[var(--black)]">{application.experience_professionnelle}</p>
-                  </div>
-                )}
-                {application.experience_entrepreneuriale && (
-                  <div className="sm:col-span-2">
-                    <p className="text-[var(--text-muted)] mb-0.5">Expérience entrepreneuriale</p>
-                    <p className="text-[var(--black)]">{application.experience_entrepreneuriale}</p>
-                  </div>
-                )}
-              </div>
-            </section>
-
-            {/* Project */}
-            <section className="bg-white rounded-xl border border-[var(--border)] p-6">
-              <h2 className="font-['Space_Grotesk'] font-bold text-[var(--black)] mb-4">
-                Projet
-              </h2>
-              <div className="space-y-4 text-sm">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <p className="text-[var(--text-muted)] mb-0.5">Nom du projet</p>
-                    <p className="text-[var(--black)] font-medium">{application.project_name}</p>
-                  </div>
-                  <div>
-                    <p className="text-[var(--text-muted)] mb-0.5">Secteur</p>
-                    <p className="text-[var(--black)] capitalize">{application.sector}</p>
-                  </div>
-                  <div>
-                    <p className="text-[var(--text-muted)] mb-0.5">Type d&apos;activité</p>
-                    <p className="text-[var(--black)] capitalize">{application.activity_type.replace(/_/g, " ")}</p>
-                  </div>
-                </div>
-                <div>
-                  <p className="text-[var(--text-muted)] mb-0.5">Description du projet</p>
-                  <p className="text-[var(--black)]">{application.project_description}</p>
-                </div>
-                <div>
-                  <p className="text-[var(--text-muted)] mb-0.5">Problème identifié</p>
-                  <p className="text-[var(--black)]">{application.problem_identified}</p>
-                </div>
-                <div>
-                  <p className="text-[var(--text-muted)] mb-0.5">Solution proposée</p>
-                  <p className="text-[var(--black)]">{application.solution_proposed}</p>
-                </div>
-                <div>
-                  <p className="text-[var(--text-muted)] mb-0.5">Marché cible</p>
-                  <p className="text-[var(--black)]">{application.target_market}</p>
-                </div>
-              </div>
-            </section>
-
-            {/* Motivation */}
-            <section className="bg-white rounded-xl border border-[var(--border)] p-6">
-              <h2 className="font-['Space_Grotesk'] font-bold text-[var(--black)] mb-4">
-                Motivation
-              </h2>
-              <div className="space-y-4 text-sm">
-                <div>
-                  <p className="text-[var(--text-muted)] mb-0.5">Motivation</p>
-                  <p className="text-[var(--black)]">{application.motivation}</p>
-                </div>
-                <div>
-                  <p className="text-[var(--text-muted)] mb-0.5">Besoins</p>
-                  <div className="flex flex-wrap gap-2 mt-1">
-                    {application.needs.map((need) => (
-                      <span
-                        key={need}
-                        className="text-xs font-medium px-2 py-0.5 rounded-full bg-[var(--border)] text-[var(--black)]"
-                      >
-                        {need.replace(/_/g, " ")}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <div>
-                  <p className="text-[var(--text-muted)] mb-0.5">Réalisations</p>
-                  <p className="text-[var(--black)]">{application.accomplishments}</p>
-                </div>
-              </div>
-            </section>
-          </div>
-
-          {/* RIGHT — 1/3 */}
-          <div className="space-y-6">
-            {/* Status card */}
-            <section className="bg-white rounded-xl border border-[var(--border)] p-6">
-              <h2 className="font-['Space_Grotesk'] font-bold text-[var(--black)] mb-4">
-                Statut
-              </h2>
-
-              <div className="flex items-center gap-3 mb-4">
-                <span className={`text-sm font-medium px-3 py-1 rounded-full ${currentConfig.color} ${currentConfig.bg}`}>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="space-y-1">
+              <div className="flex items-center gap-3">
+                <span className="font-['JetBrains_Mono'] text-xs font-semibold px-2.5 py-1 rounded bg-void-2 text-teal border border-teal/20">
+                  {application.reference_number}
+                </span>
+                <span className={`text-xs font-medium px-3 py-1 rounded-full border ${currentConfig.bg} ${currentConfig.color} ${currentConfig.border}`}>
                   {currentConfig.label}
                 </span>
-                {application.reviewed_at && (
-                  <span className="text-xs text-[var(--text-muted)]">
-                    {new Date(application.reviewed_at).toLocaleDateString("fr-FR")}
-                  </span>
-                )}
+              </div>
+              <h1 className="font-['Space_Grotesk'] text-3xl font-bold text-text-primary tracking-tight">
+                {application.first_name} {application.last_name}
+              </h1>
+            </div>
+
+            <div className="flex items-center gap-2 text-xs text-text-muted">
+              <Calendar className="w-4 h-4 text-teal" />
+              <span>
+                Soumis le{" "}
+                {new Date(application.created_at).toLocaleDateString("fr-FR", {
+                  day: "numeric",
+                  month: "long",
+                  year: "numeric",
+                })}
+              </span>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* 2-Column Grid */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+          className="grid grid-cols-1 lg:grid-cols-3 gap-8"
+        >
+          {/* Main Candidate Dossier (2/3) */}
+          <div className="lg:col-span-2 space-y-8">
+            {/* Project Overview Card */}
+            <div className="rounded-2xl glass p-6 md:p-8 space-y-6 border border-glass-border">
+              <div className="flex items-center justify-between pb-4 border-b border-glass-border">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-teal/10 flex items-center justify-center text-teal">
+                    <Target className="w-5 h-5" strokeWidth={1.5} />
+                  </div>
+                  <div>
+                    <h2 className="font-['Space_Grotesk'] font-bold text-lg text-text-primary">
+                      {application.project_name}
+                    </h2>
+                    <span className="text-xs text-text-muted flex items-center gap-1.5 capitalize mt-0.5">
+                      <SectorIcon className="w-3.5 h-3.5 text-teal" />
+                      {application.sector} — {application.activity_type.replace(/_/g, " ")}
+                    </span>
+                  </div>
+                </div>
               </div>
 
-              {/* Status change dropdown */}
-              <div className="relative">
-                <button
-                  onClick={() => setStatusDropdownOpen(!statusDropdownOpen)}
-                  disabled={updating}
-                  className="w-full text-left rounded-lg border border-[var(--border)] bg-white px-4 py-2.5 text-sm text-[var(--black)] hover:bg-gray-50 transition disabled:opacity-50 flex items-center justify-between"
-                >
-                  <span>Changer le statut</span>
-                  <svg className={`w-4 h-4 text-[var(--text-muted)] transition ${statusDropdownOpen ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
+              <div className="space-y-4 text-sm">
+                <div>
+                  <span className="text-xs text-text-muted font-medium block mb-1">
+                    Description du projet
+                  </span>
+                  <p className="text-text-primary leading-relaxed bg-void-2/60 p-4 rounded-xl border border-glass-border">
+                    {application.project_description}
+                  </p>
+                </div>
 
-                {statusDropdownOpen && (
-                  <div className="absolute z-10 mt-1 w-full bg-white rounded-lg border border-[var(--border)] shadow-lg py-1">
-                    {Object.entries(STATUS_CONFIG).map(([key, cfg]) => (
-                      <button
-                        key={key}
-                        onClick={() => handleStatusChange(key)}
-                        disabled={key === application.status}
-                        className={`w-full text-left px-4 py-2 text-sm flex items-center gap-2 hover:bg-gray-50 transition ${
-                          key === application.status ? "opacity-40 cursor-not-allowed" : ""
-                        }`}
-                      >
-                        <span className={`w-2 h-2 rounded-full ${cfg.bg} ${cfg.color}`} style={{ backgroundColor: "currentColor" }} />
-                        {cfg.label}
-                      </button>
-                    ))}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <span className="text-xs text-text-muted font-medium block mb-1">
+                      Problème identifié
+                    </span>
+                    <p className="text-text-primary leading-relaxed bg-void-2/60 p-4 rounded-xl border border-glass-border text-xs">
+                      {application.problem_identified}
+                    </p>
+                  </div>
+                  <div>
+                    <span className="text-xs text-text-muted font-medium block mb-1">
+                      Solution proposée
+                    </span>
+                    <p className="text-text-primary leading-relaxed bg-void-2/60 p-4 rounded-xl border border-glass-border text-xs">
+                      {application.solution_proposed}
+                    </p>
+                  </div>
+                </div>
+
+                <div>
+                  <span className="text-xs text-text-muted font-medium block mb-1">
+                    Marché cible & clients
+                  </span>
+                  <p className="text-text-primary leading-relaxed bg-void-2/60 p-4 rounded-xl border border-glass-border text-xs">
+                    {application.target_market}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Personal Information & Education */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Contact Card */}
+              <div className="rounded-2xl glass p-6 space-y-4 border border-glass-border">
+                <h3 className="font-['Space_Grotesk'] font-bold text-base text-text-primary flex items-center gap-2 pb-3 border-b border-glass-border">
+                  <MapPin className="w-4 h-4 text-teal" />
+                  Coordonnées
+                </h3>
+                <div className="space-y-3 text-xs">
+                  <div>
+                    <span className="text-text-muted">Email :</span>
+                    <p className="font-medium text-text-primary mt-0.5">{application.email}</p>
+                  </div>
+                  <div>
+                    <span className="text-text-muted">Téléphone :</span>
+                    <p className="font-medium text-text-primary mt-0.5">{application.phone}</p>
+                  </div>
+                  <div>
+                    <span className="text-text-muted">District & Commune :</span>
+                    <p className="font-medium text-text-primary capitalize mt-0.5">
+                      {application.district} — {application.commune || "Non précisé"}
+                    </p>
+                  </div>
+                  {application.address && (
+                    <div>
+                      <span className="text-text-muted">Adresse :</span>
+                      <p className="font-medium text-text-primary mt-0.5">{application.address}</p>
+                    </div>
+                  )}
+                  {application.date_of_birth && (
+                    <div>
+                      <span className="text-text-muted">Date de naissance :</span>
+                      <p className="font-medium text-text-primary mt-0.5">
+                        {new Date(application.date_of_birth).toLocaleDateString("fr-FR")}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Background & Profile */}
+              <div className="rounded-2xl glass p-6 space-y-4 border border-glass-border">
+                <h3 className="font-['Space_Grotesk'] font-bold text-base text-text-primary flex items-center gap-2 pb-3 border-b border-glass-border">
+                  <GraduationCap className="w-4 h-4 text-teal" />
+                  Profil & Parcours
+                </h3>
+                <div className="space-y-3 text-xs">
+                  <div>
+                    <span className="text-text-muted">Situation actuelle :</span>
+                    <p className="font-medium text-text-primary mt-0.5">
+                      {SITUATION[application.situation] || application.situation}
+                    </p>
+                  </div>
+                  <div>
+                    <span className="text-text-muted">Niveau d&apos;études :</span>
+                    <p className="font-medium text-text-primary mt-0.5">
+                      {EDUCATION[application.education_level] || application.education_level}
+                    </p>
+                  </div>
+                  {application.experience_professionnelle && (
+                    <div>
+                      <span className="text-text-muted">Expérience professionnelle :</span>
+                      <p className="text-text-primary mt-0.5 bg-void-2/40 p-2.5 rounded-lg border border-glass-border">
+                        {application.experience_professionnelle}
+                      </p>
+                    </div>
+                  )}
+                  {application.experience_entrepreneuriale && (
+                    <div>
+                      <span className="text-text-muted">Expérience entrepreneuriale :</span>
+                      <p className="text-text-primary mt-0.5 bg-void-2/40 p-2.5 rounded-lg border border-glass-border">
+                        {application.experience_entrepreneuriale}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Motivation & Needs */}
+            <div className="rounded-2xl glass p-6 md:p-8 space-y-6 border border-glass-border">
+              <h3 className="font-['Space_Grotesk'] font-bold text-base text-text-primary flex items-center gap-2 pb-3 border-b border-glass-border">
+                <Sparkles className="w-4 h-4 text-teal" />
+                Motivation & Besoins exprimés
+              </h3>
+
+              <div className="space-y-4 text-sm">
+                <div>
+                  <span className="text-xs text-text-muted font-medium block mb-1">
+                    Lettre de motivation & engagement
+                  </span>
+                  <p className="text-text-primary leading-relaxed bg-void-2/60 p-4 rounded-xl border border-glass-border text-xs">
+                    {application.motivation}
+                  </p>
+                </div>
+
+                <div>
+                  <span className="text-xs text-text-muted font-medium block mb-2">
+                    Besoins prioritaires identifiés
+                  </span>
+                  <div className="flex flex-wrap gap-2">
+                    {application.needs && application.needs.length > 0 ? (
+                      application.needs.map((n) => (
+                        <span
+                          key={n}
+                          className="text-xs font-semibold px-3 py-1.5 rounded-xl bg-teal/10 text-teal border border-teal/20 capitalize"
+                        >
+                          {n.replace(/_/g, " ")}
+                        </span>
+                      ))
+                    ) : (
+                      <span className="text-xs text-text-muted">Aucun besoin spécifique coché</span>
+                    )}
+                  </div>
+                </div>
+
+                {application.accomplishments && (
+                  <div>
+                    <span className="text-xs text-text-muted font-medium block mb-1">
+                      Objectifs & Réalisations attendues
+                    </span>
+                    <p className="text-text-primary leading-relaxed bg-void-2/60 p-4 rounded-xl border border-glass-border text-xs">
+                      {application.accomplishments}
+                    </p>
                   </div>
                 )}
               </div>
-            </section>
+            </div>
 
-            {/* Status history timeline */}
-            <section className="bg-white rounded-xl border border-[var(--border)] p-6">
-              <h2 className="font-['Space_Grotesk'] font-bold text-[var(--black)] mb-4">
-                Historique
-              </h2>
+            {/* In-Page Evaluation Form */}
+            <div className="rounded-2xl glass p-6 md:p-8 space-y-6 border border-teal/30 relative">
+              <div className="flex items-center justify-between pb-4 border-b border-glass-border">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-teal/10 flex items-center justify-center text-teal">
+                    <Star className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="font-['Space_Grotesk'] font-bold text-lg text-text-primary">
+                      Grille d&apos;évaluation
+                    </h3>
+                    <p className="text-xs text-text-muted">Attribuez une note de 1 à 5 sur chaque critère</p>
+                  </div>
+                </div>
+                <span className="font-['Space_Grotesk'] font-bold text-lg text-teal">
+                  Score :{" "}
+                  {evalScores.pertinence +
+                    evalScores.faisabilite +
+                    evalScores.motivation_score +
+                    evalScores.potentiel_economique +
+                    evalScores.impact_local}{" "}
+                  / 25
+                </span>
+              </div>
+
+              {evalSuccess && (
+                <div className="p-4 rounded-xl bg-teal/10 border border-teal/30 text-teal text-xs flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 shrink-0" />
+                  <span>Évaluation enregistrée avec succès dans la base de données.</span>
+                </div>
+              )}
+
+              <form onSubmit={handleSaveEvaluation} className="space-y-5 text-xs">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {[
+                    { key: "pertinence", label: "Pertinence du projet" },
+                    { key: "faisabilite", label: "Faisabilité technique & financière" },
+                    { key: "motivation_score", label: "Motivation du candidat" },
+                    { key: "potentiel_economique", label: "Potentiel économique & marché" },
+                    { key: "impact_local", label: "Impact local & création d'emplois" },
+                  ].map((crit) => (
+                    <div key={crit.key} className="p-3.5 rounded-xl bg-void-2/60 border border-glass-border space-y-2">
+                      <div className="flex justify-between items-center">
+                        <span className="font-medium text-text-primary">{crit.label}</span>
+                        <span className="font-bold text-teal text-sm">
+                          {evalScores[crit.key as keyof typeof evalScores]} / 5
+                        </span>
+                      </div>
+                      <input
+                        type="range"
+                        min="1"
+                        max="5"
+                        value={evalScores[crit.key as keyof typeof evalScores]}
+                        onChange={(e) =>
+                          setEvalScores((prev) => ({
+                            ...prev,
+                            [crit.key]: parseInt(e.target.value, 10),
+                          }))
+                        }
+                        className="w-full accent-teal cursor-pointer"
+                      />
+                    </div>
+                  ))}
+
+                  <div className="p-3.5 rounded-xl bg-void-2/60 border border-glass-border space-y-1.5">
+                    <span className="font-medium text-text-primary block">Avis global</span>
+                    <select
+                      value={evalRecommendation}
+                      onChange={(e) => setEvalRecommendation(e.target.value)}
+                      className="w-full rounded-lg bg-void border border-glass-border p-2 text-text-primary focus:outline-none focus:ring-1 focus:ring-teal"
+                    >
+                      <option value="Favorable">Favorable (Recommandé)</option>
+                      <option value="Très favorable">Très favorable (Prioritaire)</option>
+                      <option value="Réservé">Réservé (À approfondir)</option>
+                      <option value="Défavorable">Défavorable (Non retenu)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="font-medium text-text-muted block mb-1">Points forts</label>
+                    <textarea
+                      rows={3}
+                      value={evalStrengths}
+                      onChange={(e) => setEvalStrengths(e.target.value)}
+                      placeholder="Ex: Bonne maîtrise technique du secteur, fort ancrage local..."
+                      className="w-full rounded-xl bg-void-2/60 border border-glass-border p-3 text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-1 focus:ring-teal"
+                    />
+                  </div>
+                  <div>
+                    <label className="font-medium text-text-muted block mb-1">Points d&apos;amélioration / Risques</label>
+                    <textarea
+                      rows={3}
+                      value={evalWeaknesses}
+                      onChange={(e) => setEvalWeaknesses(e.target.value)}
+                      placeholder="Ex: Besoin d'accompagnement en gestion financière..."
+                      className="w-full rounded-xl bg-void-2/60 border border-glass-border p-3 text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-1 focus:ring-teal"
+                    />
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={evalSubmitting}
+                  className="w-full rounded-xl bg-teal px-6 py-3 font-['Space_Grotesk'] font-bold text-void text-sm transition hover:scale-[1.01] hover:shadow-lg hover:shadow-teal/20 flex items-center justify-center gap-2 disabled:opacity-50"
+                >
+                  <Save className="w-4 h-4" />
+                  <span>{evalSubmitting ? "Enregistrement..." : "Enregistrer cette évaluation"}</span>
+                </button>
+              </form>
+            </div>
+          </div>
+
+          {/* Right Sidebar (1/3): Status & Audit Trail */}
+          <div className="space-y-6">
+            {/* Status Control Card */}
+            <div className="rounded-2xl glass p-6 space-y-5 border border-glass-border">
+              <h3 className="font-['Space_Grotesk'] font-bold text-base text-text-primary pb-3 border-b border-glass-border">
+                Gestion du Statut
+              </h3>
+
+              <div className="flex items-center justify-between">
+                <span className="text-xs text-text-muted">Statut actuel :</span>
+                <span className={`text-xs font-semibold px-3 py-1 rounded-full border ${currentConfig.bg} ${currentConfig.color} ${currentConfig.border}`}>
+                  {currentConfig.label}
+                </span>
+              </div>
+
+              <div className="space-y-3">
+                <label className="text-xs text-text-muted font-medium block">
+                  Changer l&apos;état du dossier :
+                </label>
+                <div className="relative">
+                  <button
+                    onClick={() => setStatusDropdownOpen(!statusDropdownOpen)}
+                    disabled={updating}
+                    className="w-full rounded-xl bg-void-2 border border-glass-border p-3 text-xs font-medium text-text-primary flex items-center justify-between hover:border-teal transition disabled:opacity-50"
+                  >
+                    <span>Sélectionner un nouveau statut</span>
+                    <ChevronDown className={`w-4 h-4 text-text-muted transition ${statusDropdownOpen ? "rotate-180" : ""}`} />
+                  </button>
+
+                  {statusDropdownOpen && (
+                    <div className="absolute z-20 mt-1.5 w-full rounded-xl bg-void-2 border border-glass-border shadow-2xl p-1.5 space-y-1">
+                      {Object.entries(STATUS_CONFIG).map(([key, cfg]) => (
+                        <button
+                          key={key}
+                          onClick={() => handleStatusChange(key)}
+                          disabled={key === application.status}
+                          className={`w-full text-left px-3 py-2 rounded-lg text-xs flex items-center gap-2.5 transition ${
+                            key === application.status
+                              ? "bg-glass-bg-strong opacity-40 cursor-not-allowed text-text-muted"
+                              : "hover:bg-glass-bg text-text-primary"
+                          }`}
+                        >
+                          <span className={`w-2 h-2 rounded-full ${cfg.bg} ${cfg.color}`} style={{ backgroundColor: "currentColor" }} />
+                          <span>{cfg.label}</span>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <input
+                  type="text"
+                  placeholder="Motif / Commentaire (optionnel)"
+                  value={statusReason}
+                  onChange={(e) => setStatusReason(e.target.value)}
+                  className="w-full rounded-xl bg-void-2 border border-glass-border p-2.5 text-xs text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-1 focus:ring-teal"
+                />
+              </div>
+            </div>
+
+            {/* Uploaded Documents */}
+            <div className="rounded-2xl glass p-6 space-y-4 border border-glass-border">
+              <h3 className="font-['Space_Grotesk'] font-bold text-base text-text-primary flex items-center gap-2 pb-3 border-b border-glass-border">
+                <FileText className="w-4 h-4 text-teal" />
+                Pièces jointes ({documents.length})
+              </h3>
+
+              {documents.length === 0 ? (
+                <p className="text-xs text-text-muted text-center py-4">
+                  Aucun document téléversé pour ce dossier.
+                </p>
+              ) : (
+                <div className="space-y-2">
+                  {documents.map((doc) => (
+                    <div
+                      key={doc.id}
+                      className="p-3 rounded-xl bg-void-2/60 border border-glass-border flex items-center justify-between text-xs"
+                    >
+                      <div className="min-w-0 flex-1 pr-2">
+                        <p className="font-medium text-text-primary truncate">{doc.file_name}</p>
+                        <span className="text-[10px] text-text-muted uppercase font-['JetBrains_Mono']">
+                          {doc.document_type}
+                        </span>
+                      </div>
+                      <a
+                        href={`https://jvphzfcbbipbnzycllwj.supabase.co/storage/v1/object/public/application-documents/${doc.file_path}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="p-2 rounded-lg glass hover:bg-teal hover:text-void text-text-muted transition shrink-0"
+                        title="Télécharger"
+                      >
+                        <Download className="w-3.5 h-3.5" />
+                      </a>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Audit History Timeline */}
+            <div className="rounded-2xl glass p-6 space-y-4 border border-glass-border">
+              <h3 className="font-['Space_Grotesk'] font-bold text-base text-text-primary flex items-center gap-2 pb-3 border-b border-glass-border">
+                <Clock className="w-4 h-4 text-teal" />
+                Historique des statuts
+              </h3>
 
               {history.length === 0 ? (
-                <p className="text-sm text-[var(--text-muted)]">Aucun historique disponible.</p>
+                <p className="text-xs text-text-muted">Aucune modification enregistrée.</p>
               ) : (
-                <div className="space-y-4">
-                  {history.map((entry) => {
+                <div className="space-y-3">
+                  {history.map((entry, i) => {
                     const cfg = STATUS_CONFIG[entry.new_status] || STATUS_CONFIG.new;
                     return (
-                      <div key={entry.id} className="flex gap-3">
+                      <div key={entry.id} className="flex gap-3 text-xs">
                         <div className="flex flex-col items-center">
-                          <div className={`w-2.5 h-2.5 rounded-full mt-1.5 ${cfg.bg}`} />
-                          <div className="w-px flex-1 bg-[var(--border)]" />
-                        </div>
-                        <div className="pb-4 flex-1 min-w-0">
-                          <p className="text-sm font-medium text-[var(--black)]">
-                            {cfg.label}
-                          </p>
-                          {entry.old_status && (
-                            <p className="text-xs text-[var(--text-muted)]">
-                              {STATUS_CONFIG[entry.old_status]?.label || entry.old_status} → {cfg.label}
-                            </p>
+                          <div className={`w-2.5 h-2.5 rounded-full mt-1 ${cfg.bg} border ${cfg.border}`} style={{ backgroundColor: "currentColor" }} />
+                          {i < history.length - 1 && (
+                            <div className="w-px flex-1 my-1 bg-glass-border" />
                           )}
-                          <p className="text-xs text-[var(--text-muted)] mt-0.5">
+                        </div>
+                        <div className="pb-3 flex-1">
+                          <p className="font-semibold text-text-primary">{cfg.label}</p>
+                          <p className="text-[11px] text-text-muted mt-0.5">
                             {new Date(entry.created_at).toLocaleDateString("fr-FR", {
                               day: "numeric",
                               month: "short",
@@ -422,8 +753,8 @@ export default function CandidatureDetailPage() {
                             })}
                           </p>
                           {entry.reason && (
-                            <p className="text-xs text-[var(--text-muted)] mt-1 italic">
-                              {entry.reason}
+                            <p className="text-[11px] text-teal mt-1 italic">
+                              "{entry.reason}"
                             </p>
                           )}
                         </div>
@@ -432,9 +763,9 @@ export default function CandidatureDetailPage() {
                   })}
                 </div>
               )}
-            </section>
+            </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </AdminLayout>
   );

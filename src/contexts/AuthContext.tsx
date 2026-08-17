@@ -43,11 +43,32 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setUser(authUser);
 
       if (authUser) {
-        const { data } = await supabase
+        let { data } = await supabase
           .from("profiles")
           .select("id, full_name, role")
           .eq("id", authUser.id)
           .single();
+
+        // Auto-create profile if missing (fallback when DB trigger is not applied)
+        if (!data) {
+          const { data: created } = await supabase
+            .from("profiles")
+            .upsert(
+              {
+                id: authUser.id,
+                full_name:
+                  authUser.user_metadata?.full_name ??
+                  authUser.user_metadata?.name ??
+                  "",
+                role: "candidate",
+              },
+              { onConflict: "id" }
+            )
+            .select("id, full_name, role")
+            .single();
+          data = created;
+        }
+
         setProfile(data);
       }
 
@@ -62,11 +83,32 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setUser(newUser);
 
         if (newUser) {
-          const { data } = await supabase
+          let { data } = await supabase
             .from("profiles")
             .select("id, full_name, role")
             .eq("id", newUser.id)
             .single();
+
+          // Auto-create profile if missing
+          if (!data) {
+            const { data: created } = await supabase
+              .from("profiles")
+              .upsert(
+                {
+                  id: newUser.id,
+                  full_name:
+                    newUser.user_metadata?.full_name ??
+                    newUser.user_metadata?.name ??
+                    "",
+                  role: "candidate",
+                },
+                { onConflict: "id" }
+              )
+              .select("id, full_name, role")
+              .single();
+            data = created;
+          }
+
           setProfile(data);
         } else {
           setProfile(null);

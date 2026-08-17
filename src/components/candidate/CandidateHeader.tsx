@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-import { Check } from "lucide-react";
+import { Check, Eye } from "lucide-react";
 
 const steps = [
   { number: "01", label: "Informations", href: "/candidater/informations" },
@@ -24,7 +24,7 @@ export function CandidateHeader() {
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3">
           <Image
-            src="/images/logo/logo-transparent-light.png"
+            src="/images/logo/logo-transparent-dark.png"
             alt="Harmonia Progrès"
             width={140}
             height={36}
@@ -63,9 +63,10 @@ export function CandidateHeader() {
 
         <Link
           href="/candidater/suivi"
-          className="text-sm font-medium text-text-muted hover:text-text-primary transition"
+          className="rounded-xl bg-teal/10 border border-teal/30 px-3.5 py-1.5 text-xs font-semibold text-teal hover:bg-teal hover:text-void transition flex items-center gap-1.5"
         >
-          Suivi
+          <Eye className="w-3.5 h-3.5" />
+          <span>Suivi</span>
         </Link>
       </div>
     </header>

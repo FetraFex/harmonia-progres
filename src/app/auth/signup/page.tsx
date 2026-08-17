@@ -61,6 +61,26 @@ export default function SignupPage() {
       return;
     }
 
+    // Ensure profile exists in the profiles table (fallback if DB trigger is missing)
+    const userId = authData.user?.id;
+    if (userId) {
+      const { error: profileError } = await supabase
+        .from("profiles")
+        .upsert(
+          {
+            id: userId,
+            full_name: data.fullName,
+            role: "candidate",
+          },
+          { onConflict: "id" }
+        );
+
+      // Ignore duplicate/RLS errors — the trigger may have already created it
+      if (profileError && profileError.code !== "23505") {
+        console.warn("Profile creation fallback failed:", profileError.message);
+      }
+    }
+
     if (authData.session) {
       router.push("/account");
       router.refresh();
