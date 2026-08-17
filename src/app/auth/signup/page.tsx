@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { createClient } from "@/lib/supabase/client";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { Mail, Lock, User, Eye, EyeOff, Loader2, CheckCircle2 } from "lucide-react";
 
 const signupSchema = z.object({
@@ -130,10 +131,14 @@ export default function SignupPage() {
       >
         <div className="mb-10 text-center">
           <Link href="/" className="inline-block mb-6">
-            <span className="font-['Space_Grotesk'] text-2xl font-bold tracking-tight">
-              <span className="text-white">H</span>
-              <span className="text-teal">ARMONIA</span>
-            </span>
+            <Image
+              src="/images/logo/logo-transparent-dark.png"
+              alt="Harmonia Progrès"
+              width={160}
+              height={40}
+              priority
+              className="h-10 w-auto mx-auto object-contain"
+            />
           </Link>
           <h1 className="font-['Space_Grotesk'] text-3xl font-bold text-white">
             Créer un compte

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useCallback, useState, useRef } from "react";
-import { Upload, FileText, X, Check } from "lucide-react";
+import { Upload, FileText, X, Check, AlertTriangle } from "lucide-react";
 
 interface FileUploaderProps {
   accept?: string;
@@ -11,35 +11,53 @@ interface FileUploaderProps {
   maxSize?: number;
 }
 
+// Accepted MIME types: images + PDF only
+const ACCEPTED_MIME_TYPES = new Set([
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+  "image/gif",
+  "application/pdf",
+]);
+
+// Accepted extensions as a fallback check (some browsers report empty MIME)
+const ACCEPTED_EXTENSIONS = new Set([
+  ".jpg",
+  ".jpeg",
+  ".png",
+  ".webp",
+  ".gif",
+  ".pdf",
+]);
+
+function isAcceptedFile(file: File): boolean {
+  if (ACCEPTED_MIME_TYPES.has(file.type)) return true;
+  const ext = file.name.toLowerCase().slice(file.name.lastIndexOf("."));
+  return ACCEPTED_EXTENSIONS.has(ext);
+}
+
 export function FileUploader({
-  accept = ".pdf,.jpg,.jpeg,.png",
+  accept = ".jpg,.jpeg,.png,.webp,.gif,.pdf",
   label,
   file,
   onFileSelect,
   maxSize = 5,
 }: FileUploaderProps) {
   const [isDragging, setIsDragging] = useState(false);
-  const [uploadProgress, setUploadProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleFile = useCallback(
     (f: File) => {
       setError(null);
-      if (f.size > maxSize * 1024 * 1024) {
-        setError(`Le fichier dépasse ${maxSize} Mo`);
+      if (!isAcceptedFile(f)) {
+        setError("Format non accepté. Seuls les fichiers image (JPG, PNG, WebP, GIF) ou PDF sont autorisés.");
         return;
       }
-      setUploadProgress(0);
-      const interval = setInterval(() => {
-        setUploadProgress((prev) => {
-          if (prev >= 100) {
-            clearInterval(interval);
-            return 100;
-          }
-          return prev + 20;
-        });
-      }, 100);
+      if (f.size > maxSize * 1024 * 1024) {
+        setError(`Le fichier dépasse ${maxSize} Mo.`);
+        return;
+      }
       onFileSelect(f);
     },
     [maxSize, onFileSelect]
@@ -58,6 +76,7 @@ export function FileUploader({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0];
     if (f) handleFile(f);
+    e.target.value = "";
   };
 
   const formatSize = (bytes: number) => {
@@ -78,12 +97,10 @@ export function FileUploader({
             <p className="text-xs text-text-muted">{formatSize(file.size)}</p>
           </div>
           <div className="flex items-center gap-3">
-            {uploadProgress === 100 && (
-              <span className="flex items-center gap-1 text-xs font-medium text-teal">
-                <Check className="w-3.5 h-3.5" />
-                Téléchargé
-              </span>
-            )}
+            <span className="flex items-center gap-1 text-xs font-medium text-teal">
+              <Check className="w-3.5 h-3.5" />
+              Sélectionné
+            </span>
             <button
               onClick={() => onFileSelect(null)}
               className="p-1.5 rounded-lg text-text-muted hover:text-red-400 hover:bg-red-500/10 transition"
@@ -92,17 +109,6 @@ export function FileUploader({
             </button>
           </div>
         </div>
-        {uploadProgress < 100 && (
-          <div className="mt-3">
-            <div className="h-1.5 bg-glass-bg rounded-full overflow-hidden">
-              <div
-                className="h-full bg-teal rounded-full transition-all duration-300"
-                style={{ width: `${uploadProgress}%` }}
-              />
-            </div>
-            <p className="text-xs text-text-muted mt-1">{uploadProgress}%</p>
-          </div>
-        )}
       </div>
     );
   }
@@ -134,11 +140,12 @@ export function FileUploader({
           <span className="font-medium text-teal">parcourir</span>
         </p>
         <p className="text-xs text-text-muted mt-1.5">
-          PDF, JPG, PNG — max {maxSize} Mo
+          Image (JPG, PNG, WebP, GIF) ou PDF — max {maxSize} Mo
         </p>
       </div>
       {error && (
-        <p className="text-xs text-red-400 mt-1.5 flex items-center gap-1">
+        <p className="text-xs text-red-400 mt-1.5 flex items-center gap-1.5">
+          <AlertTriangle className="w-3.5 h-3.5 shrink-0" />
           {error}
         </p>
       )}

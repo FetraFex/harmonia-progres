@@ -78,6 +78,7 @@ export default function CandidatureDetailPage() {
   const [application, setApplication] = useState<Application | null>(null);
   const [history, setHistory] = useState<ApplicationStatusHistory[]>([]);
   const [documents, setDocuments] = useState<ApplicationDocument[]>([]);
+  const [docUrls, setDocUrls] = useState<Record<string, string>>({});
   const [evaluations, setEvaluations] = useState<ApplicationEvaluation[]>([]);
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
@@ -137,9 +138,22 @@ export default function CandidatureDetailPage() {
           .order("created_at", { ascending: false }),
       ]);
 
+      const docsData = (docsRes.data as ApplicationDocument[]) || [];
       setHistory((histRes.data as ApplicationStatusHistory[]) || []);
-      setDocuments((docsRes.data as ApplicationDocument[]) || []);
+      setDocuments(docsData);
       setEvaluations((evalRes.data as ApplicationEvaluation[]) || []);
+
+      // Generate signed URLs for each document (bucket is private)
+      const urls: Record<string, string> = {};
+      for (const doc of docsData) {
+        const { data: signedData } = await supabase.storage
+          .from("application-documents")
+          .createSignedUrl(doc.file_path, 3600);
+        if (signedData?.signedUrl) {
+          urls[doc.id] = signedData.signedUrl;
+        }
+      }
+      setDocUrls(urls);
       setLoading(false);
     }
     load();
@@ -706,10 +720,10 @@ export default function CandidatureDetailPage() {
                         </span>
                       </div>
                       <a
-                        href={`https://jvphzfcbbipbnzycllwj.supabase.co/storage/v1/object/public/application-documents/${doc.file_path}`}
+                        href={docUrls[doc.id] || "#"}
                         target="_blank"
                         rel="noreferrer"
-                        className="p-2 rounded-lg glass hover:bg-teal hover:text-void text-text-muted transition shrink-0"
+                        className="p-2 rounded-lg glass hover:bg-teal hover:text-void text-text-muted transition shrink-0 disabled:opacity-50"
                         title="Télécharger"
                       >
                         <Download className="w-3.5 h-3.5" />

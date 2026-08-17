@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { CandidateLayout } from "@/components/candidate/CandidateLayout";
 import { FormStepLayout } from "@/components/candidate/FormStepLayout";
@@ -67,11 +67,24 @@ export default function VerificationPage() {
   const [consent, setConsent] = useState(false);
   const supabase = createClient();
 
-  const personal = JSON.parse(sessionStorage.getItem("candidater_personal") || "{}");
-  const profile = JSON.parse(sessionStorage.getItem("candidater_profile") || "{}");
-  const project = JSON.parse(sessionStorage.getItem("candidater_project") || "{}");
-  const motivation = JSON.parse(sessionStorage.getItem("candidater_motivation") || "{}");
-  const userId = sessionStorage.getItem("candidater_userId") || "";
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [personal, setPersonal] = useState<Record<string, any>>({});
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [profile, setProfile] = useState<Record<string, any>>({});
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [project, setProject] = useState<Record<string, any>>({});
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [motivation, setMotivation] = useState<Record<string, any>>({});
+  const [userId, setUserId] = useState("");
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    setPersonal(JSON.parse(sessionStorage.getItem("candidater_personal") || "{}"));
+    setProfile(JSON.parse(sessionStorage.getItem("candidater_profile") || "{}"));
+    setProject(JSON.parse(sessionStorage.getItem("candidater_project") || "{}"));
+    setMotivation(JSON.parse(sessionStorage.getItem("candidater_motivation") || "{}"));
+    setUserId(sessionStorage.getItem("candidater_userId") || "");
+  }, []);
 
   async function handleSubmit() {
     if (!consent) {
@@ -118,6 +131,37 @@ export default function VerificationPage() {
       setError(insertError.message);
       setLoading(false);
       return;
+    }
+
+    // Save uploaded documents metadata to the database
+    const storedDocs = JSON.parse(sessionStorage.getItem("candidater_documents") || "[]") as Array<{
+      document_type: string;
+      file_name: string;
+      file_path: string;
+      file_size: number;
+      mime_type: string;
+    }>;
+
+    if (storedDocs.length > 0) {
+      const { error: docsError } = await supabase.from("application_documents").insert(
+        storedDocs.map((doc) => ({
+          application_id: data.id,
+          document_type: doc.document_type,
+          file_name: doc.file_name,
+          file_path: doc.file_path,
+          file_size: doc.file_size,
+          mime_type: doc.mime_type,
+        }))
+      );
+
+      if (docsError) {
+        // Application saved, but document metadata failed — surface a soft warning
+        setError(
+          "Votre candidature a été enregistrée, mais un problème est survenu lors de l'enregistrement des documents. Contactez-nous avec votre référence."
+        );
+        setLoading(false);
+        return;
+      }
     }
 
     sessionStorage.removeItem("candidater_personal");

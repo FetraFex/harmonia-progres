@@ -110,7 +110,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
         <div className="px-6 h-16 flex items-center justify-between border-b border-glass-border shrink-0">
           <Link href="/" className="flex items-center gap-2.5 group">
             <Image
-              src="/images/logo/logo-transparent-light.png"
+              src="/images/logo/logo-transparent-dark.png"
               alt="Harmonia Progrès"
               width={130}
               height={32}
@@ -264,7 +264,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
               <Menu className="w-5 h-5" strokeWidth={1.5} />
             </button>
             <Image
-              src="/images/logo/logo-transparent-light.png"
+              src="/images/logo/logo-transparent-dark.png"
               alt="Harmonia Progrès"
               width={120}
               height={28}

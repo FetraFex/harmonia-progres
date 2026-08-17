@@ -80,7 +80,7 @@ export default function AdminLoginPage() {
         <div className="text-center mb-8">
           <Link href="/" className="inline-block mb-6 group transition">
             <Image
-              src="/images/logo/logo-transparent-light.png"
+              src="/images/logo/logo-transparent-dark.png"
               alt="Harmonia Progrès"
               width={160}
               height={40}
