@@ -6,12 +6,15 @@
 export type UserRole = "admin" | "evaluator";
 
 export type ApplicationStatus =
-  | "draft"
+  | "new"
   | "submitted"
   | "under_review"
+  | "shortlisted"
+  | "interview"
   | "accepted"
   | "rejected"
-  | "waitlisted";
+  | "waitlisted"
+  | "withdrawn";
 
 export type Sector = "artisanat" | "halieutique" | "agriculture";
 
@@ -23,6 +26,40 @@ export type EducationLevel =
   | "bachelor"
   | "master"
   | "other";
+
+export type District = "manakara" | "vohipeno" | "autre";
+
+export type ActivityType =
+  | "riziculture"
+  | "maraichage"
+  | "transformation_agri"
+  | "elevage"
+  | "vannerie"
+  | "raphia"
+  | "nattes"
+  | "paniers"
+  | "peche"
+  | "transformation_hal"
+  | "conservation"
+  | "commercialisation"
+  | "autre";
+
+export type NeedType =
+  | "formation"
+  | "equipement"
+  | "financement"
+  | "accompagnement"
+  | "marketing"
+  | "acces_marche"
+  | "mentorat";
+
+export type SituationActuelle =
+  | "etudiant"
+  | "salarie"
+  | "chomeur"
+  | "independant"
+  | "retraite"
+  | "autre";
 
 // ── profiles ──────────────────────────────────
 export interface Profile {
@@ -45,33 +82,36 @@ export interface Application {
   email: string;
   phone: string;
   date_of_birth: string | null;
-  gender: string | null;
+  district: District;
+  commune: string;
   address: string | null;
-  city: string;
-  region: string;
 
-  // Education
+  // Profile
+  situation: SituationActuelle;
   education_level: EducationLevel;
-  education_institution: string | null;
-  education_field: string | null;
+  experience_professionnelle: string | null;
+  experience_entrepreneuriale: string | null;
 
-  // Entrepreneurial project
+  // Project
   project_name: string;
-  project_description: string;
   sector: Sector;
-  project_stage: string | null;
-  existing_business: boolean;
-  business_name: string | null;
+  activity_type: ActivityType;
+  project_description: string;
+  problem_identified: string;
+  solution_proposed: string;
+  target_market: string;
 
   // Motivation
   motivation: string;
-  expectations: string | null;
+  needs: NeedType[];
+  accomplishments: string;
 
   // Status
   status: ApplicationStatus;
   reviewed_by: string | null;
   reviewed_at: string | null;
   admin_notes: string | null;
+  consent: boolean;
 
   created_at: string;
   updated_at: string;
@@ -95,6 +135,11 @@ export interface ApplicationEvaluation {
   application_id: string;
   evaluator_id: string;
   score: number | null;
+  pertinence: number | null;
+  faisabilite: number | null;
+  motivation_score: number | null;
+  potentiel_economique: number | null;
+  impact_local: number | null;
   strengths: string | null;
   weaknesses: string | null;
   recommendation: string | null;
@@ -112,15 +157,6 @@ export interface ApplicationStatusHistory {
   changed_by: string | null;
   reason: string | null;
   created_at: string;
-}
-
-// ── newsletter_subscribers ────────────────────
-export interface NewsletterSubscriber {
-  id: string;
-  email: string;
-  subscribed_at: string;
-  unsubscribed_at: string | null;
-  is_active: boolean;
 }
 
 // ── contact_messages ──────────────────────────
@@ -159,23 +195,12 @@ export interface Database {
       application_evaluations: {
         Row: ApplicationEvaluation;
         Insert: Omit<ApplicationEvaluation, "id" | "created_at" | "updated_at">;
-        Update: Partial<
-          Omit<ApplicationEvaluation, "id" | "created_at">
-        >;
+        Update: Partial<Omit<ApplicationEvaluation, "id" | "created_at">>;
       };
       application_status_history: {
         Row: ApplicationStatusHistory;
         Insert: Omit<ApplicationStatusHistory, "id" | "created_at">;
-        Update: Partial<
-          Omit<ApplicationStatusHistory, "id" | "created_at">
-        >;
-      };
-      newsletter_subscribers: {
-        Row: NewsletterSubscriber;
-        Insert: Omit<NewsletterSubscriber, "id" | "subscribed_at">;
-        Update: Partial<
-          Omit<NewsletterSubscriber, "id" | "subscribed_at">
-        >;
+        Update: Partial<Omit<ApplicationStatusHistory, "id" | "created_at">>;
       };
       contact_messages: {
         Row: ContactMessage;

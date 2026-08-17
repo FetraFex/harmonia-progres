@@ -3,7 +3,6 @@ import type {
   Application,
   ApplicationDocument,
   ApplicationEvaluation,
-  NewsletterSubscriber,
   ContactMessage,
   Sector,
   ApplicationStatus,
