@@ -6,7 +6,7 @@
 
 -- ── ENUM TYPES ────────────────────────────────
 
-CREATE TYPE user_role AS ENUM ('admin', 'evaluator');
+CREATE TYPE user_role AS ENUM ('admin', 'evaluator', 'candidate');
 
 CREATE TYPE application_status AS ENUM (
   'new',
@@ -38,7 +38,7 @@ CREATE TYPE education_level AS ENUM (
 CREATE TABLE profiles (
   id          UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
   full_name   TEXT NOT NULL DEFAULT '',
-  role        user_role NOT NULL DEFAULT 'evaluator',
+  role        user_role NOT NULL DEFAULT 'candidate',
   created_at  TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at  TIMESTAMPTZ NOT NULL DEFAULT now()
 );
@@ -46,8 +46,8 @@ CREATE TABLE profiles (
 CREATE OR REPLACE FUNCTION handle_new_user()
 RETURNS TRIGGER AS $$
 BEGIN
-  INSERT INTO public.profiles (id, full_name)
-  VALUES (new.id, COALESCE(new.raw_user_meta_data->>'full_name', ''));
+  INSERT INTO public.profiles (id, full_name, role)
+  VALUES (new.id, COALESCE(new.raw_user_meta_data->>'full_name', ''), 'candidate'::user_role);
   RETURN new;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;

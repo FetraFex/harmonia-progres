@@ -47,7 +47,7 @@ export default function SignupPage() {
     setLoading(true);
     setError(null);
 
-    const { error: authError } = await supabase.auth.signUp({
+    const { data: authData, error: authError } = await supabase.auth.signUp({
       email: data.email,
       password: data.password,
       options: {
@@ -58,6 +58,12 @@ export default function SignupPage() {
     if (authError) {
       setError(authError.message);
       setLoading(false);
+      return;
+    }
+
+    if (authData.session) {
+      router.push("/account");
+      router.refresh();
       return;
     }
 
