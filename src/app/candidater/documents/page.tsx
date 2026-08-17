@@ -6,17 +6,20 @@ import { CandidateLayout } from "@/components/candidate/CandidateLayout";
 import { FormStepLayout } from "@/components/candidate/FormStepLayout";
 import { FormNavigation } from "@/components/candidate/FormNavigation";
 import { FileUploader } from "@/components/candidate/FileUploader";
+import { FileText, IdCard, BookOpen, Briefcase, Check } from "lucide-react";
 
 const DOCUMENT_TYPES = [
-  { key: "id_card", label: "Pièce d'identité" },
-  { key: "cv", label: "Curriculum Vitae (CV)" },
-  { key: "project_presentation", label: "Présentation du projet" },
-  { key: "business_plan", label: "Business plan" },
+  { key: "id_card", label: "Pièce d'identité", icon: IdCard, required: false },
+  { key: "cv", label: "Curriculum Vitae (CV)", icon: BookOpen, required: false },
+  { key: "project_presentation", label: "Présentation du projet", icon: FileText, required: false },
+  { key: "business_plan", label: "Business plan", icon: Briefcase, required: false },
 ];
 
 export default function DocumentsPage() {
   const router = useRouter();
   const [files, setFiles] = useState<Record<string, File | null>>({});
+
+  const uploadedCount = Object.values(files).filter(Boolean).length;
 
   function handleNext() {
     sessionStorage.setItem("candidater_documents", JSON.stringify(
@@ -24,8 +27,6 @@ export default function DocumentsPage() {
         Object.entries(files).filter(([, v]) => v !== null).map(([k, v]) => [k, v!.name])
       )
     ));
-    // Store actual files in sessionStorage as data URLs (for small files)
-    // In production, upload to Supabase Storage on submit
     router.push("/candidater/verification");
   }
 
@@ -38,22 +39,42 @@ export default function DocumentsPage() {
           <>
             <p>Ces documents ne sont pas tous obligatoires, mais ils renforcent votre candidature.</p>
             <p>Formats acceptés : PDF, JPG, PNG. Taille maximale : 5 Mo par fichier.</p>
+            <p className="text-xs text-[var(--text-muted)] mt-2">
+              {uploadedCount} sur {DOCUMENT_TYPES.length} document(s) téléchargé(s).
+            </p>
           </>
         }
       >
         <div className="space-y-6">
-          <p className="text-sm text-[var(--text-muted)]">
-            Téléversez les documents que vous souhaitez joindre à votre candidature.
-          </p>
+          <div className="rounded-xl border border-[var(--border)] bg-white p-5">
+            <h3 className="font-['Space_Grotesk'] font-semibold text-sm text-[var(--black)] mb-2">
+              Documents à téléverser
+            </h3>
+            <p className="text-sm text-[var(--text-muted)] mb-5">
+              Téléversez les documents que vous souhaitez joindre à votre candidature.
+            </p>
 
-          {DOCUMENT_TYPES.map((doc) => (
-            <FileUploader
-              key={doc.key}
-              label={doc.label}
-              file={files[doc.key] || null}
-              onFileSelect={(f) => setFiles((prev) => ({ ...prev, [doc.key]: f }))}
-            />
-          ))}
+            <div className="space-y-5">
+              {DOCUMENT_TYPES.map((doc) => (
+                <FileUploader
+                  key={doc.key}
+                  label={doc.label}
+                  file={files[doc.key] || null}
+                  onFileSelect={(f) => setFiles((prev) => ({ ...prev, [doc.key]: f }))}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div className="rounded-xl bg-gray-50 border border-[var(--border)] p-4 flex items-start gap-3">
+            <div className="w-5 h-5 mt-0.5 shrink-0 rounded bg-[var(--lime)]/10 flex items-center justify-center">
+              <Check className="w-3.5 h-3.5 text-[var(--black)]" strokeWidth={2} />
+            </div>
+            <p className="text-sm text-[var(--text-muted)] leading-relaxed">
+              Aucun document n&apos;est obligatoire pour soumettre votre candidature.
+              Vous pourrez en ajouter plus tard si nécessaire.
+            </p>
+          </div>
         </div>
 
         <FormNavigation

@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
+import { Check } from "lucide-react";
 
 const steps = [
   { number: "01", label: "Informations", href: "/candidater/informations" },
@@ -14,7 +16,6 @@ const steps = [
 
 export function CandidateHeader() {
   const pathname = usePathname();
-
   const currentIdx = steps.findIndex((s) => pathname.startsWith(s.href));
   const isFormStep = currentIdx >= 0;
 
@@ -22,10 +23,13 @@ export function CandidateHeader() {
     <header className="border-b border-[var(--border)] bg-white sticky top-0 z-50">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3">
-          <span className="font-['Space_Grotesk'] text-lg font-bold tracking-tight">
-            <span className="text-[var(--black)]">H</span>
-            <span className="text-[var(--lime)]">ARMONIA</span>
-          </span>
+          <Image
+            src="/images/logo/logo-transparent-dark.png"
+            alt="Harmonia Progrès"
+            width={140}
+            height={36}
+            className="h-7 w-auto object-contain"
+          />
         </Link>
 
         {isFormStep && (
@@ -37,15 +41,19 @@ export function CandidateHeader() {
                 <Link
                   key={step.href}
                   href={step.href}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition ${
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition ${
                     isActive
                       ? "bg-[var(--lime)] text-[var(--black)]"
                       : isDone
-                        ? "bg-[var(--black)] text-white"
-                        : "text-[var(--text-muted)] hover:bg-gray-100"
+                        ? "bg-[var(--black)]/5 text-[var(--black)]"
+                        : "text-[var(--text-muted)] hover:bg-gray-50"
                   }`}
                 >
-                  <span className="font-['JetBrains_Mono']">{step.number}</span>
+                  {isDone ? (
+                    <Check className="w-3 h-3" />
+                  ) : (
+                    <span className="font-['JetBrains_Mono'] text-[10px]">{step.number}</span>
+                  )}
                   <span className="hidden lg:inline">{step.label}</span>
                 </Link>
               );

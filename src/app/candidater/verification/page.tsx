@@ -7,6 +7,7 @@ import { FormStepLayout } from "@/components/candidate/FormStepLayout";
 import { ReviewSection, ReviewItem } from "@/components/candidate/ReviewSection";
 import { createClient } from "@/lib/supabase/client";
 import type { ApplicationStatus } from "@/types/database";
+import { AlertTriangle, FileCheck, Send } from "lucide-react";
 
 const SITUATION_LABELS: Record<string, string> = {
   etudiant: "Étudiant(e)",
@@ -119,7 +120,6 @@ export default function VerificationPage() {
       return;
     }
 
-    // Clear form data from session
     sessionStorage.removeItem("candidater_personal");
     sessionStorage.removeItem("candidater_profile");
     sessionStorage.removeItem("candidater_project");
@@ -171,7 +171,10 @@ export default function VerificationPage() {
           </ReviewSection>
 
           <ReviewSection title="Documents">
-            <ReviewItem label="Documents joints" value="Voir la section documents" />
+            <div className="flex items-center gap-2 text-sm text-[var(--text-muted)]">
+              <FileCheck className="w-4 h-4" strokeWidth={1.5} />
+              <span>Documents joints vérifiés</span>
+            </div>
           </ReviewSection>
 
           {/* Consent */}
@@ -192,8 +195,9 @@ export default function VerificationPage() {
           </div>
 
           {error && (
-            <div className="rounded-xl bg-red-50 border border-red-200 p-4 text-sm text-red-700">
-              {error}
+            <div className="rounded-xl bg-red-50 border border-red-200 p-4 text-sm text-red-700 flex items-start gap-3">
+              <AlertTriangle className="w-5 h-5 shrink-0 mt-0.5" strokeWidth={1.5} />
+              <span>{error}</span>
             </div>
           )}
 
@@ -207,9 +211,10 @@ export default function VerificationPage() {
             <button
               onClick={handleSubmit}
               disabled={loading || !consent}
-              className="rounded-xl bg-[var(--black)] px-8 py-3 font-['Space_Grotesk'] font-bold text-white transition hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex items-center gap-2 rounded-xl bg-[var(--lime)] px-8 py-3 font-['Space_Grotesk'] font-bold text-[var(--black)] transition hover:scale-[1.02] disabled:opacity-40 disabled:cursor-not-allowed"
             >
-              {loading ? "Envoi de votre candidature..." : "Soumettre ma candidature"}
+              {loading ? "Envoi en cours..." : "Soumettre ma candidature"}
+              {!loading && <Send className="w-4 h-4" strokeWidth={2} />}
             </button>
           </div>
         </div>

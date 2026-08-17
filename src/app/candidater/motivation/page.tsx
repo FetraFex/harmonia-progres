@@ -7,9 +7,8 @@ import { CandidateLayout } from "@/components/candidate/CandidateLayout";
 import { FormStepLayout } from "@/components/candidate/FormStepLayout";
 import { FormNavigation } from "@/components/candidate/FormNavigation";
 import { motivationSchema, type MotivationData } from "@/types/schemas";
+import { Check } from "lucide-react";
 
-const inputClass =
-  "w-full rounded-xl border border-[var(--border)] bg-white px-4 py-3 text-[var(--black)] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--lime)] focus:border-transparent transition";
 const labelClass = "block text-sm font-medium text-[var(--black)] mb-1.5";
 const errorClass = "text-xs text-red-500 mt-1";
 
@@ -59,69 +58,92 @@ export default function MotivationPage() {
         }
       >
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          <div>
-            <label htmlFor="motivation" className={labelClass}>
-              Pourquoi souhaitez-vous participer au programme ? *
-            </label>
-            <textarea
-              id="motivation"
-              {...register("motivation")}
-              rows={5}
-              className={inputClass}
-              placeholder="Partagez votre motivation, vos objectifs..."
-            />
-            {errors.motivation && <p className={errorClass}>{errors.motivation.message}</p>}
+          <div className="rounded-xl border border-[var(--border)] bg-white p-5">
+            <h3 className="font-['Space_Grotesk'] font-semibold text-sm text-[var(--black)] mb-4">
+              Votre motivation
+            </h3>
+            <div>
+              <label htmlFor="motivation" className={labelClass}>
+                Pourquoi souhaitez-vous participer au programme ? *
+              </label>
+              <textarea
+                id="motivation"
+                {...register("motivation")}
+                rows={5}
+                className="w-full rounded-xl border border-[var(--border)] bg-white px-4 py-3 text-[var(--black)] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--lime)] focus:border-transparent transition text-sm"
+                placeholder="Partagez votre motivation, vos objectifs..."
+              />
+              {errors.motivation && <p className={errorClass}>{errors.motivation.message}</p>}
+            </div>
           </div>
 
-          <div>
-            <label className={labelClass}>Quels sont vos principaux besoins ? *</label>
-            <Controller
-              control={control}
-              name="needs"
-              render={({ field }) => (
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                  {NEED_OPTIONS.map((need) => (
-                    <label
-                      key={need.value}
-                      className={`rounded-xl border-2 p-3 text-center cursor-pointer transition text-sm ${
-                        field.value.includes(need.value as typeof field.value[number])
-                          ? "border-[var(--lime)] bg-[var(--lime)]/5 font-medium"
-                          : "border-[var(--border)] bg-white hover:border-[var(--black)]"
-                      }`}
-                    >
-                      <input
-                        type="checkbox"
-                        checked={field.value.includes(need.value as typeof field.value[number])}
-                        onChange={() => {
-                          const val = need.value as typeof field.value[number];
-                          const newValue = field.value.includes(val)
-                            ? field.value.filter((n) => n !== val)
-                            : [...field.value, val];
-                          field.onChange(newValue);
-                        }}
-                        className="sr-only"
-                      />
-                      {need.label}
-                    </label>
-                  ))}
-                </div>
-              )}
-            />
-            {errors.needs && <p className={errorClass}>{errors.needs.message}</p>}
+          <div className="rounded-xl border border-[var(--border)] bg-white p-5">
+            <h3 className="font-['Space_Grotesk'] font-semibold text-sm text-[var(--black)] mb-4">
+              Vos besoins
+            </h3>
+            <div>
+              <label className={labelClass}>Quels sont vos principaux besoins ? *</label>
+              <Controller
+                control={control}
+                name="needs"
+                render={({ field }) => (
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    {NEED_OPTIONS.map((need) => {
+                      const isSelected = field.value.includes(need.value as typeof field.value[number]);
+                      return (
+                        <label
+                          key={need.value}
+                          className={`rounded-xl border-2 p-3 cursor-pointer transition text-sm flex items-center gap-2 ${
+                            isSelected
+                              ? "border-[var(--lime)] bg-[var(--lime)]/5 font-medium"
+                              : "border-[var(--border)] bg-white hover:border-gray-300"
+                          }`}
+                        >
+                          <input
+                            type="checkbox"
+                            checked={isSelected}
+                            onChange={() => {
+                              const val = need.value as typeof field.value[number];
+                              const newValue = field.value.includes(val)
+                                ? field.value.filter((n) => n !== val)
+                                : [...field.value, val];
+                              field.onChange(newValue);
+                            }}
+                            className="sr-only"
+                          />
+                          <div className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 ${
+                            isSelected ? "bg-[var(--lime)] border-[var(--lime)]" : "border-[var(--border)]"
+                          }`}>
+                            {isSelected && <Check className="w-3 h-3 text-[var(--black)]" strokeWidth={3} />}
+                          </div>
+                          <span>{need.label}</span>
+                        </label>
+                      );
+                    })}
+                  </div>
+                )}
+              />
+              {errors.needs && <p className={errorClass}>{errors.needs.message}</p>}
+            </div>
           </div>
 
-          <div>
-            <label htmlFor="accomplishments" className={labelClass}>
-              Que souhaitez-vous accomplir avec votre projet ? *
-            </label>
-            <textarea
-              id="accomplishments"
-              {...register("accomplishments")}
-              rows={4}
-              className={inputClass}
-              placeholder="Décrivez votre vision d'avenir..."
-            />
-            {errors.accomplishments && <p className={errorClass}>{errors.accomplishments.message}</p>}
+          <div className="rounded-xl border border-[var(--border)] bg-white p-5">
+            <h3 className="font-['Space_Grotesk'] font-semibold text-sm text-[var(--black)] mb-4">
+              Vos objectifs
+            </h3>
+            <div>
+              <label htmlFor="accomplishments" className={labelClass}>
+                Que souhaitez-vous accomplir avec votre projet ? *
+              </label>
+              <textarea
+                id="accomplishments"
+                {...register("accomplishments")}
+                rows={4}
+                className="w-full rounded-xl border border-[var(--border)] bg-white px-4 py-3 text-[var(--black)] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--lime)] focus:border-transparent transition text-sm"
+                placeholder="Décrivez votre vision d'avenir..."
+              />
+              {errors.accomplishments && <p className={errorClass}>{errors.accomplishments.message}</p>}
+            </div>
           </div>
 
           <FormNavigation

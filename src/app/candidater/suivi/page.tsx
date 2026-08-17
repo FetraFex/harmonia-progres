@@ -5,6 +5,7 @@ import { CandidateLayout } from "@/components/candidate/CandidateLayout";
 import { createClient } from "@/lib/supabase/client";
 import { motion } from "framer-motion";
 import type { Application, ApplicationStatusHistory } from "@/types/database";
+import { Search, Hash, Mail, ArrowLeft, Building, Wheat, Fish, Palette, Check } from "lucide-react";
 
 const STATUS_CONFIG: Record<string, { label: string; color: string; bg: string }> = {
   new: { label: "Nouveau", color: "text-gray-600", bg: "bg-gray-100" },
@@ -25,6 +26,12 @@ const TIMELINE_STEPS = [
   { status: "interview", label: "Entretien" },
   { status: "accepted", label: "Sélection" },
 ];
+
+const SECTOR_ICONS: Record<string, React.ElementType> = {
+  agriculture: Wheat,
+  artisanat: Palette,
+  halieutique: Fish,
+};
 
 export default function SuiviPage() {
   const [reference, setReference] = useState("");
@@ -71,6 +78,8 @@ export default function SuiviPage() {
     ? TIMELINE_STEPS.findIndex((s) => s.status === application.status)
     : -1;
 
+  const SectorIcon = application ? (SECTOR_ICONS[application.sector] || Building) : Building;
+
   return (
     <CandidateLayout>
       <div className="max-w-3xl mx-auto px-6 py-12 md:py-20">
@@ -84,8 +93,9 @@ export default function SuiviPage() {
         {!found ? (
           <form onSubmit={handleSearch} className="space-y-5 max-w-md">
             {error && (
-              <div className="rounded-xl bg-red-50 border border-red-200 p-4 text-sm text-red-700">
-                {error}
+              <div className="rounded-xl bg-red-50 border border-red-200 p-4 text-sm text-red-700 flex items-start gap-3">
+                <Search className="w-5 h-5 shrink-0 mt-0.5" strokeWidth={1.5} />
+                <span>{error}</span>
               </div>
             )}
 
@@ -93,37 +103,44 @@ export default function SuiviPage() {
               <label htmlFor="reference" className="block text-sm font-medium text-[var(--black)] mb-1.5">
                 Référence de candidature
               </label>
-              <input
-                id="reference"
-                type="text"
-                value={reference}
-                onChange={(e) => setReference(e.target.value)}
-                placeholder="MIASA-2026-XXXX"
-                required
-                className="w-full rounded-xl border border-[var(--border)] bg-white px-4 py-3 font-['JetBrains_Mono'] text-[var(--black)] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--lime)] focus:border-transparent transition"
-              />
+              <div className="relative">
+                <Hash className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-muted)]" strokeWidth={1.5} />
+                <input
+                  id="reference"
+                  type="text"
+                  value={reference}
+                  onChange={(e) => setReference(e.target.value)}
+                  placeholder="HP-2026-XXXX"
+                  required
+                  className="w-full rounded-xl border border-[var(--border)] bg-white px-4 py-3 pl-10 font-['JetBrains_Mono'] text-[var(--black)] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--lime)] focus:border-transparent transition text-sm"
+                />
+              </div>
             </div>
 
             <div>
               <label htmlFor="email-track" className="block text-sm font-medium text-[var(--black)] mb-1.5">
                 Email
               </label>
-              <input
-                id="email-track"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="w-full rounded-xl border border-[var(--border)] bg-white px-4 py-3 text-[var(--black)] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--lime)] focus:border-transparent transition"
-              />
+              <div className="relative">
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-muted)]" strokeWidth={1.5} />
+                <input
+                  id="email-track"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="w-full rounded-xl border border-[var(--border)] bg-white px-4 py-3 pl-10 text-[var(--black)] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--lime)] focus:border-transparent transition text-sm"
+                />
+              </div>
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full rounded-xl bg-[var(--lime)] px-6 py-3 font-['Space_Grotesk'] font-bold text-[var(--black)] transition hover:scale-[1.02] disabled:opacity-50"
+              className="w-full rounded-xl bg-[var(--lime)] px-6 py-3 font-['Space_Grotesk'] font-bold text-[var(--black)] transition hover:scale-[1.02] disabled:opacity-50 flex items-center justify-center gap-2"
             >
               {loading ? "Recherche..." : "Consulter ma candidature"}
+              {!loading && <Search className="w-4 h-4" strokeWidth={2} />}
             </button>
           </form>
         ) : application && (
@@ -148,8 +165,14 @@ export default function SuiviPage() {
                 </span>
               </div>
               <div className="flex gap-6 text-sm text-[var(--text-muted)]">
-                <span>Secteur: <strong className="text-[var(--black)] capitalize">{application.sector}</strong></span>
-                <span>Ville: <strong className="text-[var(--black)]">{application.commune || application.district}</strong></span>
+                <span className="flex items-center gap-1.5">
+                  <SectorIcon className="w-4 h-4" strokeWidth={1.5} />
+                  <span>Secteur: <strong className="text-[var(--black)] capitalize">{application.sector}</strong></span>
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <Building className="w-4 h-4" strokeWidth={1.5} />
+                  <span>Ville: <strong className="text-[var(--black)]">{application.commune || application.district}</strong></span>
+                </span>
               </div>
             </div>
 
@@ -191,9 +214,10 @@ export default function SuiviPage() {
 
             <button
               onClick={() => { setFound(false); setApplication(null); setHistory([]); }}
-              className="text-sm text-[var(--text-muted)] hover:text-[var(--black)] transition"
+              className="flex items-center gap-2 text-sm text-[var(--text-muted)] hover:text-[var(--black)] transition"
             >
-              ← Rechercher une autre candidature
+              <ArrowLeft className="w-4 h-4" strokeWidth={1.5} />
+              Rechercher une autre candidature
             </button>
           </motion.div>
         )}

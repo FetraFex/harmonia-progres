@@ -1,13 +1,14 @@
 "use client";
 
 import React, { useCallback, useState, useRef } from "react";
+import { Upload, FileText, X, Check } from "lucide-react";
 
 interface FileUploaderProps {
   accept?: string;
   label: string;
   file: File | null;
   onFileSelect: (file: File | null) => void;
-  maxSize?: number; // in MB
+  maxSize?: number;
 }
 
 export function FileUploader({
@@ -69,29 +70,25 @@ export function FileUploader({
     return (
       <div className="rounded-xl border border-[var(--border)] bg-white p-4">
         <div className="flex items-center gap-4">
-          <div className="w-10 h-10 rounded-lg bg-[var(--lime)]/10 flex items-center justify-center text-[var(--lime)]">
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
+          <div className="w-10 h-10 rounded-lg bg-[var(--lime)]/10 flex items-center justify-center">
+            <FileText className="w-5 h-5 text-[var(--black)]" />
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-sm font-medium text-[var(--black)] truncate">{file.name}</p>
             <p className="text-xs text-[var(--text-muted)]">{formatSize(file.size)}</p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             {uploadProgress === 100 && (
-              <span className="text-xs font-medium text-green-600 flex items-center gap-1">
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
+              <span className="flex items-center gap-1 text-xs font-medium text-green-600">
+                <Check className="w-3.5 h-3.5" />
                 Téléchargé
               </span>
             )}
             <button
               onClick={() => onFileSelect(null)}
-              className="text-xs text-red-500 hover:underline"
+              className="p-1.5 rounded-lg text-[var(--text-muted)] hover:text-red-500 hover:bg-red-50 transition"
             >
-              Retirer
+              <X className="w-4 h-4" />
             </button>
           </div>
         </div>
@@ -121,7 +118,7 @@ export function FileUploader({
         className={`rounded-xl border-2 border-dashed p-6 text-center cursor-pointer transition ${
           isDragging
             ? "border-[var(--lime)] bg-[var(--lime)]/5"
-            : "border-[var(--border)] bg-white hover:border-[var(--black)]"
+            : "border-[var(--border)] bg-white hover:border-gray-300"
         }`}
       >
         <input
@@ -131,18 +128,20 @@ export function FileUploader({
           onChange={handleChange}
           className="hidden"
         />
-        <svg className="w-8 h-8 mx-auto text-[var(--text-muted)] mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-        </svg>
+        <Upload className="w-8 h-8 mx-auto text-[var(--text-muted)] mb-3" strokeWidth={1.5} />
         <p className="text-sm text-[var(--text-muted)]">
           Glissez un fichier ici ou{" "}
           <span className="font-medium text-[var(--black)]">parcourir</span>
         </p>
-        <p className="text-xs text-[var(--text-muted)] mt-1">
+        <p className="text-xs text-[var(--text-muted)] mt-1.5">
           PDF, JPG, PNG — max {maxSize} Mo
         </p>
       </div>
-      {error && <p className="text-xs text-red-500 mt-1">{error}</p>}
+      {error && (
+        <p className="text-xs text-red-500 mt-1.5 flex items-center gap-1">
+          {error}
+        </p>
+      )}
     </div>
   );
 }

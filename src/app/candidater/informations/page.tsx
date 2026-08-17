@@ -9,11 +9,16 @@ import { FormStepLayout } from "@/components/candidate/FormStepLayout";
 import { FormNavigation } from "@/components/candidate/FormNavigation";
 import { personalInfoSchema, type PersonalInfoData } from "@/types/schemas";
 import { createClient } from "@/lib/supabase/client";
+import { User, Phone, Mail, MapPin, Calendar, Home } from "lucide-react";
 
 const inputClass =
-  "w-full rounded-xl border border-[var(--border)] bg-white px-4 py-3 text-[var(--black)] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--lime)] focus:border-transparent transition";
+  "w-full rounded-xl border border-[var(--border)] bg-white px-4 py-3 pl-10 text-[var(--black)] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--lime)] focus:border-transparent transition text-sm";
 const labelClass = "block text-sm font-medium text-[var(--black)] mb-1.5";
 const errorClass = "text-xs text-red-500 mt-1";
+
+function FieldIcon({ icon: Icon }: { icon: React.ElementType }) {
+  return <Icon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-muted)]" strokeWidth={1.5} />;
+}
 
 export default function InformationsPage() {
   const router = useRouter();
@@ -70,31 +75,46 @@ export default function InformationsPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div>
               <label htmlFor="first_name" className={labelClass}>Prénom *</label>
-              <input id="first_name" {...register("first_name")} className={inputClass} />
+              <div className="relative">
+                <FieldIcon icon={User} />
+                <input id="first_name" {...register("first_name")} className={inputClass} />
+              </div>
               {errors.first_name && <p className={errorClass}>{errors.first_name.message}</p>}
             </div>
             <div>
               <label htmlFor="last_name" className={labelClass}>Nom *</label>
-              <input id="last_name" {...register("last_name")} className={inputClass} />
+              <div className="relative">
+                <FieldIcon icon={User} />
+                <input id="last_name" {...register("last_name")} className={inputClass} />
+              </div>
               {errors.last_name && <p className={errorClass}>{errors.last_name.message}</p>}
             </div>
           </div>
 
           <div>
             <label htmlFor="date_of_birth" className={labelClass}>Date de naissance *</label>
-            <input id="date_of_birth" type="date" {...register("date_of_birth")} className={inputClass} />
+            <div className="relative">
+              <FieldIcon icon={Calendar} />
+              <input id="date_of_birth" type="date" {...register("date_of_birth")} className={inputClass} />
+            </div>
             {errors.date_of_birth && <p className={errorClass}>{errors.date_of_birth.message}</p>}
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div>
               <label htmlFor="phone" className={labelClass}>Téléphone *</label>
-              <input id="phone" type="tel" {...register("phone")} className={inputClass} placeholder="+261..." />
+              <div className="relative">
+                <FieldIcon icon={Phone} />
+                <input id="phone" type="tel" {...register("phone")} className={inputClass} placeholder="+261..." />
+              </div>
               {errors.phone && <p className={errorClass}>{errors.phone.message}</p>}
             </div>
             <div>
               <label htmlFor="email" className={labelClass}>Email *</label>
-              <input id="email" type="email" {...register("email")} className={inputClass} />
+              <div className="relative">
+                <FieldIcon icon={Mail} />
+                <input id="email" type="email" {...register("email")} className={inputClass} />
+              </div>
               {errors.email && <p className={errorClass}>{errors.email.message}</p>}
             </div>
           </div>
@@ -102,22 +122,31 @@ export default function InformationsPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div>
               <label htmlFor="district" className={labelClass}>District *</label>
-              <select id="district" {...register("district")} className={inputClass}>
-                <option value="manakara">Manakara</option>
-                <option value="vohipeno">Vohipeno</option>
-                <option value="autre">Autre</option>
-              </select>
+              <div className="relative">
+                <FieldIcon icon={MapPin} />
+                <select id="district" {...register("district")} className={inputClass}>
+                  <option value="manakara">Manakara</option>
+                  <option value="vohipeno">Vohipeno</option>
+                  <option value="autre">Autre</option>
+                </select>
+              </div>
             </div>
             <div>
               <label htmlFor="commune" className={labelClass}>Commune *</label>
-              <input id="commune" {...register("commune")} className={inputClass} placeholder="Commune ou fokontany" />
+              <div className="relative">
+                <FieldIcon icon={MapPin} />
+                <input id="commune" {...register("commune")} className={inputClass} placeholder="Commune ou fokontany" />
+              </div>
               {errors.commune && <p className={errorClass}>{errors.commune.message}</p>}
             </div>
           </div>
 
           <div>
             <label htmlFor="address" className={labelClass}>Adresse</label>
-            <input id="address" {...register("address")} className={inputClass} placeholder="Quartier, rue..." />
+            <div className="relative">
+              <FieldIcon icon={Home} />
+              <input id="address" {...register("address")} className={inputClass} placeholder="Quartier, rue..." />
+            </div>
           </div>
 
           <FormNavigation

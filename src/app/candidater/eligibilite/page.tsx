@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { CandidateLayout } from "@/components/candidate/CandidateLayout";
+import { MapPin, Wheat, Fish, Palette, CheckCircle2 } from "lucide-react";
 
 interface EligibilityAnswer {
   district: string;
@@ -17,26 +18,26 @@ const questions = [
     key: "district" as keyof EligibilityAnswer,
     question: "Dans quel district résidez-vous ?",
     options: [
-      { value: "manakara", label: "Manakara" },
-      { value: "vohipeno", label: "Vohipeno" },
-      { value: "autre", label: "Autre" },
+      { value: "manakara", label: "Manakara", icon: MapPin },
+      { value: "vohipeno", label: "Vohipeno", icon: MapPin },
+      { value: "autre", label: "Autre", icon: MapPin },
     ],
   },
   {
     key: "sector" as keyof EligibilityAnswer,
     question: "Votre projet concerne-t-il l'un des secteurs suivants ?",
     options: [
-      { value: "agriculture", label: "Agriculture" },
-      { value: "artisanat", label: "Artisanat" },
-      { value: "halieutique", label: "Halieutique" },
+      { value: "agriculture", label: "Agriculture", icon: Wheat },
+      { value: "artisanat", label: "Artisanat", icon: Palette },
+      { value: "halieutique", label: "Halieutique", icon: Fish },
     ],
   },
   {
     key: "isProjectHolder" as keyof EligibilityAnswer,
     question: "Êtes-vous actuellement porteur d'un projet ou d'une activité ?",
     options: [
-      { value: "oui", label: "Oui" },
-      { value: "non", label: "Non" },
+      { value: "oui", label: "Oui", icon: CheckCircle2 },
+      { value: "non", label: "Non", icon: CheckCircle2 },
     ],
   },
 ];
@@ -61,11 +62,8 @@ export default function EligibilitePage() {
 
   function handleSelect(value: string) {
     setAnswers((prev) => ({ ...prev, [current.key]: value }));
-
     setTimeout(() => {
-      if (step < 2) {
-        setStep(step + 1);
-      }
+      if (step < 2) setStep(step + 1);
     }, 300);
   }
 
@@ -73,18 +71,23 @@ export default function EligibilitePage() {
     <CandidateLayout>
       <div className="max-w-2xl mx-auto px-6 py-12 md:py-20">
         {/* Progress */}
-        <div className="mb-10">
+        <div className="mb-12">
           <div className="flex items-center gap-3 mb-4">
             {questions.map((_, i) => (
               <div
                 key={i}
-                className={`h-1.5 flex-1 rounded-full transition-colors ${
-                  i <= step ? "bg-[var(--lime)]" : "bg-gray-200"
-                }`}
-              />
+                className="h-1 flex-1 rounded-full bg-gray-200 overflow-hidden"
+              >
+                <div
+                  className={`h-full rounded-full transition-all duration-500 ${
+                    i <= step ? "bg-[var(--lime)]" : ""
+                  }`}
+                  style={{ width: i < step ? "100%" : i === step ? "50%" : "0%" }}
+                />
+              </div>
             ))}
           </div>
-          <p className="text-xs text-[var(--text-muted)] font-['JetBrains_Mono']">
+          <p className="text-[11px] text-[var(--text-muted)] font-['JetBrains_Mono'] uppercase tracking-widest">
             Étape {step + 1} sur 3
           </p>
         </div>
@@ -106,13 +109,20 @@ export default function EligibilitePage() {
                   <button
                     key={opt.value}
                     onClick={() => handleSelect(opt.value)}
-                    className={`w-full text-left rounded-xl border-2 p-5 text-lg font-medium transition ${
+                    className={`w-full text-left rounded-xl border-2 p-5 flex items-center gap-4 transition ${
                       answers[current.key] === opt.value
-                        ? "border-[var(--lime)] bg-[var(--lime)]/5 text-[var(--black)]"
-                        : "border-[var(--border)] bg-white text-[var(--black)] hover:border-[var(--black)]"
+                        ? "border-[var(--lime)] bg-[var(--lime)]/5"
+                        : "border-[var(--border)] bg-white hover:border-gray-300"
                     }`}
                   >
-                    {opt.label}
+                    <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
+                      answers[current.key] === opt.value
+                        ? "bg-[var(--lime)]/10"
+                        : "bg-gray-50"
+                    }`}>
+                      <opt.icon className="w-5 h-5 text-[var(--black)]" strokeWidth={1.5} />
+                    </div>
+                    <span className="font-medium text-[var(--black)]">{opt.label}</span>
                   </button>
                 ))}
               </div>
@@ -124,7 +134,9 @@ export default function EligibilitePage() {
               animate={{ opacity: 1, y: 0 }}
               className="text-center py-12"
             >
-              <span className="text-5xl mb-6 block">🙏</span>
+              <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-gray-100 flex items-center justify-center">
+                <CheckCircle2 className="w-8 h-8 text-[var(--text-muted)]" strokeWidth={1.5} />
+              </div>
               <h1 className="font-['Space_Grotesk'] text-2xl md:text-3xl font-bold text-[var(--black)] mb-4">
                 Merci pour votre intérêt
               </h1>
@@ -147,7 +159,9 @@ export default function EligibilitePage() {
               animate={{ opacity: 1, y: 0 }}
               className="text-center py-12"
             >
-              <span className="text-5xl mb-6 block">✅</span>
+              <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-[var(--lime)]/10 flex items-center justify-center">
+                <CheckCircle2 className="w-8 h-8 text-[var(--black)]" strokeWidth={1.5} />
+              </div>
               <h1 className="font-['Space_Grotesk'] text-2xl md:text-3xl font-bold text-[var(--black)] mb-4">
                 Vous pouvez commencer votre candidature.
               </h1>
@@ -170,7 +184,7 @@ export default function EligibilitePage() {
             onClick={() => setStep(step - 1)}
             className="mt-8 text-sm text-[var(--text-muted)] hover:text-[var(--black)] transition"
           >
-            ← Précédent
+            Précédent
           </button>
         )}
       </div>

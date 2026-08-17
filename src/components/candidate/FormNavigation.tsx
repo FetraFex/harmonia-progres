@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 interface FormNavigationProps {
   onBack?: string;
@@ -19,13 +20,14 @@ export function FormNavigation({
   loading = false,
 }: FormNavigationProps) {
   return (
-    <div className="flex justify-between mt-10 pt-6 border-t border-[var(--border)]">
+    <div className="flex justify-between items-center mt-10 pt-6 border-t border-[var(--border)]">
       {onBack ? (
         <Link
           href={onBack}
-          className="rounded-xl border border-[var(--border)] px-6 py-3 font-medium text-[var(--black)] transition hover:bg-gray-50"
+          className="flex items-center gap-2 rounded-xl border border-[var(--border)] bg-white px-5 py-2.5 text-sm font-medium text-[var(--black)] transition hover:bg-gray-50"
         >
-          Précédent
+          <ArrowLeft className="w-4 h-4" />
+          Retour
         </Link>
       ) : (
         <div />
@@ -35,9 +37,10 @@ export function FormNavigation({
         <button
           onClick={onNext}
           disabled={nextDisabled || loading}
-          className="rounded-xl bg-[var(--lime)] px-8 py-3 font-['Space_Grotesk'] font-bold text-[var(--black)] transition hover:scale-[1.02] hover:shadow-lg active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed"
+          className="flex items-center gap-2 rounded-xl bg-[var(--lime)] px-6 py-2.5 font-['Space_Grotesk'] font-bold text-sm text-[var(--black)] transition hover:scale-[1.02] hover:shadow-lg active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed"
         >
           {loading ? "Envoi..." : nextLabel}
+          {!loading && <ArrowRight className="w-4 h-4" />}
         </button>
       )}
     </div>
