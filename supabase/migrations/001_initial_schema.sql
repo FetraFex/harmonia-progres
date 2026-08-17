@@ -4,8 +4,6 @@
 -- Run this in Supabase SQL Editor
 -- ──────────────────────────────────────────────
 
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-
 -- ── ENUM TYPES ────────────────────────────────
 
 CREATE TYPE user_role AS ENUM ('admin', 'evaluator');
@@ -61,7 +59,7 @@ CREATE OR REPLACE TRIGGER on_auth_user_created
 -- ── TABLE: applications ───────────────────────
 
 CREATE TABLE applications (
-  id                UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id                UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   reference_number  TEXT UNIQUE NOT NULL,
   user_id           UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
 
@@ -133,7 +131,7 @@ CREATE OR REPLACE TRIGGER set_reference_number
 -- ── TABLE: application_documents ──────────────
 
 CREATE TABLE application_documents (
-  id              UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   application_id  UUID NOT NULL REFERENCES applications(id) ON DELETE CASCADE,
   document_type   TEXT NOT NULL,
   file_name       TEXT NOT NULL,
@@ -146,7 +144,7 @@ CREATE TABLE application_documents (
 -- ── TABLE: application_evaluations ────────────
 
 CREATE TABLE application_evaluations (
-  id              UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   application_id  UUID NOT NULL REFERENCES applications(id) ON DELETE CASCADE,
   evaluator_id    UUID NOT NULL REFERENCES profiles(id),
   pertinence          INTEGER CHECK (pertinence >= 1 AND pertinence <= 5),
@@ -166,7 +164,7 @@ CREATE TABLE application_evaluations (
 -- ── TABLE: application_status_history ─────────
 
 CREATE TABLE application_status_history (
-  id              UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   application_id  UUID NOT NULL REFERENCES applications(id) ON DELETE CASCADE,
   old_status      application_status,
   new_status      application_status NOT NULL,
@@ -193,7 +191,7 @@ CREATE OR REPLACE TRIGGER on_status_change
 -- ── TABLE: newsletter_subscribers ─────────────
 
 CREATE TABLE newsletter_subscribers (
-  id              UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   email           TEXT UNIQUE NOT NULL,
   subscribed_at   TIMESTAMPTZ NOT NULL DEFAULT now(),
   unsubscribed_at TIMESTAMPTZ,
@@ -203,7 +201,7 @@ CREATE TABLE newsletter_subscribers (
 -- ── TABLE: contact_messages ───────────────────
 
 CREATE TABLE contact_messages (
-  id          UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   name        TEXT NOT NULL,
   email       TEXT NOT NULL,
   subject     TEXT NOT NULL,
