@@ -1,6 +1,6 @@
 "use server";
 
-import { resend, DEFAULT_FROM } from "@/lib/resend";
+import { getResend, DEFAULT_FROM } from "@/lib/resend";
 
 const STATUS_LABELS: Record<string, string> = {
   new: "Nouveau",
@@ -90,7 +90,7 @@ export async function sendCandidatureStatusEmail({
 
   const message = messageByStatus[status] || messageByStatus.default;
 
-  const { data, error } = await resend.emails.send({
+  const { data, error } = await getResend().emails.send({
     from: DEFAULT_FROM,
     to: [email],
     subject: `MIASA — Candidature ${referenceNumber} : ${label}`,
@@ -126,7 +126,7 @@ export async function sendCandidatureSubmissionEmail({
   referenceNumber: string;
   projectName: string;
 }) {
-  const { data, error } = await resend.emails.send({
+  const { data, error } = await getResend().emails.send({
     from: DEFAULT_FROM,
     to: [email],
     subject: `MIASA — Candidature ${referenceNumber} confirmée`,
