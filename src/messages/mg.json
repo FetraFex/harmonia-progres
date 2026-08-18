@@ -1,0 +1,542 @@
+{
+  "common": {
+    "brand": "Harmonia Progrès",
+    "candidater": "Misoratra",
+    "languageSwitcher": "Hanova ny fiteny",
+    "languages": {
+      "fr": "Français",
+      "mg": "Malagasy"
+    }
+  },
+  "nav": {
+    "project": "Ny Tetikasa",
+    "actions": "Ny Hetsikay",
+    "impact": "Ny Fiantraikany",
+    "news": "Vaovao",
+    "ariaNav": "Fizahan-tany lehibe",
+    "ariaHome": "Harmonia Progrès — Fandraisana",
+    "ariaMenu": "Hanokatra ny menio",
+    "mySpace": "Ny toerako",
+    "join": "Hiditra amin'ny fandaharana",
+    "candidater": "Misoratra",
+    "more": "Fantatrao bebe kokoa"
+  },
+  "hero": {
+    "badge": "Manakara · Madagasikara",
+    "trust": "1 200+ mpanohana mavitrika",
+    "titleLine1": "Manorina ny hoavy",
+    "titleLine2": "fandraharahana",
+    "titleDe": "an'i",
+    "titleCity": "Manakara",
+    "subtitle": "Manohana ny tanora, mpanao asa tanana, mpanjono ary mpandraharaha eo an-toerana izahay, amin'ny alalan'ny fampiofanana, ny fanohanana ary ny fahafahana miditra amin'ny fahafahana isan-karazany.",
+    "scroll": "Hitadiavana",
+    "metrics": [
+      { "value": "+350", "label": "Tanora notohanana" },
+      { "value": "+80", "label": "Mpandraharaha notohanana" },
+      { "value": "+25", "label": "Mpiara-miombon'antoka eo an-toerana" }
+    ]
+  },
+  "opportunity": {
+    "kicker": "NY FANOLORAN-TENAY",
+    "titleBefore": "HARMONIA PROGRES",
+    "titleAccent": "ho an'ny tanora mpandraharaha",
+    "paragraph1": "Amin'ny alalan'ny tetikasa MIASA Tanora Mpandraharaha, dia mamorona tetezana eo amin'ny fahaizana, ny harena ary ny fahafahana izahay, mba ahafahan'ny tanora manova ny fahaizany ho asa mamokatra sy maharitra. Avy amin'ny famantarana ny mpitondra tetikasa ka hatramin'ny fidirana eny amin'ny tsena, dia manohana azy ireo amin'ny fanamafisana ny fahaizany sy ny fandrindrana ny hetsika ataony izahay.",
+    "paragraph2": "Ny tanjonay: ny hanao ny fandraharahana ho anton-drà fampandrosoana ifotony, amin'ny fanomezana lanja ny fahaizana sy ny haren'ny sektora fambolena, asa tanana ary jono ao amin'ny faritra Fitovinany.",
+    "leftNodes": ["Mpanao asa tanana", "Mpanjono", "Tantsaha"],
+    "hub": "HARMONIA PROGRES",
+    "rightNode": "TANORA MPANDRAHARAHA"
+  },
+  "localEconomy": {
+    "kicker": "NY TOEKARENA IFOTONY",
+    "title1": "Sektora telo.",
+    "title2": "Herina iray ihany.",
+    "paragraph": "Manome lanja ny fahaizana sy ny haren'ny faritra, mba hamoronana fahafahana ara-toekarena vaovao.",
+    "stats": [
+      { "label": "Sektora iasanay" },
+      { "label": "Distrika voakasika" },
+      { "label": "Tanora notohanana" },
+      { "label": "Mpiara-miombon'antoka niaraka taminay" }
+    ],
+    "sectors": [
+      {
+        "number": "01",
+        "title": "ASA TANANA",
+        "products": "Harefo · Rofia · Fanenomana",
+        "description": "Mitahiry ny fahaizana eo an-toerana sady manokatra tsena vaovao. Harefo, harona, rofia — lova iray tokony homena lanja."
+      },
+      {
+        "number": "02",
+        "title": "JONO",
+        "products": "Jono · Fanodiana · Fivarotana",
+        "description": "Mandamina ny sehatry ny jono ho an'ny toekarena maharitra. Fitehirizana, fanodiana ary fampihenana ny fatiantoka aorian'ny fanjonoana."
+      },
+      {
+        "number": "03",
+        "title": "FAMBOLENA",
+        "products": "Fambolena vary · Voa · Vokatra",
+        "description": "Manohana ny tanora mpandraharaha amin'ny fambolena mba hahatonga azy ireo ho mahaleo tena. Teknika maoderina, voa nohatsaraina, fivarotana."
+      }
+    ],
+    "explore": "Hijery"
+  },
+  "program": {
+    "words": ["MIANATRA", "MANDRAHARAHA", "MAMORONA", "HITOMBO"],
+    "kicker": "TANORA MPANDRAHARAHA",
+    "paragraph": "Fandaharana natao manokana ho an'ny tanoran'i Manakara sy Vohipeno, mba hanovana ny heviny ho asa ara-toekarena azo tanterahina sy maharitra.",
+    "title1": "Ny lalana",
+    "title2": "ho mpandraharaha",
+    "steps": [
+      {
+        "number": "01",
+        "title": "FANTARINA",
+        "items": ["Fampahafantarana", "Antso ho amin'ny fangatahana", "Fifantenana"]
+      },
+      {
+        "number": "02",
+        "title": "AMPIOFANINA",
+        "items": [
+          "Fandraharahana",
+          "Famoronana orinasa",
+          "Fitantanana ara-bola",
+          "Marketing",
+          "Teknika famokarana"
+        ]
+      },
+      {
+        "number": "03",
+        "title": "FAMOLAVOLANA",
+        "items": ["Coaching", "Mentorat", "Torolalana ara-barotra", "Fanaraha-maso"]
+      },
+      {
+        "number": "04",
+        "title": "TOHANANA",
+        "items": [
+          "Fitaovana",
+          "Fitaovana fanombohana",
+          "Fanohanana ara-teknika",
+          "Fahafahana mahazo famatsiam-bola"
+        ]
+      },
+      {
+        "number": "05",
+        "title": "AMPIFANDRAISINA",
+        "items": ["Fifandraisana", "Fivarotana", "Fahafahana miditra eny amin'ny tsena"]
+      }
+    ],
+    "discover": "Fantaro ny faritra"
+  },
+  "territory": {
+    "kicker": "NY FARITRAY",
+    "title1": "Miorim-paka ao",
+    "title2": "anatin'ny faritra iray.",
+    "paragraph": "Mihetsika akaikin'ny fokonolona, ny harena ary ny fahafahana eo an-toerana.",
+    "mapAria": "Sarin'i Madagasikara misy ny faritra Fitovinany, Manakara ary Vohipeno",
+    "cities": [
+      {
+        "city": "MANAKARA",
+        "focus": "Asa tanana · Jono",
+        "description": "Seranan-tsambo, asa tanana, sehatry ny jono voarindra."
+      },
+      {
+        "city": "VOHIPENO",
+        "focus": "Fambolena · Fambolena vary",
+        "description": "Tany fambolena, fanatsarana ny fambolena vary, vokatra eo an-toerana."
+      }
+    ]
+  },
+  "vision": {
+    "statement1": "Manorina taranaka tanora mpandraharaha",
+    "statement2": "mahaleo tena",
+    "statement3": "mamorona",
+    "statement4": "tompon'andraikitra",
+    "kicker": "NY IRAKAY",
+    "missions": [
+      "Mampiofana ny tanora amin'ny fandraharahana.",
+      "Mampivelatra ny fahaizany ara-teknika sy ara-barotra.",
+      "Manamora ny famoronana orinasa madinika.",
+      "Manampy azy ireo hahazo famatsiam-bola.",
+      "Manohana ny mpandraharaha hiditra eny amin'ny tsena.",
+      "Manome lanja ny harena eo an-toerana."
+    ]
+  },
+  "partnership": {
+    "kicker": "MIKAMBANA AMIN'NY TAMBAJOTRA",
+    "title1": "Andao hiara-manorina",
+    "title2": "ny ekosistema",
+    "title3": "miaraka.",
+    "paragraph": "Ny fampandrosoana ifotony dia miankina amin'ny herin'ny fifandraisana. HARMONIA PROGRES dia te-hanangona mpandraharaha, mpamokatra, andrim-panjakana ary mpiara-miombon'antoka manolo-tena.",
+    "becomePartner": "Lasa mpiara-miombon'antoka",
+    "supportProject": "Manohana ny tetikasa",
+    "footnote": "Tambajotra misy mpisehatra manolo-tena amin'ny fampandrosoana ifotony."
+  },
+  "footer": {
+    "description": "Fikambanana tsy miankina amin'ny fanjakana (ONG) natokana ho an'ny fampandrosoana ara-toekarena sy ny fanohanana ny tanora mpandraharaha, mpanao asa tanana ary mpanjono ao Manakara, Madagasikara.",
+    "columns": [
+      {
+        "title": "TETIKASA",
+        "links": [
+          { "label": "Tanora Mpandraharaha", "href": "#programme" },
+          { "label": "Ny iraka", "href": "#vision" },
+          { "label": "Fandaharana", "href": "#programme" }
+        ]
+      },
+      {
+        "title": "SEKTORA",
+        "links": [
+          { "label": "Asa tanana", "href": "#secteurs" },
+          { "label": "Jono", "href": "#secteurs" },
+          { "label": "Fambolena", "href": "#secteurs" }
+        ]
+      },
+      {
+        "title": "FARITRA",
+        "links": [
+          { "label": "Manakara", "href": "#territoire" },
+          { "label": "Vohipeno", "href": "#territoire" },
+          { "label": "Fitovinany", "href": "#territoire" }
+        ]
+      },
+      {
+        "title": "MANDRAY ANJARA",
+        "links": [
+          { "label": "Misoratra", "href": "#programme" },
+          { "label": "Lasa mpiara-miombon'antoka", "href": "#partenaires" },
+          { "label": "Fifandraisana", "href": "#contact" }
+        ]
+      }
+    ],
+    "copyright": "© 2026 HARMONIA PROGRES — MIASA Tanora Mpandraharaha"
+  },
+  "candidaterLanding": {
+    "kicker": "MIASA Tanora Mpandraharaha",
+    "title1": "Ny tetikasanao dia mety ho tonga",
+    "title2": "ny hoavinao.",
+    "paragraph": "Mikambana amin'ny MIASA Tanora Mpandraharaha ary mahazoa fanohanana hamovana ny hevinao na ny asanao ho fahafahana maharitra.",
+    "locations": ["MANAKARA", "VOHIPENO", "FITOVINANY"],
+    "sectors": ["FAMBOLENA", "ASA TANANA", "JONO"],
+    "ctaApply": "Misoratra",
+    "ctaCheck": "Hamarinina ny fepetra",
+    "discoverTitle": "Ny zavatra ho hitanao",
+    "benefits": [
+      {
+        "title": "FAMPIOFANANA",
+        "description": "Amboary ny fahaizanao amin'ny fandraharahana sy ny teknika."
+      },
+      {
+        "title": "FANOHANANA",
+        "description": "Mahazoa fanaraha-maso mifanaraka amin'ny tetikasanao."
+      },
+      {
+        "title": "FAHAFAHANA",
+        "description": "Midira amin'ny loharanon-karena sy fahafahana hampandroso ny asanao."
+      },
+      {
+        "title": "TAMBAJOTRA",
+        "description": "Manorina fifandraisana amin'ny mpisehatra ara-toekarena hafa ao amin'ny faritra misy anao."
+      }
+    ]
+  },
+  "candidaterEligibilite": {
+    "step": "Dingana {step} amin'ny {total}",
+    "questions": [
+      {
+        "question": "Amin'ny distrika inona no ipetrahanao ?",
+        "options": [
+          { "value": "manakara", "label": "Manakara" },
+          { "value": "vohipeno", "label": "Vohipeno" },
+          { "value": "autre", "label": "Hafa" }
+        ]
+      },
+      {
+        "question": "Mikasika ny iray amin'ireto sektora manaraka ireto ve ny tetikasanao ?",
+        "options": [
+          { "value": "agriculture", "label": "Fambolena" },
+          { "value": "artisanat", "label": "Asa tanana" },
+          { "value": "halieutique", "label": "Jono" }
+        ]
+      },
+      {
+        "question": "Manana tetikasa na asa efa misy ve ianao ?",
+        "options": [
+          { "value": "oui", "label": "Eny" },
+          { "value": "non", "label": "Tsia" }
+        ]
+      }
+    ],
+    "notEligibleTitle": "Misaotra ny fahaliananao",
+    "notEligibleText": "Ny fepetran'ny fandaharana amin'izao fotoana izao dia voafetra amin'ny faritra sy sektora sasany. Manentana anao izahay hanaraka ny vaovao aminay mba hahafantarana ny fahafahana ho avy.",
+    "backToSite": "Hiverina amin'ny tranokala",
+    "eligibleTitle": "Azonao atao ny manomboka ny fangatahanao.",
+    "eligibleText": "Mahafeno fepetra amin'ny fandaharana MIASA Tanora Mpandraharaha ianao. Fenoy ny fangatahanao amin'ny dingana vitsivitsy.",
+    "start": "Manomboka",
+    "previous": "Hiverina"
+  },
+  "candidaterInformations": {
+    "title": "Mitenena aminay momba anao.",
+    "assistance1": "Ireo fampahalalana ireo dia ahafahantsika mahafantatra anao tsaratsara kokoa ary mifandray aminao momba ny fangatahanao.",
+    "assistance2": "Tsiambaratelo daholo ny vaovao ary ampiasaina amin'ny fandaharana ihany.",
+    "firstName": "Anarana nomena *",
+    "lastName": "Anarana *",
+    "dateOfBirth": "Daty nahaterahana *",
+    "phone": "Telefaonina *",
+    "email": "Mailaka *",
+    "district": "Distrika *",
+    "commune": "Kaominina *",
+    "address": "Adiresy",
+    "communePlaceholder": "Kaominina na fokontany",
+    "addressPlaceholder": "Faritra, arabe...",
+    "continue": "Hanohy",
+    "districts": [
+      { "value": "manakara", "label": "Manakara" },
+      { "value": "vohipeno", "label": "Vohipeno" },
+      { "value": "autre", "label": "Hafa" }
+    ]
+  },
+  "candidaterProfil": {
+    "title": "Ny tantaranao",
+    "assistance1": "Ambarao aminay ny tantaranao. Tsy ilaina ny mampiasa teny ara-teknika.",
+    "assistance2": "Ny tianay ho fantatra: ny toe-java-misanao sy ny traikefanao.",
+    "situation": "Toe-java-misao *",
+    "educationLevel": "Fari-pahaizana *",
+    "experiencePro": "Traikefa ara-barotra",
+    "experienceEntrepreneurial": "Traikefa amin'ny fandraharahana",
+    "selectPlaceholder": "Misafidiana...",
+    "experienceProPlaceholder": "Fenoy fohifohy ny traikefanao...",
+    "experienceEntrepreneurialPlaceholder": "Efa nanomboka tetikasa na asa ve ianao ?",
+    "situations": [
+      { "value": "etudiant", "label": "Mpianatra" },
+      { "value": "salarie", "label": "Miasa karama" },
+      { "value": "chomeur", "label": "Mitady asa" },
+      { "value": "independant", "label": "Mizaka tena" },
+      { "value": "retraite", "label": "Misotro ronono" },
+      { "value": "autre", "label": "Hafa" }
+    ],
+    "educationLevels": [
+      { "value": "none", "label": "Tsy manana diplaoma" },
+      { "value": "primary", "label": "Fototra" },
+      { "value": "secondary", "label": "Ambaratonga faharoa" },
+      { "value": "vocational", "label": "Fiofanana arak'asa" },
+      { "value": "bachelor", "label": "Licence / Bachelor" },
+      { "value": "master", "label": "Master" },
+      { "value": "other", "label": "Hafa" }
+    ]
+  },
+  "candidaterProjet": {
+    "title": "Ny tetikasanao",
+    "assistance1": "Hazavao amin'ny fomba tsotra ny tetikasanao. Tianay ho fantatra:",
+    "assistanceItems": [
+      "Ny zavatra tianao hoforonina na hampandrosoina",
+      "Ny antony maha-zava-dehibe azy ho anao",
+      "Iza no hahazo tombontsoa amin'izany"
+    ],
+    "assistance2": "Tsy mila drafitra ara-barotra amin'ny antsipiriany — fahitana mazava fotsiny.",
+    "identity": "Mombamomba ny tetikasa",
+    "projectName": "Anaran'ny tetikasa *",
+    "projectNamePlaceholder": "Ohatra: Fanodiana vanily biolojika",
+    "sector": "Sektora iasana",
+    "activityType": "Karazana asa",
+    "selectActivity": "Misafidiana ny asanao *",
+    "selectPlaceholder": "Misafidiana...",
+    "description": "Famaritana",
+    "projectDescription": "Hazavao ny tetikasanao *",
+    "projectDescriptionPlaceholder": "Hazavao amin'ny andalana vitsivitsy ny tetikasanao...",
+    "problemIdentified": "Olana hita *",
+    "problemIdentifiedPlaceholder": "Inona ny olana tianao hovahana ?",
+    "solutionProposed": "Vahaolana atolotra *",
+    "solutionProposedPlaceholder": "Ahoana no hamahàn'ny tetikasanao io olana io ?",
+    "targetMarket": "Tsena kendrena *",
+    "targetMarketPlaceholder": "Iza no andefasana ny vokatrao na ny asa atolotrao ?",
+    "sectors": [
+      { "value": "agriculture", "label": "Fambolena" },
+      { "value": "artisanat", "label": "Asa tanana" },
+      { "value": "halieutique", "label": "Jono" }
+    ]
+  },
+  "candidaterMotivation": {
+    "title": "Nahoana ity tetikasa ity ?",
+    "assistance1": "Ity dingana ity no tena manan-danja indrindra. Tianay ho fantatra:",
+    "assistanceItems": [
+      "Ny antony tianao hikambanana amin'ny fandaharana",
+      "Ny zavatra ilainao mba hahomby",
+      "Ny zavatra kasainao hotanterahina"
+    ],
+    "assistance2": "Mahaiza mahitsy fo — tsy misy valiny ratsy.",
+    "motivation": "Ny antony manosika anao",
+    "motivationLabel": "Nahoana no tianao handray anjara amin'ny fandaharana ? *",
+    "motivationPlaceholder": "Zarao ny antony manosika anao, ny tanjonao...",
+    "needs": "Ny filànao",
+    "needsLabel": "Inona avy ireo filànao lehibe ? *",
+    "objectives": "Ny tanjonao",
+    "accomplishmentsLabel": "Inona no tianao hotanterahina amin'ny tetikasanao ? *",
+    "accomplishmentsPlaceholder": "Hazavao ny vinavinao hoavy...",
+    "needOptions": [
+      { "value": "formation", "label": "Fampiofanana" },
+      { "value": "equipement", "label": "Fitaovana" },
+      { "value": "financement", "label": "Famatsiam-bola" },
+      { "value": "accompagnement", "label": "Fanohanana" },
+      { "value": "marketing", "label": "Marketing" },
+      { "value": "acces_marche", "label": "Fidirana eny amin'ny tsena" },
+      { "value": "mentorat", "label": "Mentorat" }
+    ]
+  },
+  "candidaterDocuments": {
+    "title": "Ny antontan-taratasinao",
+    "assistance1": "Tsy voatery avokoa ireto antontan-taratasy ireto, fa manamafy ny fangatahanao izy ireo.",
+    "assistance2": "Endrika azo ekena: PDF, JPG, PNG, WebP, GIF. Habeny ambony indrindra: 5 Mo isaky ny rakitra.",
+    "count": "{uploadedCount} amin'ny {total} antontan-taratasy voaray.",
+    "sectionTitle": "Antontan-taratasy hampidirina",
+    "sectionParagraph": "Ampidiro ny antontan-taratasy tianao hampiarahina amin'ny fangatahanao.",
+    "documentTypes": [
+      { "key": "id_card", "label": "Karapanondro" },
+      { "key": "cv", "label": "Curriculum Vitae (CV)" },
+      { "key": "project_presentation", "label": "Fametrahana ny tetikasa" },
+      { "key": "business_plan", "label": "Drafitra ara-barotra" }
+    ],
+    "info": "Tsy misy antontan-taratasy voatery hampidirina hametrahana ny fangatahanao. Azonao atao ny manampy azy ireo any aoriana raha ilaina.",
+    "uploading": "Ampidirina ...",
+    "uploadProgress": "Andefasana ny rakitrao any amin'ny serveur arovana..."
+  },
+  "candidaterVerification": {
+    "title": "Hamarinina ny fangatahanao",
+    "subtitle": "Vakiho indray ny fizarana tsirairay alohan'ny hametrahana.",
+    "info": "Ny fampahalalana momba anao",
+    "profile": "Ny tantaranao",
+    "project": "Ny tetikasanao",
+    "motivation": "Ny antony manosika anao",
+    "documents": "Antontan-taratasy",
+    "documentsVerified": "Antontan-taratasy nalefa voamarina",
+    "consent": "Manamarina aho fa marina ny fampahalalana nomena ary manaiky aho fa hampiasaina amin'ny fitantanana ny fangatahako amin'ny fandaharana MIASA Tanora Mpandraharaha ny fampahalalana momba ahy.",
+    "consentError": "Tsy maintsy ekenao ny fepetra vao afaka hametraka ny fangatahanao.",
+    "docsWarning": "Voarakitra ny fangatahanao, fa nisy olana tamin'ny fanoratana ny antontan-taratasy. Mifandraisa aminay miaraka amin'ny laharan'ny fangatahanao.",
+    "previous": "Hiverina",
+    "submitting": "Andefasana ...",
+    "submit": "Hametraka ny fangatahana",
+    "labels": {
+      "name": "Anarana",
+      "email": "Mailaka",
+      "phone": "Telefaonina",
+      "district": "Distrika",
+      "commune": "Kaominina",
+      "situation": "Toe-java-misao",
+      "education": "Fari-pahaizana",
+      "experiencePro": "Traikefa ara-barotra",
+      "experienceEntrepreneurial": "Traikefa amin'ny fandraharahana",
+      "project": "Tetikasa",
+      "sector": "Sektora",
+      "activity": "Asa",
+      "description": "Famaritana",
+      "motivation": "Antony manosika",
+      "needs": "Filàna",
+      "objectives": "Tanjona"
+    },
+    "situationLabels": {
+      "etudiant": "Mpianatra",
+      "salarie": "Miasa karama",
+      "chomeur": "Mitady asa",
+      "independant": "Mizaka tena",
+      "retraite": "Misotro ronono",
+      "autre": "Hafa"
+    },
+    "educationLabels": {
+      "none": "Tsy manana diplaoma",
+      "primary": "Fototra",
+      "secondary": "Ambaratonga faharoa",
+      "vocational": "Fiofanana arak'asa",
+      "bachelor": "Licence / Bachelor",
+      "master": "Master",
+      "other": "Hafa"
+    },
+    "sectorLabels": {
+      "agriculture": "Fambolena",
+      "artisanat": "Asa tanana",
+      "halieutique": "Jono"
+    },
+    "activityLabels": {
+      "riziculture": "Fambolena vary",
+      "maraichage": "Fambolena an-tanimboly",
+      "transformation_agri": "Fanodiana",
+      "elevage": "Fiompiana",
+      "vannerie": "Fanenomana",
+      "raphia": "Rofia",
+      "nattes": "Harefo",
+      "paniers": "Harona",
+      "peche": "Jono",
+      "transformation_hal": "Fanodiana",
+      "conservation": "Fitehirizana",
+      "commercialisation": "Fivarotana",
+      "autre": "Hafa"
+    },
+    "needLabels": {
+      "formation": "Fampiofanana",
+      "equipement": "Fitaovana",
+      "financement": "Famatsiam-bola",
+      "accompagnement": "Fanohanana",
+      "marketing": "Marketing",
+      "acces_marche": "Fidirana eny amin'ny tsena",
+      "mentorat": "Mentorat"
+    }
+  },
+  "candidaterSuivi": {
+    "title": "Fanaraha-maso ny fangatahana",
+    "subtitle": "Jereo ny toeran'ny fangatahanao amin'ny fandaharana MIASA.",
+    "referenceLabel": "Laharan'ny fangatahana",
+    "emailLabel": "Mailaka",
+    "searching": "Karohina ...",
+    "search": "Hijery ny fangatahako",
+    "notFound": "Tsy hita ny fangatahana. Jereo ny laharan'ny fangatahanao sy ny mailakao.",
+    "sector": "Sektora: ",
+    "city": "Tanàna: ",
+    "progress": "Fivoarana",
+    "searchAnother": "Hitady fangatahana hafa",
+    "statuses": {
+      "new": "Vaovao",
+      "submitted": "Voaray ny fangatahana",
+      "under_review": "Eo am-panombanana",
+      "shortlisted": "Voafantina mialoha",
+      "interview": "Resaka fanehoana tena",
+      "accepted": "Ekena",
+      "rejected": "Tsy voafidy",
+      "waitlisted": "Laharana fiandrasana",
+      "withdrawn": "Nesorina"
+    },
+    "timeline": [
+      { "status": "submitted", "label": "Voaray ny fangatahana" },
+      { "status": "under_review", "label": "Fanamarinana ara-pitantanana" },
+      { "status": "shortlisted", "label": "Fanombanana" },
+      { "status": "interview", "label": "Resaka fanehoana tena" },
+      { "status": "accepted", "label": "Fifantenana" }
+    ]
+  },
+  "candidaterConfirmation": {
+    "title": "Voaray ny fangatahana",
+    "paragraph": "Misaotra ny fahaliananao amin'ny MIASA Tanora Mpandraharaha. Nampitaina tamin'ny ekipan'ny HARMONIA PROGRES ny dosieonao.",
+    "referenceLabel": "Ny laharan'ny fangatahanao",
+    "copy": "Adikao",
+    "keep": "Tahio ity laharan-tohana ity mba hanarahana ny toeran'ny fangatahanao.",
+    "track": "Hanaraka ny fangatahako",
+    "backToSite": "Hiverina amin'ny tranokala"
+  },
+  "candidate": {
+    "steps": [
+      { "number": "01", "label": "Fampahalalana", "href": "/candidater/informations" },
+      { "number": "02", "label": "Momba anao", "href": "/candidater/profil" },
+      { "number": "03", "label": "Tetikasa", "href": "/candidater/projet" },
+      { "number": "04", "label": "Antony manosika", "href": "/candidater/motivation" },
+      { "number": "05", "label": "Antontan-taratasy", "href": "/candidater/documents" },
+      { "number": "06", "label": "Fanamarinana", "href": "/candidater/verification" }
+    ],
+    "track": "Fanaraha-maso",
+    "stepLabel": "Dingana {stepNumber}",
+    "helpTitle": "Mila fanampiana ve ianao ?",
+    "back": "Hiverina",
+    "continue": "Hanohy",
+    "sending": "Andefasana ...",
+    "uploadDrag": "Ento eto ny rakitra na ",
+    "uploadBrowse": "hifidy",
+    "uploadHint": "Sary (JPG, PNG, WebP, GIF) na PDF — ambony indrindra {maxSize} Mo",
+    "uploadSelected": "Voafidy",
+    "uploadErrorFormat": "Tsy ekena ny endrika. Sary (JPG, PNG, WebP, GIF) na PDF ihany no avela.",
+    "uploadErrorSize": "Mihoatra ny {maxSize} Mo ny rakitra.",
+    "edit": "Hanova"
+  }
+}

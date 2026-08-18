@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useTranslations } from "next-intl";
 
 interface FormStepLayoutProps {
   stepNumber: string;
@@ -17,11 +18,13 @@ export function FormStepLayout({
   children,
   assistance,
 }: FormStepLayoutProps) {
+  const t = useTranslations("candidate");
+
   return (
     <div className="max-w-6xl mx-auto px-6 py-8 lg:py-12 flex flex-col justify-center lg:min-h-[calc(100vh-64px)]">
       <div className="mb-8">
         <span className="font-['JetBrains_Mono'] text-[11px] font-semibold text-text-muted uppercase tracking-widest">
-          Étape {stepNumber}
+          {t("stepLabel", { stepNumber })}
         </span>
         <h1 className="mt-3 font-['Space_Grotesk'] text-2xl md:text-3xl font-bold text-text-primary tracking-tight">
           {title}
@@ -37,7 +40,7 @@ export function FormStepLayout({
           <aside className="hidden lg:block">
             <div className="sticky top-8 rounded-2xl glass p-6">
               <h3 className="font-['Space_Grotesk'] font-semibold text-sm text-text-primary mb-3">
-                Besoin d&apos;aide ?
+                {t("helpTitle")}
               </h3>
               <div className="text-[13px] text-text-muted leading-relaxed space-y-3">
                 {assistance}

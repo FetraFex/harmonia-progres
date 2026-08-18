@@ -1,12 +1,14 @@
 "use client";
 
 import React from "react";
+import { useTranslations } from "next-intl";
 import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
 
 export function OpportunitySection() {
   const { ref, isRevealed } = useRevealOnScroll<HTMLDivElement>();
+  const t = useTranslations("opportunity");
 
-  const leftNodes = ["Artisans", "Pêcheurs", "Agriculteurs"];
+  const leftNodes = t.raw("leftNodes") as string[];
 
   return (
     <section
@@ -21,26 +23,20 @@ export function OpportunitySection() {
       >
         {/* Header */}
         <div className="max-w-3xl space-y-6">
-          <span className="text-xs font-mono font-semibold uppercase tracking-[0.2em] text-[#64748B]">
-            NOTRE ENGAGEMENT
+          <span className="text-xs font-mono font-semibold uppercase tracking-[0.2em] text-text-muted">
+            {t("kicker")}
           </span>
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-tight text-[var(--black)]">
-            HARMONIA PROGRES{" "}
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-tight text-text-primary">
+            {t("titleBefore")}{" "}
             <span className="font-serif italic font-normal text-teal">
-              pour les jeunes entrepreneurs
+              {t("titleAccent")}
             </span>
           </h2>
-          <p className="text-base sm:text-lg text-[#334155] leading-relaxed max-w-2xl">
-            À travers le projet MIASA Jeunes Entrepreneurs, nous créons des passerelles entre les
-            talents, les ressources et les opportunités afin de permettre aux jeunes de transformer
-            leurs compétences en activités génératrices de revenus durables. De l&apos;identification
-            des porteurs de projets à l&apos;accès aux marchés, nous les accompagnons dans le
-            renforcement de leurs compétences et la structuration de leurs initiatives.
+          <p className="text-base sm:text-lg text-text-secondary leading-relaxed max-w-2xl">
+            {t("paragraph1")}
           </p>
-          <p className="text-sm text-[#64748B] leading-relaxed max-w-2xl">
-            Notre ambition : faire de l&apos;entrepreneuriat un levier de développement local en
-            valorisant les savoir-faire et les ressources des secteurs agricole, artisanal et
-            halieutique de la région Fitovinany.
+          <p className="text-sm text-text-muted leading-relaxed max-w-2xl">
+            {t("paragraph2")}
           </p>
         </div>
 
@@ -56,7 +52,7 @@ export function OpportunitySection() {
                 }`}
                 style={{ transitionDelay: `${300 + idx * 150}ms` }}
               >
-                <span className="font-display text-sm font-semibold text-[#334155] tracking-wide">
+                <span className="font-display text-sm font-semibold text-text-secondary tracking-wide">
                   {node}
                 </span>
                 <span className="w-2.5 h-2.5 rounded-full bg-teal/60 shrink-0" />
@@ -86,7 +82,7 @@ export function OpportunitySection() {
           >
             <div className="px-6 py-4 border border-teal/30 rounded-2xl bg-teal/5 backdrop-blur-sm">
               <span className="font-display text-sm md:text-base font-bold tracking-[0.15em] text-teal uppercase">
-                HARMONIA PROGRES
+                {t("hub")}
               </span>
             </div>
             <div className="flex items-center gap-3">
@@ -115,7 +111,7 @@ export function OpportunitySection() {
           >
             <span className="w-2.5 h-2.5 rounded-full bg-teal shrink-0" />
             <span className="font-display text-sm md:text-base font-bold text-teal tracking-wide">
-              JEUNES ENTREPRENEURS
+              {t("rightNode")}
             </span>
           </div>
         </div>

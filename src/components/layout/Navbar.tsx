@@ -60,7 +60,7 @@ export function Navbar() {
           </Link>
           <Link
             href="/candidater"
-            className="px-5 py-2.5 rounded-full bg-teal text-void font-semibold text-sm hover:bg-teal/90 transition-all hover:scale-105 active:scale-95 shadow-md shadow-teal/20 flex items-center gap-2"
+            className="px-5 py-2.5 rounded-full bg-teal text-on-void font-semibold text-sm hover:bg-teal/90 transition-all hover:scale-105 active:scale-95 shadow-md shadow-teal/20 flex items-center gap-2"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />

@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useTranslations } from "next-intl";
 import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
 import { useCountUp } from "@/hooks/useCountUp";
 import { ArrowRightIcon } from "@/components/ui/Icons";
@@ -13,31 +14,10 @@ interface Sector {
   gradient: string;
 }
 
-const sectors: Sector[] = [
-  {
-    number: "01",
-    title: "ARTISANAT",
-    products: "Nattes · Raphia · Vannerie",
-    description:
-      "Préserver les savoir-faire locaux tout en ouvrant de nouveaux marchés. Nattes, paniers, raphia — un patrimoine artisanal à valoriser.",
-    gradient: "from-amber-900/50 via-amber-800/30 to-[#0a0a0a]",
-  },
-  {
-    number: "02",
-    title: "HALIEUTIQUE",
-    products: "Pêche · Transformation · Commercialisation",
-    description:
-      "Structurer la filière poisson pour une économie durable. Conservation, transformation et réduction des pertes post-capture.",
-    gradient: "from-blue-900/50 via-blue-800/30 to-[#0a0a0a]",
-  },
-  {
-    number: "03",
-    title: "AGRICULTURE",
-    products: "Riziculture · Semences · Productivité",
-    description:
-      "Accompagner les jeunes entrepreneurs agricoles vers l'autonomie. Techniques modernes, semences améliorées, commercialisation.",
-    gradient: "from-emerald-900/50 via-emerald-800/30 to-[#0a0a0a]",
-  },
+const GRADIENTS = [
+  "from-amber-900/50 via-amber-800/30 to-[#0a0a0a]",
+  "from-blue-900/50 via-blue-800/30 to-[#0a0a0a]",
+  "from-emerald-900/50 via-emerald-800/30 to-[#0a0a0a]",
 ];
 
 interface StatItemProps {
@@ -70,14 +50,20 @@ function StatCard({ target, suffix = "", label, delay }: StatItemProps) {
 }
 
 const statsData = [
-  { target: 3, suffix: "", label: "Secteurs d'intervention" },
-  { target: 2, suffix: "", label: "Districts concernés" },
-  { target: 0, suffix: " XX", label: "Jeunes accompagnés" },
-  { target: 0, suffix: " XX", label: "Partenaires mobilisés" },
+  { target: 3, suffix: "" },
+  { target: 2, suffix: "" },
+  { target: 0, suffix: " XX" },
+  { target: 0, suffix: " XX" },
 ];
 
 export function LocalEconomySection() {
   const { ref, isRevealed } = useRevealOnScroll<HTMLDivElement>();
+  const t = useTranslations("localEconomy");
+
+  const sectors: Sector[] = (t.raw("sectors") as Omit<Sector, "gradient">[]).map(
+    (s, i) => ({ ...s, gradient: GRADIENTS[i] })
+  );
+  const statsLabels = t.raw("stats") as { label: string }[];
 
   return (
     <section
@@ -93,17 +79,16 @@ export function LocalEconomySection() {
           }`}
         >
           <span className="text-xs font-mono font-semibold uppercase tracking-[0.2em] text-text-muted">
-            L&apos;ÉCONOMIE LOCALE
+            {t("kicker")}
           </span>
           <h2 className="mt-4 font-display text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-text-primary">
-            Trois secteurs.{" "}
+            {t("title1")}{" "}
             <span className="font-serif italic font-normal text-teal">
-              Un même potentiel.
+              {t("title2")}
             </span>
           </h2>
           <p className="mt-4 text-base sm:text-lg text-text-secondary max-w-2xl">
-            Valoriser les savoir-faire et les ressources du territoire pour
-            créer de nouvelles opportunités économiques.
+            {t("paragraph")}
           </p>
         </div>
 
@@ -113,7 +98,7 @@ export function LocalEconomySection() {
               key={idx}
               target={stat.target}
               suffix={stat.suffix}
-              label={stat.label}
+              label={statsLabels[idx].label}
               delay={idx * 100}
             />
           ))}
@@ -125,7 +110,7 @@ export function LocalEconomySection() {
         {sectors.map((sector, idx) => (
           <article
             key={sector.number}
-            className={`group relative overflow-hidden rounded-3xl border border-white/[0.06] hover:border-teal/20 transition-all duration-500 ${
+            className={`group relative overflow-hidden rounded-3xl border border-glass-border hover:border-teal/40 transition-all duration-500 ${
               isRevealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
             style={{ transitionDelay: `${300 + idx * 150}ms` }}
@@ -149,7 +134,7 @@ export function LocalEconomySection() {
               </div>
 
               {/* Content */}
-              <div className="flex-1 p-8 space-y-4 bg-white/[0.02]">
+              <div className="flex-1 p-8 space-y-4 bg-glass-bg">
                 <h3 className="font-display text-2xl md:text-3xl font-bold text-text-primary group-hover:text-teal transition-colors duration-300">
                   {sector.title}
                 </h3>
@@ -160,7 +145,7 @@ export function LocalEconomySection() {
                   {sector.description}
                 </p>
                 <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-text-muted group-hover:text-teal transition-colors pt-2">
-                  <span>Explorer</span>
+                  <span>{t("explore")}</span>
                   <ArrowRightIcon className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>

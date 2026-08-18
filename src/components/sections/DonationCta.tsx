@@ -88,7 +88,7 @@ export function DonationCta() {
                     }}
                     className={`py-3.5 px-4 rounded-2xl font-mono font-bold text-base transition-all cursor-pointer ${
                       isSelected
-                        ? "bg-teal text-void shadow-lg shadow-teal/30 scale-105"
+                        ? "bg-teal text-on-void shadow-lg shadow-teal/30 scale-105"
                         : "glass hover:glass-strong text-text-primary border-glass-border hover:border-teal/50"
                     }`}
                   >
@@ -103,7 +103,7 @@ export function DonationCta() {
           <div className="pt-4">
             <button
               onClick={handleDonate}
-              className="w-full sm:w-auto px-10 py-4 rounded-full bg-teal text-void font-display font-bold text-base sm:text-lg hover:bg-teal/90 transition-all hover:scale-105 active:scale-95 shadow-xl shadow-teal/25 cursor-pointer"
+              className="w-full sm:w-auto px-10 py-4 rounded-full bg-teal text-on-void font-display font-bold text-base sm:text-lg hover:bg-teal/90 transition-all hover:scale-105 active:scale-95 shadow-xl shadow-teal/25 cursor-pointer"
             >
               Faire un don de {customAmount ? customAmount : selectedAmount} €
             </button>

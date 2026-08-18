@@ -2,51 +2,20 @@
 
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
-
-const footerColumns = [
-  {
-    title: "PROJET",
-    links: [
-      { label: "Jeunes Entrepreneurs", href: "#programme" },
-      { label: "Notre mission", href: "#vision" },
-      { label: "Programme", href: "#programme" },
-    ],
-  },
-  {
-    title: "SECTEURS",
-    links: [
-      { label: "Artisanat", href: "#secteurs" },
-      { label: "Halieutique", href: "#secteurs" },
-      { label: "Agriculture", href: "#secteurs" },
-    ],
-  },
-  {
-    title: "TERRITOIRE",
-    links: [
-      { label: "Manakara", href: "#territoire" },
-      { label: "Vohipeno", href: "#territoire" },
-      { label: "Fitovinany", href: "#territoire" },
-    ],
-  },
-  {
-    title: "PARTICIPER",
-    links: [
-      { label: "Candidater", href: "#programme" },
-      { label: "Devenir partenaire", href: "#partenaires" },
-      { label: "Contact", href: "#contact" },
-    ],
-  },
-];
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 
 export function NewsletterFooter() {
+  const t = useTranslations("footer");
+  const footerColumns = t.raw("columns") as {
+    title: string;
+    links: { label: string; href: string }[];
+  }[];
+
   return (
     <>
       {/* Footer */}
-      <footer
-        className="border-t border-white/[0.08] relative z-10 pt-16 pb-12 px-32"
-        style={{ backgroundColor: "#050505" }}
-      >
+      <footer className="border-t border-glass-border bg-void-2 relative z-10 pt-16 pb-12 px-32">
         <div className="max-w-[1280px] mx-auto space-y-12">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
             {/* Brand */}
@@ -61,9 +30,7 @@ export function NewsletterFooter() {
                 />
               </Link>
               <p className="text-sm text-text-secondary max-w-sm leading-relaxed">
-                Organisation non gouvernementale dédiée au développement
-                économique et à l&apos;accompagnement des jeunes entrepreneurs,
-                artisans et pêcheurs à Manakara, Madagascar.
+                {t("description")}
               </p>
             </div>
 
@@ -89,8 +56,8 @@ export function NewsletterFooter() {
             ))}
           </div>
 
-          <div className="pt-8 border-t border-white/[0.08] text-xs text-text-muted">
-            © 2026 HARMONIA PROGRES — MIASA Jeunes Entrepreneurs
+          <div className="pt-8 border-t border-glass-border text-xs text-text-muted">
+            {t("copyright")}
           </div>
         </div>
       </footer>

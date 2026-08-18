@@ -1,21 +1,20 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
+import { Link, usePathname } from "@/i18n/navigation";
 import { Check, Eye } from "lucide-react";
-
-const steps = [
-  { number: "01", label: "Informations", href: "/candidater/informations" },
-  { number: "02", label: "Profil", href: "/candidater/profil" },
-  { number: "03", label: "Projet", href: "/candidater/projet" },
-  { number: "04", label: "Motivation", href: "/candidater/motivation" },
-  { number: "05", label: "Documents", href: "/candidater/documents" },
-  { number: "06", label: "Vérification", href: "/candidater/verification" },
-];
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
 
 export function CandidateHeader() {
+  const t = useTranslations("candidate");
   const pathname = usePathname();
+  const steps = t.raw("steps") as {
+    number: string;
+    label: string;
+    href: string;
+  }[];
   const currentIdx = steps.findIndex((s) => pathname.startsWith(s.href));
   const isFormStep = currentIdx >= 0;
 
@@ -43,7 +42,7 @@ export function CandidateHeader() {
                   href={step.href}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition ${
                     isActive
-                      ? "bg-teal text-void"
+                      ? "bg-teal text-on-void"
                       : isDone
                         ? "bg-teal/20 text-teal"
                         : "text-text-muted hover:bg-glass-bg"
@@ -63,11 +62,14 @@ export function CandidateHeader() {
 
         <Link
           href="/candidater/suivi"
-          className="rounded-xl bg-teal/10 border border-teal/30 px-3.5 py-1.5 text-xs font-semibold text-teal hover:bg-teal hover:text-void transition flex items-center gap-1.5"
+          className="rounded-xl bg-teal/10 border border-teal/30 px-3.5 py-1.5 text-xs font-semibold text-teal hover:bg-teal hover:text-on-void transition flex items-center gap-1.5"
         >
           <Eye className="w-3.5 h-3.5" />
-          <span>Suivi</span>
+          <span>{t("track")}</span>
         </Link>
+
+        <LanguageSwitcher className="hidden sm:inline-flex" />
+        <ThemeToggle className="h-9 w-9 p-2 rounded-full glass" />
       </div>
     </header>
   );

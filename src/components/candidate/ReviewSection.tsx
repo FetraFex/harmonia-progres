@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useTranslations } from "next-intl";
 import { Pencil } from "lucide-react";
 
 interface ReviewSectionProps {
@@ -10,6 +11,8 @@ interface ReviewSectionProps {
 }
 
 export function ReviewSection({ title, onEdit, children }: ReviewSectionProps) {
+  const t = useTranslations("candidate");
+
   return (
     <div className="rounded-xl glass p-5">
       <div className="flex items-center justify-between mb-3">
@@ -22,7 +25,7 @@ export function ReviewSection({ title, onEdit, children }: ReviewSectionProps) {
             className="flex items-center gap-1 text-xs font-medium text-text-muted hover:text-teal transition"
           >
             <Pencil className="w-3 h-3" />
-            Modifier
+            {t("edit")}
           </button>
         )}
       </div>

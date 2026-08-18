@@ -1,9 +1,11 @@
 "use client";
 
 import React from "react";
+import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 
 export function ScrollIndicator() {
+  const t = useTranslations("hero");
   return (
     <motion.div
       className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-2"
@@ -13,7 +15,7 @@ export function ScrollIndicator() {
       aria-hidden="true"
     >
       <span className="text-[10px] uppercase tracking-[0.2em] text-white/40 font-medium">
-        Découvrir
+        {t("scroll")}
       </span>
       <motion.div
         className="w-px h-8 bg-gradient-to-b from-white/50 to-transparent"

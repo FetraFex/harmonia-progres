@@ -1,10 +1,9 @@
 "use client";
 
 import React from "react";
+import { useTranslations } from "next-intl";
 import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
 import { ArrowRightIcon } from "@/components/ui/Icons";
-
-const words = ["APPRENDRE", "ENTREPRENDRE", "CRÉER", "GRANDIR"] as const;
 
 interface Step {
   number: string;
@@ -12,47 +11,12 @@ interface Step {
   items: string[];
 }
 
-const steps: Step[] = [
-  {
-    number: "01",
-    title: "IDENTIFIER",
-    items: ["Sensibilisation", "Appel à candidature", "Sélection"],
-  },
-  {
-    number: "02",
-    title: "FORMER",
-    items: [
-      "Entrepreneuriat",
-      "Création d'entreprise",
-      "Gestion financière",
-      "Marketing",
-      "Techniques de production",
-    ],
-  },
-  {
-    number: "03",
-    title: "INCUBER",
-    items: ["Coaching", "Mentorat", "Conseils professionnels", "Suivi"],
-  },
-  {
-    number: "04",
-    title: "ACCOMPAGNER",
-    items: [
-      "Équipements",
-      "Kits de démarrage",
-      "Appui technique",
-      "Accès au financement",
-    ],
-  },
-  {
-    number: "05",
-    title: "CONNECTER",
-    items: ["Réseautage", "Commercialisation", "Accès aux marchés"],
-  },
-];
-
 export function EntrepreneursProgramSection() {
   const { ref, isRevealed } = useRevealOnScroll<HTMLDivElement>();
+  const t = useTranslations("program");
+
+  const words = t.raw("words") as string[];
+  const steps = t.raw("steps") as Step[];
 
   return (
     <section
@@ -80,7 +44,7 @@ export function EntrepreneursProgramSection() {
             }`}
           >
             <span className="block text-xs font-mono font-semibold uppercase tracking-[0.2em] text-text-muted mb-4">
-              JEUNES ENTREPRENEURS
+              {t("kicker")}
             </span>
             {words.map((word, idx) => (
               <span
@@ -103,9 +67,7 @@ export function EntrepreneursProgramSection() {
               isRevealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
           >
-            Un programme dédié aux jeunes de Manakara et Vohipeno pour
-            transformer leurs idées en activités économiques viables et
-            durables.
+            {t("paragraph")}
           </p>
         </div>
 
@@ -116,9 +78,9 @@ export function EntrepreneursProgramSection() {
           }`}
         >
           <h3 className="font-display text-2xl md:text-3xl font-bold tracking-tight text-text-primary mb-10">
-            Le parcours{" "}
+            {t("title1")}{" "}
             <span className="font-serif italic font-normal text-teal">
-              entrepreneur
+              {t("title2")}
             </span>
           </h3>
 
@@ -137,7 +99,7 @@ export function EntrepreneursProgramSection() {
                 >
                   {/* Node */}
                   <div className="relative z-10 shrink-0">
-                    <div className="w-10 h-10 rounded-full border-2 border-teal bg-[#050505] flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-full border-2 border-teal bg-void flex items-center justify-center">
                       <span className="font-mono text-xs font-bold text-teal">
                         {step.number}
                       </span>
@@ -170,7 +132,7 @@ export function EntrepreneursProgramSection() {
               href="#territoire"
               className="inline-flex items-center gap-2 font-semibold text-teal hover:text-teal/80 transition-colors group"
             >
-              <span>Découvrir le territoire</span>
+              <span>{t("discover")}</span>
               <ArrowRightIcon className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </a>
           </div>

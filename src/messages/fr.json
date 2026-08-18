@@ -1,0 +1,542 @@
+{
+  "common": {
+    "brand": "Harmonia Progrès",
+    "candidater": "Candidater",
+    "languageSwitcher": "Changer de langue",
+    "languages": {
+      "fr": "Français",
+      "mg": "Malagasy"
+    }
+  },
+  "nav": {
+    "project": "Le Projet",
+    "actions": "Nos Actions",
+    "impact": "Impact",
+    "news": "Actualités",
+    "ariaNav": "Navigation principale",
+    "ariaHome": "Harmonia Progrès — Accueil",
+    "ariaMenu": "Ouvrir le menu",
+    "mySpace": "Mon espace",
+    "join": "Rejoindre le programme",
+    "candidater": "Candidater",
+    "more": "En savoir plus"
+  },
+  "hero": {
+    "badge": "Manakara · Madagascar",
+    "trust": "1 200+ donateurs actifs",
+    "titleLine1": "Construire l'avenir",
+    "titleLine2": "entrepreneurial",
+    "titleDe": "de",
+    "titleCity": "Manakara",
+    "subtitle": "Nous accompagnons les jeunes, artisans, pêcheurs et entrepreneurs locaux grâce à la formation, l'accompagnement et l'accès aux opportunités.",
+    "scroll": "Découvrir",
+    "metrics": [
+      { "value": "+350", "label": "Jeunes accompagnés" },
+      { "value": "+80", "label": "Entrepreneurs soutenus" },
+      { "value": "+25", "label": "Partenaires locaux" }
+    ]
+  },
+  "opportunity": {
+    "kicker": "NOTRE ENGAGEMENT",
+    "titleBefore": "HARMONIA PROGRES",
+    "titleAccent": "pour les jeunes entrepreneurs",
+    "paragraph1": "À travers le projet MIASA Jeunes Entrepreneurs, nous créons des passerelles entre les talents, les ressources et les opportunités afin de permettre aux jeunes de transformer leurs compétences en activités génératrices de revenus durables. De l'identification des porteurs de projets à l'accès aux marchés, nous les accompagnons dans le renforcement de leurs compétences et la structuration de leurs initiatives.",
+    "paragraph2": "Notre ambition : faire de l'entrepreneuriat un levier de développement local en valorisant les savoir-faire et les ressources des secteurs agricole, artisanal et halieutique de la région Fitovinany.",
+    "leftNodes": ["Artisans", "Pêcheurs", "Agriculteurs"],
+    "hub": "HARMONIA PROGRES",
+    "rightNode": "JEUNES ENTREPRENEURS"
+  },
+  "localEconomy": {
+    "kicker": "L'ÉCONOMIE LOCALE",
+    "title1": "Trois secteurs.",
+    "title2": "Un même potentiel.",
+    "paragraph": "Valoriser les savoir-faire et les ressources du territoire pour créer de nouvelles opportunités économiques.",
+    "stats": [
+      { "label": "Secteurs d'intervention" },
+      { "label": "Districts concernés" },
+      { "label": "Jeunes accompagnés" },
+      { "label": "Partenaires mobilisés" }
+    ],
+    "sectors": [
+      {
+        "number": "01",
+        "title": "ARTISANAT",
+        "products": "Nattes · Raphia · Vannerie",
+        "description": "Préserver les savoir-faire locaux tout en ouvrant de nouveaux marchés. Nattes, paniers, raphia — un patrimoine artisanal à valoriser."
+      },
+      {
+        "number": "02",
+        "title": "HALIEUTIQUE",
+        "products": "Pêche · Transformation · Commercialisation",
+        "description": "Structurer la filière poisson pour une économie durable. Conservation, transformation et réduction des pertes post-capture."
+      },
+      {
+        "number": "03",
+        "title": "AGRICULTURE",
+        "products": "Riziculture · Semences · Productivité",
+        "description": "Accompagner les jeunes entrepreneurs agricoles vers l'autonomie. Techniques modernes, semences améliorées, commercialisation."
+      }
+    ],
+    "explore": "Explorer"
+  },
+  "program": {
+    "words": ["APPRENDRE", "ENTREPRENDRE", "CRÉER", "GRANDIR"],
+    "kicker": "JEUNES ENTREPRENEURS",
+    "paragraph": "Un programme dédié aux jeunes de Manakara et Vohipeno pour transformer leurs idées en activités économiques viables et durables.",
+    "title1": "Le parcours",
+    "title2": "entrepreneur",
+    "steps": [
+      {
+        "number": "01",
+        "title": "IDENTIFIER",
+        "items": ["Sensibilisation", "Appel à candidature", "Sélection"]
+      },
+      {
+        "number": "02",
+        "title": "FORMER",
+        "items": [
+          "Entrepreneuriat",
+          "Création d'entreprise",
+          "Gestion financière",
+          "Marketing",
+          "Techniques de production"
+        ]
+      },
+      {
+        "number": "03",
+        "title": "INCUBER",
+        "items": ["Coaching", "Mentorat", "Conseils professionnels", "Suivi"]
+      },
+      {
+        "number": "04",
+        "title": "ACCOMPAGNER",
+        "items": [
+          "Équipements",
+          "Kits de démarrage",
+          "Appui technique",
+          "Accès au financement"
+        ]
+      },
+      {
+        "number": "05",
+        "title": "CONNECTER",
+        "items": ["Réseautage", "Commercialisation", "Accès aux marchés"]
+      }
+    ],
+    "discover": "Découvrir le territoire"
+  },
+  "territory": {
+    "kicker": "NOTRE TERRITOIRE",
+    "title1": "Ancré dans",
+    "title2": "un territoire.",
+    "paragraph": "Agir au plus près des communautés, des ressources et des opportunités locales.",
+    "mapAria": "Carte de Madagascar avec régions Fitovinany, Manakara et Vohipeno",
+    "cities": [
+      {
+        "city": "MANAKARA",
+        "focus": "Artisanat · Halieutique",
+        "description": "Port maritime, artisanat local, filière halieutique structurée."
+      },
+      {
+        "city": "VOHIPENO",
+        "focus": "Agriculture · Riziculture",
+        "description": "Terres agricoles, riziculture améliorée, production locale."
+      }
+    ]
+  },
+  "vision": {
+    "statement1": "Construire une génération de jeunes entrepreneurs",
+    "statement2": "autonomes",
+    "statement3": "innovants",
+    "statement4": "responsables",
+    "kicker": "NOTRE MISSION",
+    "missions": [
+      "Former les jeunes à l'entrepreneuriat.",
+      "Développer leurs compétences techniques et professionnelles.",
+      "Faciliter la création de microentreprises.",
+      "Favoriser l'accès au financement.",
+      "Accompagner les entrepreneurs vers les marchés.",
+      "Valoriser les ressources locales."
+    ]
+  },
+  "partnership": {
+    "kicker": "REJOINDRE LE RÉSEAU",
+    "title1": "Construisons",
+    "title2": "l'écosystème",
+    "title3": "ensemble.",
+    "paragraph": "Le développement local repose sur la force des connexions. HARMONIA PROGRES souhaite réunir entrepreneurs, producteurs, institutions et partenaires engagés.",
+    "becomePartner": "Devenir partenaire",
+    "supportProject": "Soutenir le projet",
+    "footnote": "Un réseau d'acteurs engagés pour le développement local."
+  },
+  "footer": {
+    "description": "Organisation non gouvernementale dédiée au développement économique et à l'accompagnement des jeunes entrepreneurs, artisans et pêcheurs à Manakara, Madagascar.",
+    "columns": [
+      {
+        "title": "PROJET",
+        "links": [
+          { "label": "Jeunes Entrepreneurs", "href": "#programme" },
+          { "label": "Notre mission", "href": "#vision" },
+          { "label": "Programme", "href": "#programme" }
+        ]
+      },
+      {
+        "title": "SECTEURS",
+        "links": [
+          { "label": "Artisanat", "href": "#secteurs" },
+          { "label": "Halieutique", "href": "#secteurs" },
+          { "label": "Agriculture", "href": "#secteurs" }
+        ]
+      },
+      {
+        "title": "TERRITOIRE",
+        "links": [
+          { "label": "Manakara", "href": "#territoire" },
+          { "label": "Vohipeno", "href": "#territoire" },
+          { "label": "Fitovinany", "href": "#territoire" }
+        ]
+      },
+      {
+        "title": "PARTICIPER",
+        "links": [
+          { "label": "Candidater", "href": "#programme" },
+          { "label": "Devenir partenaire", "href": "#partenaires" },
+          { "label": "Contact", "href": "#contact" }
+        ]
+      }
+    ],
+    "copyright": "© 2026 HARMONIA PROGRES — MIASA Jeunes Entrepreneurs"
+  },
+  "candidaterLanding": {
+    "kicker": "MIASA Jeunes Entrepreneurs",
+    "title1": "Votre projet peut devenir",
+    "title2": "votre avenir.",
+    "paragraph": "Rejoignez MIASA Jeunes Entrepreneurs et bénéficiez d'un accompagnement pour transformer votre idée ou votre activité en une opportunité durable.",
+    "locations": ["MANAKARA", "VOHIPENO", "FITOVINANY"],
+    "sectors": ["AGRICULTURE", "ARTISANAT", "HALIEUTIQUE"],
+    "ctaApply": "Candidater",
+    "ctaCheck": "Vérifier l'éligibilité",
+    "discoverTitle": "Ce que vous allez découvrir",
+    "benefits": [
+      {
+        "title": "FORMATION",
+        "description": "Développez vos compétences entrepreneuriales et techniques."
+      },
+      {
+        "title": "ACCOMPAGNEMENT",
+        "description": "Bénéficiez d'un suivi adapté à votre projet."
+      },
+      {
+        "title": "OPPORTUNITÉS",
+        "description": "Accédez à des ressources et opportunités pour développer votre activité."
+      },
+      {
+        "title": "RÉSEAU",
+        "description": "Construisez des relations avec d'autres acteurs économiques de votre territoire."
+      }
+    ]
+  },
+  "candidaterEligibilite": {
+    "step": "Étape {step} sur {total}",
+    "questions": [
+      {
+        "question": "Dans quel district résidez-vous ?",
+        "options": [
+          { "value": "manakara", "label": "Manakara" },
+          { "value": "vohipeno", "label": "Vohipeno" },
+          { "value": "autre", "label": "Autre" }
+        ]
+      },
+      {
+        "question": "Votre projet concerne-t-il l'un des secteurs suivants ?",
+        "options": [
+          { "value": "agriculture", "label": "Agriculture" },
+          { "value": "artisanat", "label": "Artisanat" },
+          { "value": "halieutique", "label": "Halieutique" }
+        ]
+      },
+      {
+        "question": "Êtes-vous actuellement porteur d'un projet ou d'une activité ?",
+        "options": [
+          { "value": "oui", "label": "Oui" },
+          { "value": "non", "label": "Non" }
+        ]
+      }
+    ],
+    "notEligibleTitle": "Merci pour votre intérêt",
+    "notEligibleText": "Les critères actuels du programme sont limités à certaines zones et certains secteurs d'intervention. Nous vous encourageons à suivre nos actualités pour de futures opportunités.",
+    "backToSite": "Retour au site",
+    "eligibleTitle": "Vous pouvez commencer votre candidature.",
+    "eligibleText": "Vous êtes éligible pour le programme MIASA Jeunes Entrepreneurs. Complétez votre candidature en quelques étapes simples.",
+    "start": "Commencer",
+    "previous": "Précédent"
+  },
+  "candidaterInformations": {
+    "title": "Parlez-nous de vous.",
+    "assistance1": "Ces informations nous permettent de mieux vous connaître et de vous recontacter concernant votre candidature.",
+    "assistance2": "Toutes les données sont confidentielles et utilisées uniquement dans le cadre du programme.",
+    "firstName": "Prénom *",
+    "lastName": "Nom *",
+    "dateOfBirth": "Date de naissance *",
+    "phone": "Téléphone *",
+    "email": "Email *",
+    "district": "District *",
+    "commune": "Commune *",
+    "address": "Adresse",
+    "communePlaceholder": "Commune ou fokontany",
+    "addressPlaceholder": "Quartier, rue...",
+    "continue": "Continuer",
+    "districts": [
+      { "value": "manakara", "label": "Manakara" },
+      { "value": "vohipeno", "label": "Vohipeno" },
+      { "value": "autre", "label": "Autre" }
+    ]
+  },
+  "candidaterProfil": {
+    "title": "Votre parcours",
+    "assistance1": "Racontez-nous votre parcours. Il n'est pas nécessaire d'utiliser un vocabulaire technique.",
+    "assistance2": "Ce que nous voulons comprendre : votre situation actuelle et votre expérience.",
+    "situation": "Situation actuelle *",
+    "educationLevel": "Niveau d'études *",
+    "experiencePro": "Expérience professionnelle",
+    "experienceEntrepreneurial": "Expérience entrepreneuriale",
+    "selectPlaceholder": "Sélectionnez...",
+    "experienceProPlaceholder": "Décrivez brièvement votre expérience...",
+    "experienceEntrepreneurialPlaceholder": "Avez-vous déjà lancé un projet ou une activité ?",
+    "situations": [
+      { "value": "etudiant", "label": "Étudiant(e)" },
+      { "value": "salarie", "label": "Salarié(e)" },
+      { "value": "chomeur", "label": "En recherche d'emploi" },
+      { "value": "independant", "label": "Indépendant(e)" },
+      { "value": "retraite", "label": "Retraité(e)" },
+      { "value": "autre", "label": "Autre" }
+    ],
+    "educationLevels": [
+      { "value": "none", "label": "Aucun diplôme" },
+      { "value": "primary", "label": "Primaire" },
+      { "value": "secondary", "label": "Secondaire" },
+      { "value": "vocational", "label": "Formation professionnelle" },
+      { "value": "bachelor", "label": "Licence / Bachelor" },
+      { "value": "master", "label": "Master" },
+      { "value": "other", "label": "Autre" }
+    ]
+  },
+  "candidaterProjet": {
+    "title": "Votre projet",
+    "assistance1": "Décrivez votre projet simplement. Nous voulons comprendre :",
+    "assistanceItems": [
+      "Ce que vous voulez créer ou développer",
+      "Pourquoi c'est important pour vous",
+      "À qui cela profitera"
+    ],
+    "assistance2": "Pas besoin de business plan détaillé — juste une vision claire.",
+    "identity": "Identité du projet",
+    "projectName": "Nom du projet *",
+    "projectNamePlaceholder": "Ex: Transformation de vanille bio",
+    "sector": "Secteur d'activité",
+    "activityType": "Type d'activité",
+    "selectActivity": "Sélectionnez votre activité *",
+    "selectPlaceholder": "Sélectionnez...",
+    "description": "Description",
+    "projectDescription": "Décrivez votre projet *",
+    "projectDescriptionPlaceholder": "Décrivez votre projet en quelques lignes...",
+    "problemIdentified": "Problème identifié *",
+    "problemIdentifiedPlaceholder": "Quel problème cherchez-vous à résoudre ?",
+    "solutionProposed": "Solution proposée *",
+    "solutionProposedPlaceholder": "Comment votre projet résout ce problème ?",
+    "targetMarket": "Marché cible *",
+    "targetMarketPlaceholder": "À qui s'adresse votre produit ou service ?",
+    "sectors": [
+      { "value": "agriculture", "label": "Agriculture" },
+      { "value": "artisanat", "label": "Artisanat" },
+      { "value": "halieutique", "label": "Halieutique" }
+    ]
+  },
+  "candidaterMotivation": {
+    "title": "Pourquoi ce projet ?",
+    "assistance1": "Cette étape est la plus importante. Nous voulons comprendre :",
+    "assistanceItems": [
+      "Pourquoi vous souhaitez rejoindre le programme",
+      "De quoi avez-vous besoin pour réussir",
+      "Ce que vous comptez accomplir"
+    ],
+    "assistance2": "Soyez honnête — il n'y a pas de mauvaise réponse.",
+    "motivation": "Votre motivation",
+    "motivationLabel": "Pourquoi souhaitez-vous participer au programme ? *",
+    "motivationPlaceholder": "Partagez votre motivation, vos objectifs...",
+    "needs": "Vos besoins",
+    "needsLabel": "Quels sont vos principaux besoins ? *",
+    "objectives": "Vos objectifs",
+    "accomplishmentsLabel": "Que souhaitez-vous accomplir avec votre projet ? *",
+    "accomplishmentsPlaceholder": "Décrivez votre vision d'avenir...",
+    "needOptions": [
+      { "value": "formation", "label": "Formation" },
+      { "value": "equipement", "label": "Équipement" },
+      { "value": "financement", "label": "Financement" },
+      { "value": "accompagnement", "label": "Accompagnement" },
+      { "value": "marketing", "label": "Marketing" },
+      { "value": "acces_marche", "label": "Accès au marché" },
+      { "value": "mentorat", "label": "Mentorat" }
+    ]
+  },
+  "candidaterDocuments": {
+    "title": "Vos documents",
+    "assistance1": "Ces documents ne sont pas tous obligatoires, mais ils renforcent votre candidature.",
+    "assistance2": "Formats acceptés : PDF, JPG, PNG, WebP, GIF. Taille maximale : 5 Mo par fichier.",
+    "count": "{uploadedCount} sur {total} document(s) téléversé(s).",
+    "sectionTitle": "Documents à téléverser",
+    "sectionParagraph": "Téléversez les documents que vous souhaitez joindre à votre candidature.",
+    "documentTypes": [
+      { "key": "id_card", "label": "Pièce d'identité" },
+      { "key": "cv", "label": "Curriculum Vitae (CV)" },
+      { "key": "project_presentation", "label": "Présentation du projet" },
+      { "key": "business_plan", "label": "Business plan" }
+    ],
+    "info": "Aucun document n'est obligatoire pour soumettre votre candidature. Vous pourrez en ajouter plus tard si nécessaire.",
+    "uploading": "Téléversement en cours...",
+    "uploadProgress": "Envoi de vos fichiers vers le serveur sécurisé..."
+  },
+  "candidaterVerification": {
+    "title": "Vérifiez votre candidature",
+    "subtitle": "Relisez chaque section avant de soumettre.",
+    "info": "Vos informations",
+    "profile": "Votre parcours",
+    "project": "Votre projet",
+    "motivation": "Votre motivation",
+    "documents": "Documents",
+    "documentsVerified": "Documents joints vérifiés",
+    "consent": "Je certifie que les informations fournies sont exactes et j'accepte que mes informations soient utilisées dans le cadre de la gestion de ma candidature au programme MIASA Jeunes Entrepreneurs.",
+    "consentError": "Vous devez accepter les conditions pour soumettre votre candidature.",
+    "docsWarning": "Votre candidature a été enregistrée, mais un problème est survenu lors de l'enregistrement des documents. Contactez-nous avec votre référence.",
+    "previous": "Précédent",
+    "submitting": "Envoi en cours...",
+    "submit": "Soumettre ma candidature",
+    "labels": {
+      "name": "Nom",
+      "email": "Email",
+      "phone": "Téléphone",
+      "district": "District",
+      "commune": "Commune",
+      "situation": "Situation",
+      "education": "Éducation",
+      "experiencePro": "Expérience pro",
+      "experienceEntrepreneurial": "Expérience entrepreneuriale",
+      "project": "Projet",
+      "sector": "Secteur",
+      "activity": "Activité",
+      "description": "Description",
+      "motivation": "Motivation",
+      "needs": "Besoins",
+      "objectives": "Objectifs"
+    },
+    "situationLabels": {
+      "etudiant": "Étudiant(e)",
+      "salarie": "Salarié(e)",
+      "chomeur": "En recherche d'emploi",
+      "independant": "Indépendant(e)",
+      "retraite": "Retraité(e)",
+      "autre": "Autre"
+    },
+    "educationLabels": {
+      "none": "Aucun diplôme",
+      "primary": "Primaire",
+      "secondary": "Secondaire",
+      "vocational": "Formation professionnelle",
+      "bachelor": "Licence / Bachelor",
+      "master": "Master",
+      "other": "Autre"
+    },
+    "sectorLabels": {
+      "agriculture": "Agriculture",
+      "artisanat": "Artisanat",
+      "halieutique": "Halieutique"
+    },
+    "activityLabels": {
+      "riziculture": "Riziculture",
+      "maraichage": "Maraîchage",
+      "transformation_agri": "Transformation",
+      "elevage": "Élevage",
+      "vannerie": "Vannerie",
+      "raphia": "Raphia",
+      "nattes": "Nattes",
+      "paniers": "Paniers",
+      "peche": "Pêche",
+      "transformation_hal": "Transformation",
+      "conservation": "Conservation",
+      "commercialisation": "Commercialisation",
+      "autre": "Autre"
+    },
+    "needLabels": {
+      "formation": "Formation",
+      "equipement": "Équipement",
+      "financement": "Financement",
+      "accompagnement": "Accompagnement",
+      "marketing": "Marketing",
+      "acces_marche": "Accès au marché",
+      "mentorat": "Mentorat"
+    }
+  },
+  "candidaterSuivi": {
+    "title": "Suivi de candidature",
+    "subtitle": "Consultez l'état de votre candidature au programme MIASA.",
+    "referenceLabel": "Référence de candidature",
+    "emailLabel": "Email",
+    "searching": "Recherche...",
+    "search": "Consulter ma candidature",
+    "notFound": "Aucune candidature trouvée. Vérifiez votre référence et votre email.",
+    "sector": "Secteur: ",
+    "city": "Ville: ",
+    "progress": "Progression",
+    "searchAnother": "Rechercher une autre candidature",
+    "statuses": {
+      "new": "Nouveau",
+      "submitted": "Candidature reçue",
+      "under_review": "En évaluation",
+      "shortlisted": "Présélectionné",
+      "interview": "Entretien",
+      "accepted": "Accepté",
+      "rejected": "Non retenu",
+      "waitlisted": "Liste d'attente",
+      "withdrawn": "Retiré"
+    },
+    "timeline": [
+      { "status": "submitted", "label": "Candidature reçue" },
+      { "status": "under_review", "label": "Vérification administrative" },
+      { "status": "shortlisted", "label": "Évaluation" },
+      { "status": "interview", "label": "Entretien" },
+      { "status": "accepted", "label": "Sélection" }
+    ]
+  },
+  "candidaterConfirmation": {
+    "title": "Candidature soumise",
+    "paragraph": "Merci pour votre intérêt envers MIASA Jeunes Entrepreneurs. Votre dossier a été transmis à l'équipe HARMONIA PROGRES.",
+    "referenceLabel": "Votre numéro de référence",
+    "copy": "Copier",
+    "keep": "Conservez ce numéro pour suivre l'état de votre candidature.",
+    "track": "Suivre ma candidature",
+    "backToSite": "Retour au site"
+  },
+  "candidate": {
+    "steps": [
+      { "number": "01", "label": "Informations", "href": "/candidater/informations" },
+      { "number": "02", "label": "Profil", "href": "/candidater/profil" },
+      { "number": "03", "label": "Projet", "href": "/candidater/projet" },
+      { "number": "04", "label": "Motivation", "href": "/candidater/motivation" },
+      { "number": "05", "label": "Documents", "href": "/candidater/documents" },
+      { "number": "06", "label": "Vérification", "href": "/candidater/verification" }
+    ],
+    "track": "Suivi",
+    "stepLabel": "Étape {stepNumber}",
+    "helpTitle": "Besoin d'aide ?",
+    "back": "Retour",
+    "continue": "Continuer",
+    "sending": "Envoi...",
+    "uploadDrag": "Glissez un fichier ici ou ",
+    "uploadBrowse": "parcourir",
+    "uploadHint": "Image (JPG, PNG, WebP, GIF) ou PDF — max {maxSize} Mo",
+    "uploadSelected": "Sélectionné",
+    "uploadErrorFormat": "Format non accepté. Seuls les fichiers image (JPG, PNG, WebP, GIF) ou PDF sont autorisés.",
+    "uploadErrorSize": "Le fichier dépasse {maxSize} Mo.",
+    "edit": "Modifier"
+  }
+}

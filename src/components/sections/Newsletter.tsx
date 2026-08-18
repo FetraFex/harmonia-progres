@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { toast } from "sonner";
 import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
 import { MailIcon } from "@/components/ui/Icons";
+import { SmoothInput } from "@/components/ui/SmoothInput";
 
 export function Newsletter() {
   const { ref, isRevealed } = useRevealOnScroll<HTMLDivElement>();
@@ -50,17 +51,18 @@ export function Newsletter() {
           onSubmit={handleSubmit}
           className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto"
         >
-          <input
+          <SmoothInput
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="votre.email@exemple.com"
             required
-            className="w-full px-5 py-3.5 rounded-full bg-void/80 border border-glass-border focus:border-teal text-text-primary text-sm placeholder:text-text-muted transition-colors outline-none"
+            wrapperClassName="rounded-full bg-void/80 border border-glass-border px-5 py-3.5"
+            className="text-sm text-text-primary placeholder:text-text-muted"
           />
           <button
             type="submit"
-            className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-teal text-void font-bold text-sm hover:bg-teal/90 transition-all hover:scale-105 active:scale-95 shadow-md shadow-teal/20 whitespace-nowrap cursor-pointer"
+            className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-teal text-on-void font-bold text-sm hover:bg-teal/90 transition-all hover:scale-105 active:scale-95 shadow-md shadow-teal/20 whitespace-nowrap cursor-pointer"
           >
             Je m&apos;inscris
           </button>

@@ -43,7 +43,7 @@ export function SupportCta() {
           <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
             <a
               href="#contact"
-              className="px-8 py-4 rounded-full bg-teal text-void font-display font-bold text-sm sm:text-base hover:bg-teal/90 transition-all hover:scale-105 active:scale-95 shadow-xl shadow-teal/25 flex items-center gap-2"
+              className="px-8 py-4 rounded-full bg-teal text-on-void font-display font-bold text-sm sm:text-base hover:bg-teal/90 transition-all hover:scale-105 active:scale-95 shadow-xl shadow-teal/25 flex items-center gap-2"
             >
               <span>Devenir partenaire</span>
               <ArrowRightIcon className="w-4 h-4" />

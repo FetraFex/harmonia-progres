@@ -5,18 +5,20 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --bg-void: #090d17;
-  --bg-void-2: #0d1424;
-  --glass-bg: rgba(255, 255, 255, 0.055);
-  --glass-bg-strong: rgba(255, 255, 255, 0.095);
-  --glass-border: rgba(255, 255, 255, 0.14);
-  --glass-border-strong: rgba(255, 255, 255, 0.28);
-  --text-primary: #F3F6FA;
-  --text-secondary: #A9B4C6;
-  --text-muted: #66708A;
-  --teal: #CEFB48;
-  --coral: #F2966B;
-  --green: #CEFB48;
+  /* ── Light theme (default) ── */
+  --bg-void: #fafaf8;
+  --bg-void-2: #ffffff;
+  --glass-bg: rgba(15, 23, 42, 0.04);
+  --glass-bg-strong: rgba(15, 23, 42, 0.08);
+  --glass-border: rgba(15, 23, 42, 0.12);
+  --glass-border-strong: rgba(15, 23, 42, 0.24);
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --teal: #cefb48;
+  --coral: #f97316;
+  --green: #cefb48;
+  --on-void: #04211d;
   --primary: oklch(0.205 0 0);
   --secondary: oklch(0.97 0 0);
   --background: oklch(1 0 0);
@@ -51,26 +53,44 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
-@theme {
-  --color-void: #090d17;
-  --color-void-2: #0d1424;
-  --color-glass-bg: rgba(255, 255, 255, 0.055);
-  --color-glass-bg-strong: rgba(255, 255, 255, 0.095);
-  --color-glass-border: rgba(255, 255, 255, 0.14);
-  --color-glass-border-strong: rgba(255, 255, 255, 0.28);
-  --color-text-primary: #F3F6FA;
-  --color-text-secondary: #A9B4C6;
-  --color-text-muted: #66708A;
-  --color-teal: #CEFB48;
-  --color-coral: #F2966B;
-  --color-green: #CEFB48;
-  --color-primary: #CEFB48;
-  --color-secondary: #CEFB48;
+@theme inline {
+  --color-void: var(--bg-void);
+  --color-void-2: var(--bg-void-2);
+  --color-glass-bg: var(--glass-bg);
+  --color-glass-bg-strong: var(--glass-bg-strong);
+  --color-glass-border: var(--glass-border);
+  --color-glass-border-strong: var(--glass-border-strong);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-teal: var(--teal);
+  --color-coral: var(--coral);
+  --color-green: var(--green);
+  --color-on-void: var(--on-void);
+  --color-primary: var(--teal);
+  --color-secondary: var(--teal);
 
   --font-display: var(--font-space-grotesk), sans-serif;
   --font-body: var(--font-inter), sans-serif;
   --font-mono: var(--font-jetbrains-mono), monospace;
   --font-serif: var(--font-instrument-serif), serif;
+}
+
+/* Dark theme overrides — applied via .dark class on <html> */
+.dark {
+  --bg-void: #090d17;
+  --bg-void-2: #0d1424;
+  --glass-bg: rgba(255, 255, 255, 0.055);
+  --glass-bg-strong: rgba(255, 255, 255, 0.095);
+  --glass-border: rgba(255, 255, 255, 0.14);
+  --glass-border-strong: rgba(255, 255, 255, 0.28);
+  --text-primary: #f3f6fa;
+  --text-secondary: #a9b4c6;
+  --text-muted: #66708a;
+  --teal: #cefb48;
+  --coral: #f2966b;
+  --green: #cefb48;
+  --on-void: #04211d;
 }
 
 @layer base {

@@ -1,26 +1,20 @@
 "use client";
 
 import React from "react";
+import { useTranslations } from "next-intl";
 import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
-
-const missions = [
-  "Former les jeunes à l'entrepreneuriat.",
-  "Développer leurs compétences techniques et professionnelles.",
-  "Faciliter la création de microentreprises.",
-  "Favoriser l'accès au financement.",
-  "Accompagner les entrepreneurs vers les marchés.",
-  "Valoriser les ressources locales.",
-];
 
 export function VisionMissionSection() {
   const { ref, isRevealed } = useRevealOnScroll<HTMLDivElement>();
+  const t = useTranslations("vision");
+
+  const missions = t.raw("missions") as string[];
 
   return (
     <section
       id="vision"
       ref={ref}
-      className="relative z-10"
-      style={{ backgroundColor: "#050505" }}
+      className="relative z-10 bg-void-2"
     >
       {/* Vision Statement */}
       <div className="py-24 md:py-32 px-32 max-w-[1280px] mx-auto">
@@ -33,10 +27,10 @@ export function VisionMissionSection() {
             className="font-display font-bold tracking-tight leading-[1.15] text-text-primary"
             style={{ fontSize: "clamp(32px, 5vw, 72px)" }}
           >
-            Construire une génération de jeunes entrepreneurs{" "}
-            <span className="text-teal">autonomes</span>,{" "}
-            <span className="text-teal">innovants</span> et{" "}
-            <span className="text-teal">responsables</span>.
+            {t("statement1")}{" "}
+            <span className="text-teal">{t("statement2")}</span>,{" "}
+            <span className="text-teal">{t("statement3")}</span> et{" "}
+            <span className="text-teal">{t("statement4")}</span>.
           </h2>
         </div>
       </div>
@@ -49,7 +43,7 @@ export function VisionMissionSection() {
           }`}
         >
           <span className="text-xs font-mono font-semibold uppercase tracking-[0.2em] text-text-muted">
-            NOTRE MISSION
+            {t("kicker")}
           </span>
 
           <ol className="mt-10 space-y-6">

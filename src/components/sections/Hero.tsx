@@ -139,7 +139,7 @@ export function Hero() {
 
           <button
             onClick={scrollToDonate}
-            className="px-5 py-2 rounded-full bg-teal text-void font-bold text-xs sm:text-sm hover:bg-teal/90 transition-all hover:scale-105 active:scale-95 shadow-md shadow-teal/20 cursor-pointer"
+            className="px-5 py-2 rounded-full bg-teal text-on-void font-bold text-xs sm:text-sm hover:bg-teal/90 transition-all hover:scale-105 active:scale-95 shadow-md shadow-teal/20 cursor-pointer"
           >
             Faire un don
           </button>
@@ -167,7 +167,7 @@ export function Hero() {
                 <span className="inline-block w-7 h-7 rounded-full bg-green/30 border-2 border-void text-[10px] font-bold flex items-center justify-center text-green">
                   RK
                 </span>
-                <span className="w-6 h-6 rounded-full bg-teal flex items-center justify-center text-void font-bold text-xs shadow">
+                <span className="w-6 h-6 rounded-full bg-teal flex items-center justify-center text-on-void font-bold text-xs shadow">
                   +
                 </span>
               </div>
@@ -218,10 +218,10 @@ export function Hero() {
             >
               <button
                 onClick={scrollToDonate}
-                className="px-8 py-4 rounded-full bg-teal text-void font-display font-bold text-sm sm:text-base hover:bg-teal/90 transition-all hover:scale-105 active:scale-95 shadow-xl shadow-teal/30 flex items-center gap-2 cursor-pointer"
+                className="px-8 py-4 rounded-full bg-teal text-on-void font-display font-bold text-sm sm:text-base hover:bg-teal/90 transition-all hover:scale-105 active:scale-95 shadow-xl shadow-teal/30 flex items-center gap-2 cursor-pointer"
               >
                 <span>Faire un don</span>
-                <LightningIcon className="w-4 h-4 text-void" />
+                <LightningIcon className="w-4 h-4 text-on-void" />
               </button>
 
               <button

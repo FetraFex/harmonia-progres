@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { useState, useEffect } from "react";
 import {
   LayoutDashboard,
@@ -12,7 +13,6 @@ import {
   Settings,
   LogOut,
   Menu,
-  X,
   Shield,
   Loader2,
   ExternalLink,
@@ -164,19 +164,19 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
                     onClick={() => setSidebarOpen(false)}
                     className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
                       isActive
-                        ? "bg-teal text-void font-semibold shadow-lg shadow-teal/20"
+                        ? "bg-teal text-on-void font-semibold shadow-lg shadow-teal/20"
                         : "text-text-muted hover:text-text-primary hover:bg-glass-bg"
                     }`}
                   >
                     <div className="flex items-center gap-3">
                       <item.icon
-                        className={`w-[18px] h-[18px] ${isActive ? "text-void" : "text-text-muted/70"}`}
+                        className={`w-[18px] h-[18px] ${isActive ? "text-on-void" : "text-text-muted/70"}`}
                         strokeWidth={isActive ? 2 : 1.75}
                       />
                       <span>{item.label}</span>
                     </div>
                     {isActive && (
-                      <ChevronRight className="w-3.5 h-3.5 text-void/70" />
+                      <ChevronRight className="w-3.5 h-3.5 text-on-void/70" />
                     )}
                   </Link>
                 );
@@ -226,6 +226,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
                 month: "short",
               })}
             </span>
+            <ThemeToggle className="h-8 w-8 p-1.5 rounded-full glass" />
             <span className="text-[10px] text-text-muted/50 font-['JetBrains_Mono']">
               {currentTime.toLocaleTimeString("fr-FR", {
                 hour: "2-digit",
@@ -272,9 +273,12 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
             />
           </div>
 
-          <span className="text-[9px] font-['JetBrains_Mono'] font-bold uppercase tracking-[0.15em] px-2 py-1 rounded-md bg-teal/10 text-teal border border-teal/20">
-            Admin
-          </span>
+          <div className="flex items-center gap-2">
+            <ThemeToggle className="h-8 w-8 p-1.5 rounded-full glass" />
+            <span className="text-[9px] font-['JetBrains_Mono'] font-bold uppercase tracking-[0.15em] px-2 py-1 rounded-md bg-teal/10 text-teal border border-teal/20">
+              Admin
+            </span>
+          </div>
         </header>
 
         {/* Page Content */}

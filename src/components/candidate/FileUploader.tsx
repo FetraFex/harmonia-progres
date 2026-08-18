@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useCallback, useState, useRef } from "react";
+import { useTranslations } from "next-intl";
 import { Upload, FileText, X, Check, AlertTriangle } from "lucide-react";
 
 interface FileUploaderProps {
@@ -46,16 +47,17 @@ export function FileUploader({
   const [isDragging, setIsDragging] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const t = useTranslations("candidate");
 
   const handleFile = useCallback(
     (f: File) => {
       setError(null);
       if (!isAcceptedFile(f)) {
-        setError("Format non accepté. Seuls les fichiers image (JPG, PNG, WebP, GIF) ou PDF sont autorisés.");
+        setError(t("uploadErrorFormat"));
         return;
       }
       if (f.size > maxSize * 1024 * 1024) {
-        setError(`Le fichier dépasse ${maxSize} Mo.`);
+        setError(t("uploadErrorSize", { maxSize }));
         return;
       }
       onFileSelect(f);
@@ -99,7 +101,7 @@ export function FileUploader({
           <div className="flex items-center gap-3">
             <span className="flex items-center gap-1 text-xs font-medium text-teal">
               <Check className="w-3.5 h-3.5" />
-              Sélectionné
+              {t("uploadSelected")}
             </span>
             <button
               onClick={() => onFileSelect(null)}
@@ -136,11 +138,11 @@ export function FileUploader({
         />
         <Upload className="w-8 h-8 mx-auto text-text-muted mb-3" strokeWidth={1.5} />
         <p className="text-sm text-text-muted">
-          Glissez un fichier ici ou{" "}
-          <span className="font-medium text-teal">parcourir</span>
+          {t("uploadDrag")}
+          <span className="font-medium text-teal">{t("uploadBrowse")}</span>
         </p>
         <p className="text-xs text-text-muted mt-1.5">
-          Image (JPG, PNG, WebP, GIF) ou PDF — max {maxSize} Mo
+          {t("uploadHint", { maxSize })}
         </p>
       </div>
       {error && (

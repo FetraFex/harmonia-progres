@@ -2,7 +2,8 @@
 
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { motion, type Variants } from "framer-motion";
 import { HeroVideo } from "./HeroVideo";
 import { HeroMetrics } from "./HeroMetrics";
@@ -12,13 +13,8 @@ import {
   cleanupHeroAnimations,
 } from "@/animations/heroAnimations";
 import { useAuth } from "@/contexts/AuthContext";
-
-const NAV_LINKS = [
-  { label: "Le Projet", href: "#mission" },
-  { label: "Nos Actions", href: "#actions" },
-  { label: "Impact", href: "#stats" },
-  { label: "Actualités", href: "#newsletter" },
-];
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
 
 const containerVariants: Variants = {
   hidden: {},
@@ -50,9 +46,18 @@ const lineReveal: Variants = {
   }),
 };
 
+const NAV_LINKS = [
+  { key: "project", href: "#mission" },
+  { key: "actions", href: "#actions" },
+  { key: "impact", href: "#stats" },
+  { key: "news", href: "#newsletter" },
+] as const;
+
 export function HeroSection() {
   const ctxRef = useRef<ReturnType<typeof initializeHeroScroll>>(undefined);
   const { user, profile, loading } = useAuth();
+  const t = useTranslations("nav");
+  const th = useTranslations("hero");
 
   useEffect(() => {
     ctxRef.current = initializeHeroScroll();
@@ -113,12 +118,12 @@ export function HeroSection() {
           initial={{ opacity: 0, y: -16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          aria-label="Navigation principale"
+          aria-label={t("ariaNav")}
         >
           <Link
             href="/"
             className="flex items-center gap-3 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal rounded-lg shrink-0"
-            aria-label="Harmonia Progrès — Accueil"
+            aria-label={t("ariaHome")}
           >
             <Image
               src="/images/logo/logo-transparent-dark.png"
@@ -133,51 +138,37 @@ export function HeroSection() {
           <div className="hidden md:flex items-center gap-8 text-[14px] font-medium text-white/70">
             {NAV_LINKS.map((link) => (
               <button
-                key={link.label}
+                key={link.key}
                 onClick={() => scrollTo(link.href.replace("#", ""))}
                 className="hover:text-teal transition-colors cursor-pointer"
               >
-                {link.label}
+                {t(link.key)}
               </button>
             ))}
           </div>
 
           <div className="flex items-center gap-3">
+            <LanguageSwitcher className="hidden md:inline-flex" />
+            <ThemeToggle className="hidden md:inline-flex h-10 w-10 p-2 rounded-full glass text-white" />
             {loading ? null : user ? (
-              <>
-                <Link
-                  href={profile?.role === "admin" ? "/admin" : "/account"}
-                  className="px-6 py-2.5 rounded-xl bg-teal text-void text-[13px] font-semibold hover:bg-teal/90 transition-all hover:scale-105 active:scale-95 shadow-md shadow-teal/20 flex items-center gap-2"
-                >
-                  Mon espace
-                </Link>
-                <Link
-                  href="/candidater"
-                  className="px-6 py-2.5 rounded-xl glass text-white text-[13px] font-semibold hover:bg-white/10 transition-all flex items-center gap-2"
-                >
-                  Candidater
-                </Link>
-              </>
+              <Link
+                href={profile?.role === "admin" ? "/admin" : "/account"}
+                className="px-6 py-2.5 rounded-xl bg-teal text-on-void text-[13px] font-semibold hover:bg-teal/90 transition-all hover:scale-105 active:scale-95 shadow-md shadow-teal/20 flex items-center gap-2"
+              >
+                {t("mySpace")}
+              </Link>
             ) : (
-              <>
-                <Link
-                  href="/auth/login"
-                  className="px-6 py-2.5 rounded-xl glass text-white text-[13px] font-semibold hover:bg-white/10 transition-all flex items-center gap-2"
-                >
-                  Rejoindre le programme
-                </Link>
-                <Link
-                  href="/candidater"
-                  className="px-6 py-2.5 rounded-xl bg-teal text-void text-[13px] font-semibold hover:bg-teal/90 transition-all hover:scale-105 active:scale-95 shadow-md shadow-teal/20 flex items-center gap-2"
-                >
-                  Candidater
-                </Link>
-              </>
+              <Link
+                href="/auth/login"
+                className="px-6 py-2.5 rounded-xl bg-teal text-on-void text-[13px] font-semibold hover:bg-teal/90 transition-all hover:scale-105 active:scale-95 shadow-md shadow-teal/20 flex items-center gap-2"
+              >
+                {t("join")}
+              </Link>
             )}
 
             <button
               className="md:hidden flex flex-col gap-[5px] p-2 cursor-pointer"
-              aria-label="Ouvrir le menu"
+              aria-label={t("ariaMenu")}
               onClick={() => {}}
             >
               <span className="block w-5 h-[1.5px] bg-white/70 rounded-full" />
@@ -201,7 +192,7 @@ export function HeroSection() {
               <motion.div variants={fadeUp} className="mb-5">
                 <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.08] border border-white/[0.12] backdrop-blur-md text-[11px] font-semibold uppercase tracking-[0.15em] text-white/70">
                   <span className="w-1.5 h-1.5 rounded-full bg-teal animate-pulse" />
-                  Manakara &middot; Madagascar
+                  {th("badge")}
                 </span>
               </motion.div>
 
@@ -216,44 +207,42 @@ export function HeroSection() {
                   <div className="mini-avatar plus">+</div>
                 </div>
                 <span className="trust-stars" aria-hidden="true">★★★★★</span>
-                <span className="trust-text">1 200+ donateurs actifs</span>
+                <span className="trust-text">{th("trust")}</span>
               </motion.div>
 
               <h1 className="space-y-0">
-                {["Construire l’avenir", "entrepreneurial", "de Manakara."].map(
-                  (line, i) => (
-                    <motion.span
-                      key={line}
-                      custom={i}
-                      variants={lineReveal}
-                      initial="hidden"
-                      animate="visible"
-                      className="block font-display font-medium text-[clamp(40px,6vw,88px)] leading-[0.95] tracking-[-0.04em] text-white"
-                    >
-                      {i === 2 ? (
-                        <>
-                          de{" "}
-                          <span className="font-serif italic font-normal text-teal">
-                            Manakara
-                          </span>
-                          .
-                        </>
-                      ) : (
-                        line
-                      )}
-                    </motion.span>
-                  )
-                )}
+                {[th("titleLine1"), th("titleLine2")].map((line, i) => (
+                  <motion.span
+                    key={line}
+                    custom={i}
+                    variants={lineReveal}
+                    initial="hidden"
+                    animate="visible"
+                    className="block font-display font-medium text-[clamp(40px,6vw,88px)] leading-[0.95] tracking-[-0.04em] text-white"
+                  >
+                    {line}
+                  </motion.span>
+                ))}
+                <motion.span
+                  custom={2}
+                  variants={lineReveal}
+                  initial="hidden"
+                  animate="visible"
+                  className="block font-display font-medium text-[clamp(40px,6vw,88px)] leading-[0.95] tracking-[-0.04em] text-white"
+                >
+                  {th("titleDe")}{" "}
+                  <span className="font-serif italic font-normal text-teal">
+                    {th("titleCity")}
+                  </span>
+                  .
+                </motion.span>
               </h1>
 
               <motion.p
                 variants={fadeUp}
                 className="mt-6 max-w-[520px] text-[15px] md:text-[17px] leading-relaxed text-white/65 font-body"
               >
-                Nous accompagnons les jeunes, artisans, pêcheurs et
-                entrepreneurs locaux grâce à la formation,
-                l&rsquo;accompagnement et l&rsquo;accès aux
-                opportunités.
+                {th("subtitle")}
               </motion.p>
 
               <motion.div
@@ -262,9 +251,9 @@ export function HeroSection() {
               >
                 <Link
                   href="/candidater"
-                  className="group px-7 py-3.5 rounded-[14px] bg-teal text-void font-semibold text-sm hover:bg-teal/90 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-teal/25 active:scale-[0.98] flex items-center gap-2.5"
+                  className="group px-7 py-3.5 rounded-[14px] bg-teal text-on-void font-semibold text-sm hover:bg-teal/90 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-teal/25 active:scale-[0.98] flex items-center gap-2.5"
                 >
-                  Candidater
+                  {t("candidater")}
                   <svg
                     className="w-4 h-4 transition-transform group-hover:translate-x-0.5"
                     viewBox="0 0 24 24"
@@ -284,7 +273,7 @@ export function HeroSection() {
                   onClick={() => scrollTo("opportunite")}
                   className="px-7 py-3.5 rounded-[14px] border border-white/[0.18] bg-white/[0.05] text-white font-semibold text-sm hover:bg-white/[0.1] transition-all duration-200 hover:-translate-y-0.5 cursor-pointer"
                 >
-                  En savoir plus
+                  {t("more")}
                 </button>
               </motion.div>
             </motion.div>
