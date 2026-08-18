@@ -99,7 +99,10 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-full bg-void text-text-primary font-body flex flex-col relative selection:bg-teal selection:text-on-void">
+      <body
+        className="min-h-full bg-void text-text-primary font-body flex flex-col relative selection:bg-teal selection:text-on-void"
+        suppressHydrationWarning
+      >
         <AuthProvider>
           <ThemeProvider>
             <ScrollProgressBar />

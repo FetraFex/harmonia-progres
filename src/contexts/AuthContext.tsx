@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
-import { createClient } from "@/lib/supabase/client";
+import { createClient, isSupabaseConfigured } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 import type { UserRole } from "@/types/database";
 
@@ -34,10 +34,15 @@ export function useAuth() {
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
-  const [loading, setLoading] = useState(true);
+  // If Supabase is not configured (e.g. a deployment missing env vars), run
+  // in anonymous mode: auth is simply unavailable instead of crashing.
+  const configured = isSupabaseConfigured();
+  const [loading, setLoading] = useState(() => configured);
   const supabase = createClient();
 
   useEffect(() => {
+    if (!configured) return;
+
     async function loadSession() {
       const { data: { user: authUser } } = await supabase.auth.getUser();
       setUser(authUser);
@@ -119,10 +124,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     );
 
     return () => subscription.unsubscribe();
-  }, [supabase]);
+  }, [supabase, configured]);
 
   async function signOut() {
-    await supabase.auth.signOut();
+    if (configured) {
+      await supabase.auth.signOut();
+    }
     setUser(null);
     setProfile(null);
   }
