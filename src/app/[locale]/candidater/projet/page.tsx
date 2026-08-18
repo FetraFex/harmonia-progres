@@ -101,7 +101,7 @@ export default function ProjetPage() {
                     key={s.value}
                     className={`rounded-xl border p-4 text-center cursor-pointer transition ${
                       watchedSector === s.value
-                        ? "border-teal bg-teal/5"
+                        ? "border-teal bg-green/5"
                         : "border-glass-border hover:border-glass-border-strong"
                     }`}
                   >

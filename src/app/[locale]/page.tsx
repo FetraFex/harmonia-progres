@@ -1,3 +1,4 @@
+import { ScrollProgressBar } from "@/components/ui/ScrollProgressBar";
 import { HeroSection } from "@/components/hero/HeroSection";
 import { OpportunitySection } from "@/components/sections/OpportunitySection";
 import { LocalEconomySection } from "@/components/sections/LocalEconomySection";
@@ -10,6 +11,7 @@ import { NewsletterFooter } from "@/components/sections/NewsletterFooter";
 export default function HomePage() {
   return (
     <>
+      <ScrollProgressBar />
       <HeroSection />
       <OpportunitySection />
       <LocalEconomySection />

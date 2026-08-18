@@ -1,5 +1,5 @@
 import React from "react";
-import Image from "next/image";
+import { Logo } from "@/components/ui/Logo";
 import Link from "next/link";
 
 export function Footer() {
@@ -11,9 +11,7 @@ export function Footer() {
           {/* Brand Column */}
           <div className="lg:col-span-2 space-y-4">
             <Link href="/" className="flex items-center gap-3 inline-flex">
-              <Image
-                src="/images/logo/logo-transparent-dark.png"
-                alt="Harmonia Progrès"
+              <Logo
                 width={160}
                 height={44}
                 className="h-9 w-auto object-contain"

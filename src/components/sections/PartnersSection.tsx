@@ -28,7 +28,7 @@ export function PartnersSection() {
         <div className="pt-4">
           <a
             href="#contact"
-            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-teal text-on-void font-semibold text-sm hover:bg-teal/90 transition-all hover:scale-105 active:scale-95 shadow-md shadow-teal/20"
+            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-green text-on-void font-semibold text-sm hover:bg-green/90 transition-all hover:scale-105 active:scale-95 shadow-md shadow-green/20"
           >
             <span>Devenir partenaire</span>
             <ArrowRightIcon className="w-4 h-4" />

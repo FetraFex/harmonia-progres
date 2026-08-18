@@ -309,7 +309,7 @@ const SmoothInput = ({
           className="pointer-events-none invisible absolute top-0 left-0 whitespace-pre"
         />
         <motion.div
-          className="bg-teal pointer-events-none col-start-1 col-end-2 row-start-1 row-end-2 h-[0.9em] w-0.5 self-center"
+          className="bg-green pointer-events-none col-start-1 col-end-2 row-start-1 row-end-2 h-[0.9em] w-0.5 self-center"
           style={{ x: springCaretX, opacity: caretOpacity }}
         />
       </div>

@@ -62,7 +62,7 @@ export function Actions() {
                 <div
                   className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110 duration-300 ${
                     act.accent === "teal"
-                      ? "bg-teal/15 text-teal border border-teal/30"
+                      ? "bg-green/15 text-teal border border-teal/30"
                       : act.accent === "coral"
                       ? "bg-coral/15 text-coral border border-coral/30"
                       : "bg-green/15 text-green border border-green/30"

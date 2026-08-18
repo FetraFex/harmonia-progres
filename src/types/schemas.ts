@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const eligibilitySchema = z.object({
-  district: z.enum(["manakara", "vohipeno", "autre"], {
+  district: z.enum(["manakara", "vohipeno"], {
     message: "Veuillez sélectionner un district",
   }),
   sector: z.enum(["artisanat", "halieutique", "agriculture"], {
@@ -20,7 +20,7 @@ export const personalInfoSchema = z.object({
   date_of_birth: z.string().min(1, "La date de naissance est requise"),
   phone: z.string().min(8, "Numéro de téléphone invalide"),
   email: z.string().email("Adresse email invalide"),
-  district: z.enum(["manakara", "vohipeno", "autre"]),
+  district: z.enum(["manakara", "vohipeno"]),
   commune: z.string().min(2, "La commune est requise"),
   address: z.string().optional(),
 });

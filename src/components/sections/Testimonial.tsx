@@ -17,7 +17,7 @@ export function Testimonial() {
         }`}
       >
         {/* Subtle decorative glow */}
-        <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-teal/15 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-green/15 rounded-full blur-3xl pointer-events-none" />
 
         {/* Large Decorative Quote Mark */}
         <div className="text-6xl sm:text-7xl font-serif text-teal/40 leading-none select-none mb-4">

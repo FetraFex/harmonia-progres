@@ -115,6 +115,45 @@ export async function sendCandidatureStatusEmail({
   return { success: true, data };
 }
 
+export async function sendRecruitmentEmail({
+  email,
+  fullName,
+  referenceNumber,
+  projectName,
+  customMessage,
+}: {
+  email: string;
+  fullName: string;
+  referenceNumber: string;
+  projectName: string;
+  customMessage: string;
+}) {
+  const { data, error } = await getResend().emails.send({
+    from: DEFAULT_FROM,
+    to: [email],
+    subject: `MIASA — Recrutement confirmé : ${referenceNumber}`,
+    html: emailTemplate({
+      title: "Félicitations, vous êtes recruté(e) !",
+      subtitle: `Référence : ${referenceNumber}`,
+      paragraphs: [
+        `Bonjour ${fullName},`,
+        `Nous avons le plaisir de vous informer que votre projet « ${projectName} » a été approuvé et que vous avez été sélectionné(e) pour rejoindre la cohorte MIASA Jeunes Entrepreneurs.`,
+        customMessage,
+        `Votre numéro de référence : ${referenceNumber}. Conservez-le précieusement — il vous sera demandé pour toute correspondance future.`,
+      ],
+      ctaLabel: "Accéder à mon espace",
+      ctaHref: "https://harmonia-progres.vercel.app/account",
+    }),
+  });
+
+  if (error) {
+    console.error("Resend error (recruitment email):", error);
+    return { success: false, error: error.message };
+  }
+
+  return { success: true, data };
+}
+
 export async function sendCandidatureSubmissionEmail({
   email,
   fullName,

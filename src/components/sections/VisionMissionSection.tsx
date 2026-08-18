@@ -17,7 +17,7 @@ export function VisionMissionSection() {
       className="relative z-10 bg-void-2"
     >
       {/* Vision Statement */}
-      <div className="py-24 md:py-32 px-32 max-w-[1280px] mx-auto">
+      <div className="py-[var(--page-py-lg)] md:py-[var(--page-py-lg)] px-[var(--page-px)] max-w-[var(--page-max-w)] mx-auto">
         <div
           className={`text-center max-w-4xl mx-auto transition-all duration-700 ${
             isRevealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
@@ -36,7 +36,7 @@ export function VisionMissionSection() {
       </div>
 
       {/* Mission List */}
-      <div className="px-32 max-w-[1280px] mx-auto pb-24 md:pb-32">
+      <div className="px-[var(--page-px)] max-w-[var(--page-max-w)] mx-auto pb-24 md:pb-32">
         <div
           className={`transition-all duration-700 delay-200 ${
             isRevealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
@@ -55,7 +55,7 @@ export function VisionMissionSection() {
                 }`}
                 style={{ transitionDelay: `${400 + idx * 100}ms` }}
               >
-                <span className="shrink-0 w-8 h-8 rounded-full border border-teal/30 bg-teal/5 flex items-center justify-center font-mono text-xs font-bold text-teal">
+                <span className="shrink-0 w-8 h-8 rounded-full border border-teal/30 bg-green/5 flex items-center justify-center font-mono text-xs font-bold text-teal">
                   {String(idx + 1).padStart(2, "0")}
                 </span>
                 <span className="font-display text-lg font-semibold text-text-primary pt-0.5">

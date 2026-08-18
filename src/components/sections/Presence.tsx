@@ -8,13 +8,13 @@ export function Presence() {
   const { ref, isRevealed } = useRevealOnScroll<HTMLDivElement>();
 
   const countries = [
-    { name: "Sénégal", projects: 84, color: "bg-teal" },
+    { name: "Sénégal", projects: 84, color: "bg-green" },
     { name: "Kenya", projects: 62, color: "bg-coral" },
     { name: "Madagascar", projects: 51, color: "bg-green" },
-    { name: "Bangladesh", projects: 45, color: "bg-teal" },
+    { name: "Bangladesh", projects: 45, color: "bg-green" },
     { name: "Pérou", projects: 38, color: "bg-coral" },
     { name: "Népal", projects: 29, color: "bg-green" },
-    { name: "Éthiopie", projects: 22, color: "bg-teal" },
+    { name: "Éthiopie", projects: 22, color: "bg-green" },
     { name: "Haïti", projects: 18, color: "bg-coral" },
   ];
 
@@ -26,7 +26,7 @@ export function Presence() {
     >
       <div className="glass p-8 md:p-14 rounded-3xl border-glass-border shadow-2xl relative overflow-hidden">
         {/* Subtle background glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-teal/10 blur-[100px] pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-green/10 blur-[100px] pointer-events-none" />
 
         <div
           className={`space-y-8 relative z-10 transition-all duration-700 ${

@@ -15,7 +15,7 @@ const STATUS_COLORS: Record<string, { color: string; bg: string }> = {
   under_review: { color: "text-amber-400", bg: "bg-amber-500/10" },
   shortlisted: { color: "text-indigo-400", bg: "bg-indigo-500/10" },
   interview: { color: "text-purple-400", bg: "bg-purple-500/10" },
-  accepted: { color: "text-teal", bg: "bg-teal/10" },
+  accepted: { color: "text-teal", bg: "bg-green/10" },
   rejected: { color: "text-red-400", bg: "bg-red-500/10" },
   waitlisted: { color: "text-orange-400", bg: "bg-orange-500/10" },
   withdrawn: { color: "text-text-muted", bg: "bg-glass-bg-strong0/10" },
@@ -136,7 +136,7 @@ export default function SuiviPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full rounded-xl bg-teal px-6 py-3 font-['Space_Grotesk'] font-bold text-on-void transition hover:scale-[1.02] disabled:opacity-50 flex items-center justify-center gap-2"
+              className="w-full rounded-xl bg-green px-6 py-3 font-['Space_Grotesk'] font-bold text-on-void transition hover:scale-[1.02] disabled:opacity-50 flex items-center justify-center gap-2"
             >
               {loading ? t("searching") : t("search")}
               {!loading && <Search className="w-4 h-4" strokeWidth={2} />}
@@ -188,14 +188,14 @@ export default function SuiviPage() {
                         <div
                           className={`w-3 h-3 rounded-full shrink-0 mt-1 ${
                             isCurrent
-                              ? "bg-teal ring-4 ring-teal/20"
+                              ? "bg-green ring-4 ring-teal/20"
                               : isDone
-                                ? "bg-teal"
+                                ? "bg-green"
                                 : "bg-glass-border"
                           }`}
                         />
                         {i < TIMELINE_STEPS.length - 1 && (
-                          <div className={`w-px flex-1 my-1 ${isDone ? "bg-teal" : "bg-glass-border"}`} />
+                          <div className={`w-px flex-1 my-1 ${isDone ? "bg-green" : "bg-glass-border"}`} />
                         )}
                       </div>
                       <div className="pb-6">

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
+import { Logo } from "@/components/ui/Logo";
 import { usePathname, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
@@ -109,16 +109,14 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
         {/* Brand & Logo */}
         <div className="px-6 h-16 flex items-center justify-between border-b border-glass-border shrink-0">
           <Link href="/" className="flex items-center gap-2.5 group">
-            <Image
-              src="/images/logo/logo-transparent-dark.png"
-              alt="Harmonia Progrès"
-              width={130}
-              height={32}
+            <Logo
+              width={170}
+              height={42}
               priority
-              className="h-6 w-auto object-contain transition-transform group-hover:scale-105"
+              className="h-10 w-auto object-contain transition-transform group-hover:scale-105"
             />
           </Link>
-          <span className="text-[9px] font-['JetBrains_Mono'] font-bold tracking-[0.15em] uppercase px-2 py-1 rounded-md bg-teal/10 text-teal border border-teal/20">
+          <span className="text-[9px] font-['JetBrains_Mono'] font-bold tracking-[0.15em] uppercase px-2 py-1 rounded-md bg-green/10 text-teal border border-teal/20">
             Admin
           </span>
         </div>
@@ -164,7 +162,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
                     onClick={() => setSidebarOpen(false)}
                     className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
                       isActive
-                        ? "bg-teal text-on-void font-semibold shadow-lg shadow-teal/20"
+                        ? "bg-green text-on-void font-semibold shadow-lg shadow-green/20"
                         : "text-text-muted hover:text-text-primary hover:bg-glass-bg"
                     }`}
                   >
@@ -264,18 +262,16 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
             >
               <Menu className="w-5 h-5" strokeWidth={1.5} />
             </button>
-            <Image
-              src="/images/logo/logo-transparent-dark.png"
-              alt="Harmonia Progrès"
-              width={120}
-              height={28}
-              className="h-5 w-auto object-contain"
+            <Logo
+              width={130}
+              height={30}
+              className="h-6 w-auto object-contain"
             />
           </div>
 
           <div className="flex items-center gap-2">
             <ThemeToggle className="h-8 w-8 p-1.5 rounded-full glass" />
-            <span className="text-[9px] font-['JetBrains_Mono'] font-bold uppercase tracking-[0.15em] px-2 py-1 rounded-md bg-teal/10 text-teal border border-teal/20">
+            <span className="text-[9px] font-['JetBrains_Mono'] font-bold uppercase tracking-[0.15em] px-2 py-1 rounded-md bg-green/10 text-teal border border-teal/20">
               Admin
             </span>
           </div>

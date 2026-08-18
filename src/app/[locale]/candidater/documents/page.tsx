@@ -134,7 +134,7 @@ export default function DocumentsPage() {
           )}
 
           <div className="rounded-xl glass p-4 flex items-start gap-3">
-            <div className="w-5 h-5 mt-0.5 shrink-0 rounded bg-teal/10 flex items-center justify-center">
+            <div className="w-5 h-5 mt-0.5 shrink-0 rounded bg-green/10 flex items-center justify-center">
               <Check className="w-3.5 h-3.5 text-teal" strokeWidth={2} />
             </div>
             <p className="text-sm text-text-muted leading-relaxed">

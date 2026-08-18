@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
+import { Logo } from "@/components/ui/Logo";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 
@@ -15,15 +15,13 @@ export function NewsletterFooter() {
   return (
     <>
       {/* Footer */}
-      <footer className="border-t border-glass-border bg-void-2 relative z-10 pt-16 pb-12 px-32">
+      <footer className="border-t border-glass-border bg-void-2 relative z-10 pt-16 pb-12 px-[var(--page-px)]">
         <div className="max-w-[1280px] mx-auto space-y-12">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
             {/* Brand */}
             <div className="lg:col-span-2 space-y-4">
               <Link href="/" className="inline-flex items-center gap-3">
-                <Image
-                  src="/images/logo/logo-transparent-dark.png"
-                  alt="Harmonia Progrès"
+                <Logo
                   width={160}
                   height={44}
                   className="h-9 w-auto object-contain"

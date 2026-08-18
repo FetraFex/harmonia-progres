@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
@@ -15,6 +15,7 @@ import {
 import { useAuth } from "@/contexts/AuthContext";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
+import { TextRoll } from "@/components/ui/skiper-ui/skiper58";
 
 const containerVariants: Variants = {
   hidden: {},
@@ -47,10 +48,11 @@ const lineReveal: Variants = {
 };
 
 const NAV_LINKS = [
-  { key: "project", href: "#mission" },
-  { key: "actions", href: "#actions" },
-  { key: "impact", href: "#stats" },
-  { key: "news", href: "#newsletter" },
+  { key: "project", href: "#opportunite" },
+  { key: "sectors", href: "#secteurs" },
+  { key: "program", href: "#programme" },
+  { key: "territory", href: "#territoire" },
+  { key: "about", href: "#vision" },
 ] as const;
 
 export function HeroSection() {
@@ -58,6 +60,7 @@ export function HeroSection() {
   const { user, profile, loading } = useAuth();
   const t = useTranslations("nav");
   const th = useTranslations("hero");
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     ctxRef.current = initializeHeroScroll();
@@ -103,16 +106,16 @@ export function HeroSection() {
       {/* ── Background Typography ── */}
       <div
         data-hero-bg-text
-        className="hero-bg-text absolute inset-0 z-[3] flex items-center justify-center pointer-events-none select-none overflow-hidden"
+        className="hero-bg-text absolute inset-0 z-[3] flex items-start justify-center pt-[20vh] pointer-events-none select-none overflow-hidden"
         aria-hidden="true"
       >
-        <span className="block font-display font-medium tracking-[-0.06em] text-white/[0.07] uppercase whitespace-nowrap">
-          MANAKARA
+        <span className="block font-display font-black tracking-[-0.06em] text-white/[0.07] uppercase whitespace-nowrap leading-none text-center">
+          HARMONIA<br />PROGRES
         </span>
       </div>
 
       {/* ── Navbar ── */}
-      <div className="absolute top-5 left-0 right-0 z-30 px-6 sm:px-16 lg:px-32 pointer-events-none">
+      <div className="absolute top-5 left-0 right-0 z-30 px-6 sm:px-16 lg:px-[var(--page-px)] pointer-events-none">
         <motion.nav
           className="w-full h-[64px] rounded-[20px] flex items-center justify-between pointer-events-auto"
           initial={{ opacity: 0, y: -16 }}
@@ -131,7 +134,7 @@ export function HeroSection() {
               width={160}
               height={44}
               priority
-              className="h-12 md:h-14 w-auto object-contain transition-transform group-hover:scale-105 duration-300"
+              className="h-10 md:h-12 w-auto object-contain transition-transform group-hover:scale-105 duration-300"
             />
           </Link>
 
@@ -153,34 +156,82 @@ export function HeroSection() {
             {loading ? null : user ? (
               <Link
                 href={profile?.role === "admin" ? "/admin" : "/account"}
-                className="px-6 py-2.5 rounded-xl bg-teal text-on-void text-[13px] font-semibold hover:bg-teal/90 transition-all hover:scale-105 active:scale-95 shadow-md shadow-teal/20 flex items-center gap-2"
+                className="hidden md:flex px-6 py-2.5 rounded-xl bg-green text-on-void text-[13px] font-semibold hover:bg-green/90 transition-all hover:scale-105 active:scale-95 shadow-md shadow-green/20 items-center gap-2"
               >
                 {t("mySpace")}
               </Link>
             ) : (
               <Link
-                href="/auth/login"
-                className="px-6 py-2.5 rounded-xl bg-teal text-on-void text-[13px] font-semibold hover:bg-teal/90 transition-all hover:scale-105 active:scale-95 shadow-md shadow-teal/20 flex items-center gap-2"
+                href="/auth/login?next=/candidater"
+                className="hidden md:flex px-6 py-2.5 rounded-xl bg-green text-on-void text-[13px] font-semibold hover:bg-green/90 transition-all hover:scale-105 active:scale-95 shadow-md shadow-green/20 items-center gap-2"
               >
-                {t("join")}
+                {t("candidater")}
               </Link>
             )}
 
             <button
               className="md:hidden flex flex-col gap-[5px] p-2 cursor-pointer"
               aria-label={t("ariaMenu")}
-              onClick={() => {}}
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-expanded={mobileOpen}
             >
-              <span className="block w-5 h-[1.5px] bg-white/70 rounded-full" />
-              <span className="block w-5 h-[1.5px] bg-white/70 rounded-full" />
-              <span className="block w-3.5 h-[1.5px] bg-white/70 rounded-full" />
+              <span className={`block w-5 h-[1.5px] bg-white/70 rounded-full transition-all duration-300 ${mobileOpen ? "rotate-45 translate-y-[6.5px]" : ""}`} />
+              <span className={`block w-5 h-[1.5px] bg-white/70 rounded-full transition-all duration-300 ${mobileOpen ? "opacity-0" : ""}`} />
+              <span className={`block w-3.5 h-[1.5px] bg-white/70 rounded-full transition-all duration-300 ${mobileOpen ? "-rotate-45 -translate-y-[6.5px] w-5" : ""}`} />
             </button>
           </div>
+
+          {/* ── Mobile Menu ── */}
+          {mobileOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.25 }}
+              className="md:hidden absolute top-full left-0 right-0 mt-2 mx-4 p-4 rounded-2xl bg-void-2/95 backdrop-blur-xl border border-glass-border shadow-2xl"
+            >
+              <div className="flex flex-col gap-1">
+                {NAV_LINKS.map((link) => (
+                  <button
+                    key={link.key}
+                    onClick={() => { scrollTo(link.href.replace("#", "")); setMobileOpen(false); }}
+                    className="w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-text-primary hover:bg-teal/10 hover:text-teal transition-colors cursor-pointer"
+                  >
+                    {t(link.key)}
+                  </button>
+                ))}
+                <div className="border-t border-glass-border my-2" />
+                <div className="flex items-center gap-2 px-4">
+                  <LanguageSwitcher />
+                  <ThemeToggle className="h-10 w-10 p-2 rounded-full glass" />
+                </div>
+                <div className="px-4 pt-2">
+                  {loading ? null : user ? (
+                    <Link
+                      href={profile?.role === "admin" ? "/admin" : "/account"}
+                      className="block w-full text-center px-6 py-3 rounded-xl bg-green text-on-void text-sm font-semibold hover:bg-green/90 transition-all"
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      {t("mySpace")}
+                    </Link>
+                  ) : (
+                    <Link
+                      href="/auth/login?next=/candidater"
+                      className="block w-full text-center px-6 py-3 rounded-xl bg-green text-on-void text-sm font-semibold hover:bg-green/90 transition-all"
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      {t("candidater")}
+                    </Link>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          )}
         </motion.nav>
       </div>
 
       {/* ── Content Grid (pushed to bottom) ── */}
-      <div className="relative z-10 flex-1 flex flex-col justify-end px-6 sm:px-16 lg:px-32 py-10 md:py-14 lg:py-16">
+      <div className="relative z-10 flex-1 flex flex-col justify-end px-6 sm:px-16 lg:px-[var(--page-px)] py-10 md:py-14 lg:py-16">
         <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end">
           {/* LEFT: Content */}
           <div data-hero-content className="lg:col-span-7 space-y-6">
@@ -191,7 +242,7 @@ export function HeroSection() {
             >
               <motion.div variants={fadeUp} className="mb-5">
                 <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.08] border border-white/[0.12] backdrop-blur-md text-[11px] font-semibold uppercase tracking-[0.15em] text-white/70">
-                  <span className="w-1.5 h-1.5 rounded-full bg-teal animate-pulse" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-green animate-pulse" />
                   {th("badge")}
                 </span>
               </motion.div>
@@ -218,7 +269,8 @@ export function HeroSection() {
                     variants={lineReveal}
                     initial="hidden"
                     animate="visible"
-                    className="block font-display font-medium text-[clamp(40px,6vw,88px)] leading-[0.95] tracking-[-0.04em] text-white"
+                    className="block font-display font-medium leading-[0.95] tracking-[-0.04em] text-white"
+                    style={{ fontSize: "var(--page-font-hero)" }}
                   >
                     {line}
                   </motion.span>
@@ -228,12 +280,15 @@ export function HeroSection() {
                   variants={lineReveal}
                   initial="hidden"
                   animate="visible"
-                  className="block font-display font-medium text-[clamp(40px,6vw,88px)] leading-[0.95] tracking-[-0.04em] text-white"
+                  className="block font-display font-medium leading-[0.95] tracking-[-0.04em] text-white"
+                  style={{ fontSize: "var(--page-font-hero)" }}
                 >
                   {th("titleDe")}{" "}
-                  <span className="font-serif italic font-normal text-teal">
-                    {th("titleCity")}
-                  </span>
+                  <TextRoll
+                    words={["Manakara", "Vohipeno"]}
+                    interval={2500}
+                    className="font-serif italic font-normal text-teal"
+                  />
                   .
                 </motion.span>
               </h1>
@@ -250,10 +305,10 @@ export function HeroSection() {
                 className="flex flex-wrap items-center gap-4 pt-3"
               >
                 <Link
-                  href="/candidater"
-                  className="group px-7 py-3.5 rounded-[14px] bg-teal text-on-void font-semibold text-sm hover:bg-teal/90 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-teal/25 active:scale-[0.98] flex items-center gap-2.5"
+                  href={user ? "/candidater" : "/auth/login?next=/candidater"}
+                  className="group px-7 py-3.5 rounded-[14px] bg-green text-on-void font-semibold text-sm hover:bg-green/90 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-green/25 active:scale-[0.98] flex items-center gap-2.5"
                 >
-                  {t("candidater")}
+                  {t("join")}
                   <svg
                     className="w-4 h-4 transition-transform group-hover:translate-x-0.5"
                     viewBox="0 0 24 24"

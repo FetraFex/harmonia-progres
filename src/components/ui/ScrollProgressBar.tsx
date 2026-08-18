@@ -8,7 +8,7 @@ export function ScrollProgressBar() {
 
   return (
     <div
-      className="fixed top-0 left-0 right-0 h-[3px] z-[100] bg-transparent pointer-events-none"
+      className="fixed top-0 left-0 right-0 h-px z-[100] bg-transparent pointer-events-none"
       aria-hidden="true"
     >
       <div

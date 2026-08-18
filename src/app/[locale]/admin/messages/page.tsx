@@ -149,7 +149,7 @@ export default function MessagesPage() {
           >
             <div className="flex items-center justify-between mb-3">
               <span className="text-xs font-medium text-text-muted">Total messages</span>
-              <div className="w-8 h-8 rounded-lg bg-teal/10 flex items-center justify-center text-teal">
+              <div className="w-8 h-8 rounded-lg bg-green/10 flex items-center justify-center text-teal">
                 <Mail className="w-4 h-4" />
               </div>
             </div>
@@ -179,7 +179,7 @@ export default function MessagesPage() {
           >
             <div className="flex items-center justify-between mb-3">
               <span className="text-xs font-medium text-text-muted">Aujourd&apos;hui</span>
-              <div className="w-8 h-8 rounded-lg bg-teal/10 flex items-center justify-center text-teal">
+              <div className="w-8 h-8 rounded-lg bg-green/10 flex items-center justify-center text-teal">
                 <Clock className="w-4 h-4" />
               </div>
             </div>
@@ -209,7 +209,7 @@ export default function MessagesPage() {
               onClick={() => setFilterRead(f.key)}
               className={`px-3 py-1.5 rounded-full text-[11px] font-semibold transition border ${
                 filterRead === f.key
-                  ? "bg-teal text-on-void border-teal"
+                  ? "bg-green text-on-void border-teal"
                   : "bg-glass-bg text-text-muted border-glass-border hover:border-glass-border-strong hover:text-text-primary"
               }`}
             >
@@ -241,7 +241,7 @@ export default function MessagesPage() {
                 </div>
               ) : filtered.length === 0 ? (
                 <div className="p-10 text-center">
-                  <div className="w-12 h-12 mx-auto rounded-xl bg-teal/10 flex items-center justify-center text-teal mb-3">
+                  <div className="w-12 h-12 mx-auto rounded-xl bg-green/10 flex items-center justify-center text-teal mb-3">
                     <MessageSquare className="w-6 h-6" strokeWidth={1.5} />
                   </div>
                   <p className="text-xs text-text-muted">
@@ -349,7 +349,7 @@ export default function MessagesPage() {
                     )}
                     <a
                       href={`mailto:${selectedMessage.email}?subject=Re: ${selectedMessage.subject}`}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold bg-teal text-on-void transition hover:scale-[1.02]"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold bg-green text-on-void transition hover:scale-[1.02]"
                     >
                       <Mail className="w-3 h-3" />
                       Répondre par email
@@ -366,7 +366,7 @@ export default function MessagesPage() {
               </motion.div>
             ) : (
               <div className="rounded-2xl glass p-12 border border-glass-border text-center flex flex-col items-center justify-center min-h-[300px]">
-                <div className="w-14 h-14 rounded-2xl bg-teal/10 flex items-center justify-center text-teal mb-4">
+                <div className="w-14 h-14 rounded-2xl bg-green/10 flex items-center justify-center text-teal mb-4">
                   <MessageSquare className="w-7 h-7" strokeWidth={1.5} />
                 </div>
                 <h3 className="font-['Space_Grotesk'] font-bold text-base text-text-primary mb-1">

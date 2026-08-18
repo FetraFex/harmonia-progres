@@ -70,7 +70,7 @@ export function Mission() {
             />
 
             {/* Subtle Gradient Glow inside glass */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-teal/20 rounded-full blur-3xl pointer-events-none group-hover:scale-125 transition-transform duration-700" />
+            <div className="absolute top-0 right-0 w-64 h-64 bg-green/20 rounded-full blur-3xl pointer-events-none group-hover:scale-125 transition-transform duration-700" />
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-coral/15 rounded-full blur-3xl pointer-events-none group-hover:scale-125 transition-transform duration-700" />
 
             {/* Top Badge */}
@@ -95,7 +95,7 @@ export function Mission() {
 
             {/* Overlaid Prominent Badge */}
             <div className="relative z-10 glass p-4 rounded-2xl border-glass-border-strong flex items-center gap-3 bg-void-2/60 shadow-xl">
-              <div className="p-2.5 rounded-xl bg-teal/20 text-teal">
+              <div className="p-2.5 rounded-xl bg-green/20 text-teal">
                 <ShieldCheckIcon className="w-6 h-6" />
               </div>
               <div>

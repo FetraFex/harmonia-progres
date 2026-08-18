@@ -34,7 +34,7 @@ export function Newsletter() {
           isRevealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
         }`}
       >
-        <div className="w-12 h-12 rounded-2xl bg-teal/15 text-teal border border-teal/30 mx-auto flex items-center justify-center mb-6">
+        <div className="w-12 h-12 rounded-2xl bg-green/15 text-teal border border-teal/30 mx-auto flex items-center justify-center mb-6">
           <MailIcon className="w-6 h-6" />
         </div>
 
@@ -62,7 +62,7 @@ export function Newsletter() {
           />
           <button
             type="submit"
-            className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-teal text-on-void font-bold text-sm hover:bg-teal/90 transition-all hover:scale-105 active:scale-95 shadow-md shadow-teal/20 whitespace-nowrap cursor-pointer"
+            className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-green text-on-void font-bold text-sm hover:bg-green/90 transition-all hover:scale-105 active:scale-95 shadow-md shadow-green/20 whitespace-nowrap cursor-pointer"
           >
             Je m&apos;inscris
           </button>

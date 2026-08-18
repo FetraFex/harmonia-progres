@@ -88,7 +88,7 @@ export default function MotivationPage() {
                           key={need.value}
                           className={`rounded-xl border p-3 cursor-pointer transition text-sm flex items-center gap-2 ${
                             isSelected
-                              ? "border-teal bg-teal/5 font-medium"
+                              ? "border-teal bg-green/5 font-medium"
                               : "border-glass-border hover:border-glass-border-strong"
                           }`}
                         >
@@ -105,7 +105,7 @@ export default function MotivationPage() {
                             className="sr-only"
                           />
                           <div className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 ${
-                            isSelected ? "bg-teal border-teal" : "border-glass-border"
+                            isSelected ? "bg-green border-teal" : "border-glass-border"
                           }`}>
                             {isSelected && <Check className="w-3 h-3 text-on-void" strokeWidth={3} />}
                           </div>

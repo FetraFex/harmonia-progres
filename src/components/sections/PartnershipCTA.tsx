@@ -15,7 +15,7 @@ export function PartnershipCTA() {
       ref={ref}
       className="relative z-10 bg-void-2"
     >
-      <div className="px-32 max-w-[1280px] mx-auto py-24 md:py-32">
+      <div className="px-[var(--page-px)] max-w-[var(--page-max-w)] mx-auto py-[var(--page-py-lg)] md:py-[var(--page-py-lg)]">
         <div
           className={`text-center space-y-8 transition-all duration-700 ${
             isRevealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
@@ -41,7 +41,7 @@ export function PartnershipCTA() {
           <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
             <a
               href="#contact"
-              className="px-8 py-4 rounded-full bg-teal text-on-void font-display font-bold text-sm sm:text-base hover:bg-teal/90 transition-all hover:scale-105 active:scale-95 shadow-xl shadow-teal/25 flex items-center gap-2"
+              className="px-8 py-4 rounded-full bg-green text-on-void font-display font-bold text-sm sm:text-base hover:bg-green/90 transition-all hover:scale-105 active:scale-95 shadow-xl shadow-green/25 flex items-center gap-2"
             >
               <span>{t("becomePartner")}</span>
               <ArrowRightIcon className="w-4 h-4" />

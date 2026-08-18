@@ -119,7 +119,7 @@ export default function EvaluationsPage() {
           >
             <div className="flex items-center justify-between mb-3">
               <span className="text-xs font-medium text-text-muted">Score moyen</span>
-              <div className="w-8 h-8 rounded-lg bg-teal/10 flex items-center justify-center text-teal">
+              <div className="w-8 h-8 rounded-lg bg-green/10 flex items-center justify-center text-teal">
                 <Star className="w-4 h-4" />
               </div>
             </div>
@@ -136,7 +136,7 @@ export default function EvaluationsPage() {
           >
             <div className="flex items-center justify-between mb-3">
               <span className="text-xs font-medium text-text-muted">Favorables</span>
-              <div className="w-8 h-8 rounded-lg bg-teal/10 flex items-center justify-center text-teal">
+              <div className="w-8 h-8 rounded-lg bg-green/10 flex items-center justify-center text-teal">
                 <ThumbsUp className="w-4 h-4" />
               </div>
             </div>
@@ -199,7 +199,7 @@ export default function EvaluationsPage() {
               onClick={() => setSortBy(s.key)}
               className={`px-3 py-1.5 rounded-full text-[11px] font-semibold transition border ${
                 sortBy === s.key
-                  ? "bg-teal text-on-void border-teal"
+                  ? "bg-green text-on-void border-teal"
                   : "bg-glass-bg text-text-muted border-glass-border hover:border-glass-border-strong hover:text-text-primary"
               }`}
             >
@@ -223,7 +223,7 @@ export default function EvaluationsPage() {
               onClick={() => setFilterRecommendation(f.key)}
               className={`px-3 py-1.5 rounded-full text-[11px] font-semibold transition border ${
                 filterRecommendation === f.key
-                  ? "bg-teal text-on-void border-teal"
+                  ? "bg-green text-on-void border-teal"
                   : "bg-glass-bg text-text-muted border-glass-border hover:border-glass-border-strong hover:text-text-primary"
               }`}
             >
@@ -240,7 +240,7 @@ export default function EvaluationsPage() {
           </div>
         ) : filtered.length === 0 ? (
           <div className="rounded-2xl glass p-12 text-center space-y-4 border border-glass-border">
-            <div className="w-16 h-16 mx-auto rounded-2xl bg-teal/10 flex items-center justify-center text-teal">
+            <div className="w-16 h-16 mx-auto rounded-2xl bg-green/10 flex items-center justify-center text-teal">
               <Star className="w-8 h-8" strokeWidth={1.5} />
             </div>
             <h3 className="font-['Space_Grotesk'] text-xl font-bold text-text-primary">
@@ -255,7 +255,7 @@ export default function EvaluationsPage() {
               <div className="pt-2">
                 <Link
                   href="/admin/candidatures"
-                  className="inline-flex items-center gap-2 rounded-xl bg-teal px-5 py-2.5 font-['Space_Grotesk'] font-bold text-on-void text-xs transition hover:scale-[1.02]"
+                  className="inline-flex items-center gap-2 rounded-xl bg-green px-5 py-2.5 font-['Space_Grotesk'] font-bold text-on-void text-xs transition hover:scale-[1.02]"
                 >
                   <FileText className="w-4 h-4" />
                   <span>Voir les candidatures</span>
@@ -290,7 +290,7 @@ export default function EvaluationsPage() {
                   </div>
 
                   <div className="text-right shrink-0">
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-teal/10 border border-teal/20 text-teal font-['Space_Grotesk'] font-bold text-sm">
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-green/10 border border-teal/20 text-teal font-['Space_Grotesk'] font-bold text-sm">
                       <Award className="w-3.5 h-3.5" />
                       <span>{ev.score || 0}/25</span>
                     </div>

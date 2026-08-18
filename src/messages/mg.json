@@ -10,9 +10,11 @@
   },
   "nav": {
     "project": "Ny Tetikasa",
-    "actions": "Ny Hetsikay",
-    "impact": "Ny Fiantraikany",
-    "news": "Vaovao",
+    "sectors": "Ny Sehatra",
+    "program": "Ny Fandaharana",
+    "territory": "Ny Faritra",
+    "about": "Mombamomba",
+    "partners": "Ny Mpiaraka",
     "ariaNav": "Fizahan-tany lehibe",
     "ariaHome": "Harmonia Progrès — Fandraisana",
     "ariaMenu": "Hanokatra ny menio",
@@ -514,7 +516,7 @@
     "copy": "Adikao",
     "keep": "Tahio ity laharan-tohana ity mba hanarahana ny toeran'ny fangatahanao.",
     "track": "Hanaraka ny fangatahako",
-    "backToSite": "Hiverina amin'ny tranokala"
+    "backToAccount": "Hiverina any amin'ny kaontiko"
   },
   "candidate": {
     "steps": [

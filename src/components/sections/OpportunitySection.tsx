@@ -14,7 +14,7 @@ export function OpportunitySection() {
     <section
       id="opportunite"
       ref={ref}
-      className="py-16 md:py-24 px-32 max-w-[1280px] mx-auto relative z-10 scroll-mt-24"
+      className="py-[var(--page-py)] md:py-[var(--page-py-lg)] px-[var(--page-px)] max-w-[var(--page-max-w)] mx-auto relative z-10 scroll-mt-24"
     >
       <div
         className={`space-y-16 transition-all duration-700 ${
@@ -55,7 +55,7 @@ export function OpportunitySection() {
                 <span className="font-display text-sm font-semibold text-text-secondary tracking-wide">
                   {node}
                 </span>
-                <span className="w-2.5 h-2.5 rounded-full bg-teal/60 shrink-0" />
+                <span className="w-2.5 h-2.5 rounded-full bg-green/60 shrink-0" />
               </div>
             ))}
           </div>
@@ -80,15 +80,15 @@ export function OpportunitySection() {
             }`}
             style={{ transitionDelay: "600ms" }}
           >
-            <div className="px-6 py-4 border border-teal/30 rounded-2xl bg-teal/5 backdrop-blur-sm">
+            <div className="px-6 py-4 border border-teal/30 rounded-2xl bg-green/5 backdrop-blur-sm">
               <span className="font-display text-sm md:text-base font-bold tracking-[0.15em] text-teal uppercase">
                 {t("hub")}
               </span>
             </div>
             <div className="flex items-center gap-3">
-              <div className="h-px w-12 bg-teal/30" />
-              <span className="w-1.5 h-1.5 rounded-full bg-teal animate-pulse" />
-              <div className="h-px w-12 bg-teal/30" />
+              <div className="h-px w-12 bg-green/30" />
+              <span className="w-1.5 h-1.5 rounded-full bg-green animate-pulse" />
+              <div className="h-px w-12 bg-green/30" />
             </div>
           </div>
 
@@ -109,7 +109,7 @@ export function OpportunitySection() {
             }`}
             style={{ transitionDelay: "800ms" }}
           >
-            <span className="w-2.5 h-2.5 rounded-full bg-teal shrink-0" />
+            <span className="w-2.5 h-2.5 rounded-full bg-green shrink-0" />
             <span className="font-display text-sm md:text-base font-bold text-teal tracking-wide">
               {t("rightNode")}
             </span>

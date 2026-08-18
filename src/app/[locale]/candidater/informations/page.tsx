@@ -156,7 +156,7 @@ export default function InformationsPage() {
           </div>
 
           <FormNavigation
-            onBack="/candidater/eligibilite"
+            onBack="/candidater"
             onNext={handleSubmit(onSubmit)}
           />
         </form>

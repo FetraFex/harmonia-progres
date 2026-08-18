@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
+import { Logo } from "@/components/ui/Logo";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -71,7 +71,7 @@ export default function AdminLoginPage() {
   return (
     <main className="min-h-screen bg-void flex flex-col justify-center items-center px-6 py-12 relative overflow-hidden">
       {/* Background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-teal/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-green/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="absolute top-5 right-5 z-20">
         <ThemeToggle className="h-10 w-10 p-2 rounded-full glass" />
@@ -85,9 +85,7 @@ export default function AdminLoginPage() {
       >
         <div className="text-center mb-8">
           <Link href="/" className="inline-block mb-6 group transition">
-            <Image
-              src="/images/logo/logo-transparent-dark.png"
-              alt="Harmonia Progrès"
+            <Logo
               width={160}
               height={40}
               priority
@@ -95,7 +93,7 @@ export default function AdminLoginPage() {
             />
           </Link>
 
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-teal/10 text-teal border border-teal/20 mb-3">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-green/10 text-teal border border-teal/20 mb-3">
             <ShieldCheck className="w-3.5 h-3.5" />
             <span>Console Sécurisée</span>
           </div>
@@ -162,7 +160,7 @@ export default function AdminLoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full rounded-xl bg-teal px-6 py-3.5 font-['Space_Grotesk'] font-bold text-on-void text-sm transition hover:scale-[1.02] hover:shadow-lg hover:shadow-teal/20 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-2"
+              className="w-full rounded-xl bg-green px-6 py-3.5 font-['Space_Grotesk'] font-bold text-on-void text-sm transition hover:scale-[1.02] hover:shadow-lg hover:shadow-green/20 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-2"
             >
               {loading ? (
                 <>

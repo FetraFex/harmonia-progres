@@ -89,7 +89,7 @@ export function SectorsSection() {
                     <span className="font-mono text-xs text-teal font-semibold tracking-wider">
                       {sector.number}
                     </span>
-                    <div className="h-px flex-1 bg-white/[0.06] group-hover:bg-teal/20 transition-colors duration-500" />
+                    <div className="h-px flex-1 bg-white/[0.06] group-hover:bg-green/20 transition-colors duration-500" />
                   </div>
                   <h3 className="font-display text-2xl md:text-3xl font-bold text-text-primary group-hover:text-teal transition-colors duration-300">
                     {sector.title}
@@ -107,7 +107,7 @@ export function SectorsSection() {
             </div>
 
             {/* Accent Indicator Line */}
-            <div className="absolute bottom-0 left-0 h-[2px] w-0 group-hover:w-full bg-teal transition-all duration-700" />
+            <div className="absolute bottom-0 left-0 h-[2px] w-0 group-hover:w-full bg-green transition-all duration-700" />
           </article>
         ))}
       </div>

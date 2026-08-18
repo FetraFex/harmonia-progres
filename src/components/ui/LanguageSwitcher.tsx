@@ -37,7 +37,7 @@ export function LanguageSwitcher({ className }: { className?: string }) {
           className={cn(
             "px-2.5 py-1 rounded-full text-xs font-semibold transition cursor-pointer",
             locale === l.code
-              ? "bg-teal text-on-void"
+              ? "bg-green text-on-void"
               : "text-text-muted hover:text-text-primary"
           )}
         >

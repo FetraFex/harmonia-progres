@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import { CandidateLayout } from "@/components/candidate/CandidateLayout";
-import { CheckCircle2, ArrowRight, Home, Copy, Check } from "lucide-react";
+import { CheckCircle2, ArrowRight, User, Copy, Check } from "lucide-react";
 import { Suspense, useState } from "react";
 
 function ConfirmationContent() {
@@ -32,7 +32,7 @@ function ConfirmationContent() {
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.2 }}
-          className="w-20 h-20 mx-auto rounded-full bg-teal/10 flex items-center justify-center"
+          className="w-20 h-20 mx-auto rounded-full bg-green/10 flex items-center justify-center"
         >
           <CheckCircle2 className="w-10 h-10 text-teal" strokeWidth={1.5} />
         </motion.div>
@@ -54,7 +54,7 @@ function ConfirmationContent() {
             </p>
             <button
               onClick={handleCopy}
-              className="p-1.5 rounded-lg text-text-muted hover:text-teal hover:bg-teal/10 transition"
+              className="p-1.5 rounded-lg text-text-muted hover:text-teal hover:bg-green/10 transition"
               title={t("copy")}
             >
               {copied ? (
@@ -73,17 +73,17 @@ function ConfirmationContent() {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
             href="/candidater/suivi"
-            className="w-full sm:w-auto rounded-xl bg-teal px-8 py-4 font-['Space_Grotesk'] font-bold text-on-void text-lg transition hover:scale-[1.02] hover:shadow-lg hover:shadow-teal/20 active:scale-[0.98] text-center flex items-center justify-center gap-2"
+            className="w-full sm:w-auto rounded-xl bg-green px-8 py-4 font-['Space_Grotesk'] font-bold text-on-void text-lg transition hover:scale-[1.02] hover:shadow-lg hover:shadow-green/20 active:scale-[0.98] text-center flex items-center justify-center gap-2"
           >
             {t("track")}
             <ArrowRight className="w-5 h-5" />
           </Link>
           <Link
-            href="/"
+            href="/account"
             className="w-full sm:w-auto rounded-xl glass px-8 py-4 font-medium text-text-primary transition hover:bg-glass-bg-strong text-center flex items-center justify-center gap-2"
           >
-            <Home className="w-4 h-4" strokeWidth={1.5} />
-            {t("backToSite")}
+            <User className="w-4 h-4" strokeWidth={1.5} />
+            {t("backToAccount")}
           </Link>
         </div>
       </motion.div>
@@ -95,7 +95,7 @@ function ConfirmationFallback() {
   return (
     <div className="max-w-2xl mx-auto px-6 py-16 md:py-24 text-center">
       <div className="space-y-8">
-        <div className="w-20 h-20 mx-auto rounded-full bg-teal/10 flex items-center justify-center animate-pulse" />
+        <div className="w-20 h-20 mx-auto rounded-full bg-green/10 flex items-center justify-center animate-pulse" />
         <div className="space-y-3">
           <div className="h-8 w-64 bg-glass-bg rounded-lg mx-auto animate-pulse" />
           <div className="h-4 w-80 bg-glass-bg rounded mx-auto animate-pulse" />

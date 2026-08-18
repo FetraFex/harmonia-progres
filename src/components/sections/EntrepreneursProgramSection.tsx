@@ -1,6 +1,7 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
 import { ArrowRightIcon } from "@/components/ui/Icons";
@@ -18,22 +19,34 @@ export function EntrepreneursProgramSection() {
   const words = t.raw("words") as string[];
   const steps = t.raw("steps") as Step[];
 
+  const randomImage = useMemo(() => {
+    const idx = Math.floor(Math.random() * 4) + 1;
+    return `/images/parcours/entrepreneur-${idx}.jpg`;
+  }, []);
+
   return (
     <section
       id="programme"
       ref={ref}
-      className="py-16 md:py-24 px-32 max-w-[1280px] mx-auto relative z-10 scroll-mt-24"
+      className="py-[var(--page-py)] md:py-[var(--page-py-lg)] px-[var(--page-px)] max-w-[var(--page-max-w)] mx-auto relative z-10 scroll-mt-24"
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
         {/* Left: Image + Words */}
         <div className="space-y-10">
-          {/* Image Placeholder */}
+          {/* Image */}
           <div
             className={`relative rounded-3xl overflow-hidden min-h-[320px] lg:min-h-[400px] transition-all duration-700 ${
               isRevealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
             }`}
           >
             <div className="absolute inset-0 bg-gradient-to-br from-teal/20 via-[#0a1a1a] to-[#050505]" />
+            <Image
+              src={randomImage}
+              alt="Parcours entrepreneur"
+              fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-cover opacity-50 mix-blend-luminosity hover:opacity-70 hover:mix-blend-normal transition-all duration-700"
+            />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
           </div>
 

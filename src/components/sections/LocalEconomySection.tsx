@@ -1,6 +1,7 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
 import { useCountUp } from "@/hooks/useCountUp";
@@ -19,6 +20,17 @@ const GRADIENTS = [
   "from-blue-900/50 via-blue-800/30 to-[#0a0a0a]",
   "from-emerald-900/50 via-emerald-800/30 to-[#0a0a0a]",
 ];
+
+const IMAGE_PREFIX: Record<string, string> = {
+  ARTISANAT: "art",
+  HALIEUTIQUE: "hal",
+  AGRICULTURE: "agr",
+};
+
+function pickRandomImage(prefix: string): string {
+  const idx = Math.floor(Math.random() * 4) + 1;
+  return `/images/secteurs/${prefix}-${idx}.jpg`;
+}
 
 interface StatItemProps {
   target: number;
@@ -65,6 +77,12 @@ export function LocalEconomySection() {
   );
   const statsLabels = t.raw("stats") as { label: string }[];
 
+  const sectorImages = useMemo(
+    () => sectors.map((s) => pickRandomImage(IMAGE_PREFIX[s.title] || "art")),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [sectors.length]
+  );
+
   return (
     <section
       id="secteurs"
@@ -72,7 +90,7 @@ export function LocalEconomySection() {
       className="relative z-10"
     >
       {/* Header + Stats */}
-      <div className="px-32 max-w-[1280px] mx-auto pt-16 md:pt-24 pb-12 md:pb-16">
+      <div className="px-[var(--page-px)] max-w-[var(--page-max-w)] mx-auto pt-[var(--page-py)] md:pt-[var(--page-py-lg)] pb-12 md:pb-16">
         <div
           className={`mb-12 transition-all duration-700 ${
             isRevealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
@@ -106,7 +124,7 @@ export function LocalEconomySection() {
       </div>
 
       {/* Vertical Sector Cards */}
-      <div className="px-32 max-w-[1280px] mx-auto pb-16 md:pb-24 space-y-6">
+      <div className="px-[var(--page-px)] max-w-[var(--page-max-w)] mx-auto pb-16 md:pb-24 space-y-6">
         {sectors.map((sector, idx) => (
           <article
             key={sector.number}
@@ -121,11 +139,13 @@ export function LocalEconomySection() {
                 <div
                   className={`absolute inset-0 bg-gradient-to-br ${sector.gradient} transition-transform duration-700 group-hover:scale-110`}
                 />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="font-display text-[100px] md:text-[140px] font-bold text-white/[0.04] select-none leading-none">
-                    {sector.number}
-                  </span>
-                </div>
+                <Image
+                  src={sectorImages[idx]}
+                  alt={sector.title}
+                  fill
+                  sizes="400px"
+                  className="object-cover opacity-40 mix-blend-luminosity group-hover:opacity-60 group-hover:mix-blend-normal transition-all duration-700"
+                />
                 <div className="absolute top-6 left-6">
                   <span className="font-mono text-xs text-teal font-semibold tracking-wider">
                     {sector.number}
@@ -152,7 +172,7 @@ export function LocalEconomySection() {
             </div>
 
             {/* Accent Line */}
-            <div className="absolute bottom-0 left-0 h-[2px] w-0 group-hover:w-full bg-teal transition-all duration-700" />
+            <div className="absolute bottom-0 left-0 h-[2px] w-0 group-hover:w-full bg-green transition-all duration-700" />
           </article>
         ))}
       </div>

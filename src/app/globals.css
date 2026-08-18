@@ -15,7 +15,7 @@
   --text-primary: #0f172a;
   --text-secondary: #475569;
   --text-muted: #64748b;
-  --teal: #cefb48;
+  --teal: #0d7d72;
   --coral: #f97316;
   --green: #cefb48;
   --on-void: #04211d;
@@ -74,7 +74,37 @@
   --font-body: var(--font-inter), sans-serif;
   --font-mono: var(--font-jetbrains-mono), monospace;
   --font-serif: var(--font-instrument-serif), serif;
+
+  --breakpoint-3xl: 1920px;
 }
+
+/* ── Responsive page scaling: 1536×900 → 1920×1080 ── */
+/* At screens ≤1680px wide (incl. 1536px laptops), scale layout
+   so it looks like a 1920×1080 design. Scale factor ≈ 0.8. */
+:root {
+  --page-px: 8rem;            /* 128px = px-32 */
+  --page-max-w: 80rem;        /* 1280px */
+  --page-py: 6rem;            /* py-24 */
+  --page-py-lg: 8rem;         /* py-32 */
+  --page-gap: 5rem;           /* gap-20 */
+  --page-gap-lg: 5rem;        /* gap-20 */
+  --page-font-hero: clamp(40px, 6vw, 88px);
+  --page-font-h2: clamp(30px, 4vw, 48px);
+}
+
+@media (max-width: 1680px) {
+  :root {
+    --page-px: 5rem;            /* 80px  ≈ 128 × 0.625 */
+    --page-max-w: 64rem;        /* 1024px ≈ 1280 × 0.8 */
+    --page-py: 4rem;            /* 64px  ≈ 96 × 0.67 */
+    --page-py-lg: 5rem;         /* 80px  ≈ 128 × 0.625 */
+    --page-gap: 3rem;           /* 48px  ≈ 80 × 0.6 */
+    --page-gap-lg: 4rem;        /* 64px */
+    --page-font-hero: clamp(32px, 5vw, 72px);
+    --page-font-h2: clamp(24px, 3.5vw, 40px);
+  }
+}
+
 
 /* Dark theme overrides — applied via .dark class on <html> */
 .dark {
@@ -219,7 +249,7 @@
   }
 
   .hero-bg-text span {
-    font-size: clamp(120px, 15vw, 260px);
+    font-size: clamp(90px, 12vw, 200px);
     line-height: 1;
   }
 

@@ -10,9 +10,11 @@
   },
   "nav": {
     "project": "Le Projet",
-    "actions": "Nos Actions",
-    "impact": "Impact",
-    "news": "Actualités",
+    "sectors": "Secteurs",
+    "program": "Programme",
+    "territory": "Territoire",
+    "about": "À propos",
+    "partners": "Partenaires",
     "ariaNav": "Navigation principale",
     "ariaHome": "Harmonia Progrès — Accueil",
     "ariaMenu": "Ouvrir le menu",
@@ -22,7 +24,7 @@
     "more": "En savoir plus"
   },
   "hero": {
-    "badge": "Manakara · Madagascar",
+    "badge": "Fitovinany · Madagascar",
     "trust": "1 200+ donateurs actifs",
     "titleLine1": "Construire l'avenir",
     "titleLine2": "entrepreneurial",
@@ -514,7 +516,7 @@
     "copy": "Copier",
     "keep": "Conservez ce numéro pour suivre l'état de votre candidature.",
     "track": "Suivre ma candidature",
-    "backToSite": "Retour au site"
+    "backToAccount": "Retour à mon espace"
   },
   "candidate": {
     "steps": [

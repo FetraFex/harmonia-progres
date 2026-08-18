@@ -67,7 +67,7 @@ export function AboutSection() {
                 }`}
                 style={{ transitionDelay: `${300 + idx * 100}ms` }}
               >
-                <span className="shrink-0 w-8 h-8 rounded-full border border-teal/30 bg-teal/5 flex items-center justify-center font-mono text-xs font-bold text-teal">
+                <span className="shrink-0 w-8 h-8 rounded-full border border-teal/30 bg-green/5 flex items-center justify-center font-mono text-xs font-bold text-teal">
                   {String(idx + 1).padStart(2, "0")}
                 </span>
                 <span className="font-display text-lg font-semibold text-text-primary pt-0.5">

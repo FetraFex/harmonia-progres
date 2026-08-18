@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { createClient } from "@/lib/supabase/client";
 import { motion } from "framer-motion";
-import Image from "next/image";
+import { Logo } from "@/components/ui/Logo";
 import { Mail, Lock, Eye, EyeOff, Loader2 } from "lucide-react";
 import { SmoothInput } from "@/components/ui/SmoothInput";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
@@ -129,7 +129,7 @@ function LoginForm() {
       <button
         type="submit"
         disabled={loading}
-        className="w-full rounded-xl bg-teal px-6 py-3.5 font-['Space_Grotesk'] font-bold text-on-void text-lg transition hover:scale-[1.02] hover:shadow-lg hover:shadow-teal/20 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+        className="w-full rounded-xl bg-green px-6 py-3.5 font-['Space_Grotesk'] font-bold text-on-void text-lg transition hover:scale-[1.02] hover:shadow-lg hover:shadow-green/20 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
       >
         {loading ? (
           <>
@@ -174,9 +174,7 @@ export default function LoginPage() {
       >
         <div className="mb-10 text-center">
           <Link href="/" className="inline-block mb-6">
-            <Image
-              src="/images/logo/logo-transparent-dark.png"
-              alt="Harmonia Progrès"
+            <Logo
               width={160}
               height={40}
               priority

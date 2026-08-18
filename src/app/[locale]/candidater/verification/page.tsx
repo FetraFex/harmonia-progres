@@ -215,7 +215,7 @@ export default function VerificationPage() {
             <button
               onClick={handleSubmit}
               disabled={loading || !consent}
-              className="flex items-center gap-2 rounded-xl bg-teal px-8 py-3 font-['Space_Grotesk'] font-bold text-on-void transition hover:scale-[1.02] disabled:opacity-40 disabled:cursor-not-allowed"
+              className="flex items-center gap-2 rounded-xl bg-green px-8 py-3 font-['Space_Grotesk'] font-bold text-on-void transition hover:scale-[1.02] disabled:opacity-40 disabled:cursor-not-allowed"
             >
               {loading ? t("submitting") : t("submit")}
               {!loading && <Send className="w-4 h-4" strokeWidth={2} />}

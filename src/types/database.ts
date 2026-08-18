@@ -27,7 +27,7 @@ export type EducationLevel =
   | "master"
   | "other";
 
-export type District = "manakara" | "vohipeno" | "autre";
+export type District = "manakara" | "vohipeno";
 
 export type ActivityType =
   | "riziculture"

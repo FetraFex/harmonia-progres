@@ -37,7 +37,7 @@ export function Hero() {
 
       {/* Top Center Peeking Badge (overlapping top edge) */}
       <div className="relative z-20 flex justify-center -mb-6">
-        <div className="glass px-4 py-2 rounded-full shadow-2xl shadow-teal/20 animate-prism-bob border-glass-border-strong flex items-center gap-2 backdrop-blur-2xl">
+        <div className="glass px-4 py-2 rounded-full shadow-2xl shadow-green/20 animate-prism-bob border-glass-border-strong flex items-center gap-2 backdrop-blur-2xl">
           <Image
             src="/images/logo/logo-transparent-dark.png"
             alt="Harmonia Progrès"
@@ -139,7 +139,7 @@ export function Hero() {
 
           <button
             onClick={scrollToDonate}
-            className="px-5 py-2 rounded-full bg-teal text-on-void font-bold text-xs sm:text-sm hover:bg-teal/90 transition-all hover:scale-105 active:scale-95 shadow-md shadow-teal/20 cursor-pointer"
+            className="px-5 py-2 rounded-full bg-green text-on-void font-bold text-xs sm:text-sm hover:bg-green/90 transition-all hover:scale-105 active:scale-95 shadow-md shadow-green/20 cursor-pointer"
           >
             Faire un don
           </button>
@@ -158,7 +158,7 @@ export function Hero() {
             >
               {/* Stacked Avatars */}
               <div className="flex -space-x-2 overflow-hidden items-center">
-                <span className="inline-block w-7 h-7 rounded-full bg-teal/30 border-2 border-void text-[10px] font-bold flex items-center justify-center text-teal">
+                <span className="inline-block w-7 h-7 rounded-full bg-green/30 border-2 border-void text-[10px] font-bold flex items-center justify-center text-teal">
                   AD
                 </span>
                 <span className="inline-block w-7 h-7 rounded-full bg-coral/30 border-2 border-void text-[10px] font-bold flex items-center justify-center text-coral">
@@ -167,7 +167,7 @@ export function Hero() {
                 <span className="inline-block w-7 h-7 rounded-full bg-green/30 border-2 border-void text-[10px] font-bold flex items-center justify-center text-green">
                   RK
                 </span>
-                <span className="w-6 h-6 rounded-full bg-teal flex items-center justify-center text-on-void font-bold text-xs shadow">
+                <span className="w-6 h-6 rounded-full bg-green flex items-center justify-center text-on-void font-bold text-xs shadow">
                   +
                 </span>
               </div>
@@ -218,7 +218,7 @@ export function Hero() {
             >
               <button
                 onClick={scrollToDonate}
-                className="px-8 py-4 rounded-full bg-teal text-on-void font-display font-bold text-sm sm:text-base hover:bg-teal/90 transition-all hover:scale-105 active:scale-95 shadow-xl shadow-teal/30 flex items-center gap-2 cursor-pointer"
+                className="px-8 py-4 rounded-full bg-green text-on-void font-display font-bold text-sm sm:text-base hover:bg-green/90 transition-all hover:scale-105 active:scale-95 shadow-xl shadow-green/30 flex items-center gap-2 cursor-pointer"
               >
                 <span>Faire un don</span>
                 <LightningIcon className="w-4 h-4 text-on-void" />

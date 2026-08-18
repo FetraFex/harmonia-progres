@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
+import { Logo } from "@/components/ui/Logo";
 import Link from "next/link";
 
 const NAV_ITEMS = [
-  { label: "Projet", href: "#opportunite" },
+  { label: "Le Projet", href: "#opportunite" },
   { label: "Secteurs", href: "#secteurs" },
   { label: "Programme", href: "#programme" },
   { label: "Territoire", href: "#territoire" },
@@ -26,9 +26,7 @@ export function Navbar() {
           href="/"
           className="flex items-center gap-3 group focus-visible:ring-2 focus-visible:ring-teal rounded-lg shrink-0"
         >
-          <Image
-            src="/images/logo/logo-transparent-dark.png"
-            alt="Harmonia Progrès"
+          <Logo
             width={160}
             height={44}
             priority
@@ -60,7 +58,7 @@ export function Navbar() {
           </Link>
           <Link
             href="/candidater"
-            className="px-5 py-2.5 rounded-full bg-teal text-on-void font-semibold text-sm hover:bg-teal/90 transition-all hover:scale-105 active:scale-95 shadow-md shadow-teal/20 flex items-center gap-2"
+            className="px-5 py-2.5 rounded-full bg-green text-on-void font-semibold text-sm hover:bg-green/90 transition-all hover:scale-105 active:scale-95 shadow-md shadow-green/20 flex items-center gap-2"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />

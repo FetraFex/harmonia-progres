@@ -33,7 +33,7 @@ const STATUS_CONFIG: Record<string, { label: string; color: string; bg: string; 
   under_review: { label: "En évaluation", color: "text-amber-400", bg: "bg-amber-500/10", border: "border-amber-500/20" },
   shortlisted: { label: "Présélectionné", color: "text-indigo-400", bg: "bg-indigo-500/10", border: "border-indigo-500/20" },
   interview: { label: "Entretien", color: "text-purple-400", bg: "bg-purple-500/10", border: "border-purple-500/20" },
-  accepted: { label: "Accepté", color: "text-teal", bg: "bg-teal/10", border: "border-teal/30" },
+  accepted: { label: "Accepté", color: "text-teal", bg: "bg-green/10", border: "border-teal/30" },
   rejected: { label: "Non retenu", color: "text-red-400", bg: "bg-red-500/10", border: "border-red-500/20" },
   waitlisted: { label: "Liste d'attente", color: "text-orange-400", bg: "bg-orange-500/10", border: "border-orange-500/20" },
   withdrawn: { label: "Retiré", color: "text-gray-500", bg: "bg-gray-500/10", border: "border-gray-500/20" },
@@ -183,7 +183,7 @@ export default function AdminCandidaturesPage() {
             <Link
               href="/candidater"
               target="_blank"
-              className="rounded-xl bg-teal px-4 py-2.5 text-xs font-bold text-on-void transition hover:scale-[1.02] hover:shadow-lg hover:shadow-teal/20 flex items-center gap-1.5"
+              className="rounded-xl bg-green px-4 py-2.5 text-xs font-bold text-on-void transition hover:scale-[1.02] hover:shadow-lg hover:shadow-green/20 flex items-center gap-1.5"
             >
               <Plus className="w-3.5 h-3.5" />
               <span>Nouvelle candidature</span>
@@ -198,7 +198,7 @@ export default function AdminCandidaturesPage() {
               onClick={() => { setFilterStatus("all"); setPage(0); }}
               className={`px-3 py-1.5 rounded-full text-[11px] font-semibold transition border ${
                 filterStatus === "all"
-                  ? "bg-teal text-on-void border-teal"
+                  ? "bg-green text-on-void border-teal"
                   : "bg-glass-bg text-text-muted border-glass-border hover:border-glass-border-strong hover:text-text-primary"
               }`}
             >
@@ -270,7 +270,6 @@ export default function AdminCandidaturesPage() {
               <option value="all">Tous les districts</option>
               <option value="manakara">Manakara</option>
               <option value="vohipeno">Vohipeno</option>
-              <option value="autre">Autre</option>
             </select>
 
             {(filterStatus !== "all" || filterSector !== "all" || filterDistrict !== "all" || search) && (
@@ -330,7 +329,7 @@ export default function AdminCandidaturesPage() {
                     </div>
                     <Link
                       href={`/admin/candidatures/${app.id}`}
-                      className="p-2 rounded-lg glass hover:bg-teal hover:text-on-void text-text-muted transition shrink-0"
+                      className="p-2 rounded-lg glass hover:bg-green hover:text-on-void text-text-muted transition shrink-0"
                     >
                       <ExternalLink className="w-4 h-4" />
                     </Link>
@@ -425,7 +424,7 @@ export default function AdminCandidaturesPage() {
                       <td className="px-6 py-4 text-right">
                         <Link
                           href={`/admin/candidatures/${app.id}`}
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold glass text-text-primary hover:bg-teal hover:text-on-void transition"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold glass text-text-primary hover:bg-green hover:text-on-void transition"
                         >
                           <span>Examiner</span>
                           <ExternalLink className="w-3 h-3" />

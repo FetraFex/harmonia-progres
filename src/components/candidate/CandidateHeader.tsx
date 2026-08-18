@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { Logo } from "@/components/ui/Logo";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { Check, Eye } from "lucide-react";
@@ -22,9 +22,7 @@ export function CandidateHeader() {
     <header className="border-b border-glass-border bg-void/80 backdrop-blur-xl sticky top-0 z-50">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3">
-          <Image
-            src="/images/logo/logo-transparent-dark.png"
-            alt="Harmonia Progrès"
+          <Logo
             width={140}
             height={36}
             className="h-7 w-auto object-contain"
@@ -42,9 +40,9 @@ export function CandidateHeader() {
                   href={step.href}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition ${
                     isActive
-                      ? "bg-teal text-on-void"
+                      ? "bg-green text-on-void"
                       : isDone
-                        ? "bg-teal/20 text-teal"
+                        ? "bg-green/20 text-teal"
                         : "text-text-muted hover:bg-glass-bg"
                   }`}
                 >
@@ -62,7 +60,7 @@ export function CandidateHeader() {
 
         <Link
           href="/candidater/suivi"
-          className="rounded-xl bg-teal/10 border border-teal/30 px-3.5 py-1.5 text-xs font-semibold text-teal hover:bg-teal hover:text-on-void transition flex items-center gap-1.5"
+          className="rounded-xl bg-green/10 border border-teal/30 px-3.5 py-1.5 text-xs font-semibold text-teal hover:bg-green hover:text-on-void transition flex items-center gap-1.5"
         >
           <Eye className="w-3.5 h-3.5" />
           <span>{t("track")}</span>

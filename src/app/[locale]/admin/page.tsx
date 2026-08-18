@@ -33,7 +33,7 @@ const STATUS_CONFIG: Record<string, { label: string; color: string; bg: string; 
   under_review: { label: "En évaluation", color: "text-amber-400", bg: "bg-amber-500/10", border: "border-amber-500/20" },
   shortlisted: { label: "Présélectionné", color: "text-indigo-400", bg: "bg-indigo-500/10", border: "border-indigo-500/20" },
   interview: { label: "Entretien", color: "text-purple-400", bg: "bg-purple-500/10", border: "border-purple-500/20" },
-  accepted: { label: "Accepté", color: "text-teal", bg: "bg-teal/10", border: "border-teal/30" },
+  accepted: { label: "Accepté", color: "text-teal", bg: "bg-green/10", border: "border-teal/30" },
   rejected: { label: "Non retenu", color: "text-red-400", bg: "bg-red-500/10", border: "border-red-500/20" },
   waitlisted: { label: "Liste d'attente", color: "text-orange-400", bg: "bg-orange-500/10", border: "border-orange-500/20" },
   withdrawn: { label: "Retiré", color: "text-gray-500", bg: "bg-gray-500/10", border: "border-gray-500/20" },
@@ -50,7 +50,7 @@ const PIPELINE_STAGES = [
   { key: "under_review", label: "En évaluation", color: "bg-amber-500" },
   { key: "shortlisted", label: "Présélectionnés", color: "bg-indigo-500" },
   { key: "interview", label: "Entretiens", color: "bg-purple-500" },
-  { key: "accepted", label: "Acceptés", color: "bg-teal" },
+  { key: "accepted", label: "Acceptés", color: "bg-green" },
 ];
 
 export default function AdminDashboardPage() {
@@ -109,7 +109,6 @@ export default function AdminDashboardPage() {
   const districtCounts = {
     manakara: applications.filter((a) => a.district === "manakara").length,
     vohipeno: applications.filter((a) => a.district === "vohipeno").length,
-    autre: applications.filter((a) => a.district === "autre").length,
   };
 
   // Pipeline counts (only statuses that flow through the pipeline)
@@ -128,7 +127,7 @@ export default function AdminDashboardPage() {
       value: stats.total,
       sub: "Dossiers enregistrés",
       icon: FileText,
-      iconBg: "bg-teal/10",
+      iconBg: "bg-green/10",
       iconColor: "text-teal",
       valueColor: "text-text-primary",
     },
@@ -155,7 +154,7 @@ export default function AdminDashboardPage() {
       value: stats.accepted,
       sub: "Retenus pour la cohorte",
       icon: CheckCircle2,
-      iconBg: "bg-teal/10",
+      iconBg: "bg-green/10",
       iconColor: "text-teal",
       valueColor: "text-teal",
     },
@@ -189,7 +188,7 @@ export default function AdminDashboardPage() {
             </button>
             <Link
               href="/admin/candidatures"
-              className="rounded-xl bg-teal px-5 py-2.5 text-xs font-bold text-on-void transition hover:scale-[1.02] hover:shadow-lg hover:shadow-teal/20 flex items-center gap-2"
+              className="rounded-xl bg-green px-5 py-2.5 text-xs font-bold text-on-void transition hover:scale-[1.02] hover:shadow-lg hover:shadow-green/20 flex items-center gap-2"
             >
               <span>Toutes les candidatures</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -230,7 +229,7 @@ export default function AdminDashboardPage() {
         >
           <div className="flex items-center justify-between pb-5 border-b border-glass-border mb-6">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-teal/10 flex items-center justify-center text-teal">
+              <div className="w-9 h-9 rounded-xl bg-green/10 flex items-center justify-center text-teal">
                 <BarChart3 className="w-4 h-4" strokeWidth={1.75} />
               </div>
               <div>
@@ -273,7 +272,7 @@ export default function AdminDashboardPage() {
           <div className="lg:col-span-2 rounded-2xl glass p-6 md:p-8 space-y-6 border border-glass-border">
             <div className="flex items-center justify-between pb-4 border-b border-glass-border">
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-teal/10 flex items-center justify-center text-teal">
+                <div className="w-9 h-9 rounded-xl bg-green/10 flex items-center justify-center text-teal">
                   <TrendingUp className="w-4 h-4" strokeWidth={1.75} />
                 </div>
                 <div>
@@ -333,7 +332,7 @@ export default function AdminDashboardPage() {
                 return (
                   <div key={district} className="p-3.5 rounded-xl bg-void-2/60 border border-glass-border flex items-center justify-between hover:border-glass-border-strong transition group">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-teal/10 flex items-center justify-center text-teal">
+                      <div className="w-8 h-8 rounded-lg bg-green/10 flex items-center justify-center text-teal">
                         <MapPin className="w-3.5 h-3.5" strokeWidth={1.5} />
                       </div>
                       <span className="capitalize text-sm font-medium text-text-primary">
@@ -354,12 +353,12 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Bottom Grid: Recent Applications + Activity Timeline */}
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-          {/* Recent Applications Table (3/5) */}
-          <div className="lg:col-span-3 rounded-2xl glass overflow-hidden border border-glass-border">
+        <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-6">
+          {/* Recent Applications Table */}
+          <div className="rounded-2xl glass overflow-hidden border border-glass-border">
             <div className="p-6 border-b border-glass-border flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-teal/10 flex items-center justify-center text-teal">
+                <div className="w-9 h-9 rounded-xl bg-green/10 flex items-center justify-center text-teal">
                   <FileText className="w-4 h-4" strokeWidth={1.75} />
                 </div>
                 <div>
@@ -433,7 +432,7 @@ export default function AdminDashboardPage() {
                         <td className="px-6 py-4 text-right">
                           <Link
                             href={`/admin/candidatures/${app.id}`}
-                            className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-[11px] font-semibold glass text-text-primary hover:bg-teal hover:text-on-void transition"
+                            className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-[11px] font-semibold glass text-text-primary hover:bg-green hover:text-on-void transition"
                           >
                             <span className="hidden sm:inline">Examiner</span>
                             <ExternalLink className="w-3 h-3" />
@@ -455,11 +454,11 @@ export default function AdminDashboardPage() {
             </div>
           </div>
 
-          {/* Activity Timeline (2/5) */}
+          {/* Activity Timeline */}
           <div className="rounded-2xl glass border border-glass-border overflow-hidden">
             <div className="p-6 border-b border-glass-border">
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-teal/10 flex items-center justify-center text-teal">
+                <div className="w-9 h-9 rounded-xl bg-green/10 flex items-center justify-center text-teal">
                   <CircleDot className="w-4 h-4" strokeWidth={1.75} />
                 </div>
                 <div>

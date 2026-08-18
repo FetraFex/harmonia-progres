@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Space_Grotesk, Inter, JetBrains_Mono, Instrument_Serif, Geist } from "next/font/google";
 import { Toaster } from "sonner";
 import { AmbientBackground } from "@/components/ui/AmbientBackground";
-import { ScrollProgressBar } from "@/components/ui/ScrollProgressBar";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import "./globals.css";
@@ -100,12 +99,11 @@ export default function RootLayout({
         />
       </head>
       <body
-        className="min-h-full bg-void text-text-primary font-body flex flex-col relative selection:bg-teal selection:text-on-void"
+        className="min-h-full bg-void text-text-primary font-body flex flex-col relative selection:bg-green selection:text-on-void"
         suppressHydrationWarning
       >
         <AuthProvider>
           <ThemeProvider>
-            <ScrollProgressBar />
             <AmbientBackground />
             <main className="flex-1 relative z-10">{children}</main>
             <Toaster position="top-right" richColors theme="system" />

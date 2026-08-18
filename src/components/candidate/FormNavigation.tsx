@@ -41,7 +41,7 @@ export function FormNavigation({
         <button
           onClick={onNext}
           disabled={nextDisabled || loading}
-          className="flex items-center gap-2 rounded-xl bg-teal px-6 py-2.5 font-['Space_Grotesk'] font-bold text-sm text-on-void transition hover:scale-[1.02] hover:shadow-lg hover:shadow-teal/20 active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed"
+          className="flex items-center gap-2 rounded-xl bg-green px-6 py-2.5 font-['Space_Grotesk'] font-bold text-sm text-on-void transition hover:scale-[1.02] hover:shadow-lg hover:shadow-green/20 active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed"
         >
           {loading ? t("sending") : continueLabel}
           {!loading && <ArrowRight className="w-4 h-4" />}

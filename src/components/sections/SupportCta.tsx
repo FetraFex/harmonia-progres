@@ -19,8 +19,8 @@ export function SupportCta() {
         }`}
       >
         {/* Ambient glows */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-teal/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-teal/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-green/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-green/5 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 max-w-2xl mx-auto space-y-6">
           <span className="inline-flex items-center gap-2 glass px-4 py-1.5 rounded-full text-xs font-semibold text-teal uppercase tracking-wider">
@@ -43,7 +43,7 @@ export function SupportCta() {
           <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
             <a
               href="#contact"
-              className="px-8 py-4 rounded-full bg-teal text-on-void font-display font-bold text-sm sm:text-base hover:bg-teal/90 transition-all hover:scale-105 active:scale-95 shadow-xl shadow-teal/25 flex items-center gap-2"
+              className="px-8 py-4 rounded-full bg-green text-on-void font-display font-bold text-sm sm:text-base hover:bg-green/90 transition-all hover:scale-105 active:scale-95 shadow-xl shadow-green/25 flex items-center gap-2"
             >
               <span>Devenir partenaire</span>
               <ArrowRightIcon className="w-4 h-4" />
