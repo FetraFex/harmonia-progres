@@ -8,7 +8,7 @@ import { CandidateLayout } from "@/components/candidate/CandidateLayout";
 import { FormStepLayout } from "@/components/candidate/FormStepLayout";
 import { FormNavigation } from "@/components/candidate/FormNavigation";
 import { profileSchema, type ProfileData } from "@/types/schemas";
-import { Briefcase, GraduationCap, BriefcaseBusiness, Lightbulb } from "lucide-react";
+import { Briefcase, GraduationCap, BriefcaseBusiness, Lightbulb, ChevronDown } from "lucide-react";
 
 const inputClass =
   "w-full rounded-xl glass px-4 py-3 pl-10 text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-teal focus:border-transparent transition text-sm";
@@ -56,12 +56,13 @@ export default function ProfilPage() {
             <label htmlFor="situation" className={labelClass}>{t("situation")}</label>
             <div className="relative">
               <FieldIcon icon={Briefcase} />
-              <select id="situation" {...register("situation")} className={inputClass}>
+              <select id="situation" {...register("situation")} className={`${inputClass} appearance-none cursor-pointer pr-10`}>
                 <option value="">{t("selectPlaceholder")}</option>
                 {situations.map((s) => (
                   <option key={s.value} value={s.value}>{s.label}</option>
                 ))}
               </select>
+              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted pointer-events-none" strokeWidth={1.5} />
             </div>
             {errors.situation && <p className={errorClass}>{errors.situation.message}</p>}
           </div>
@@ -70,12 +71,13 @@ export default function ProfilPage() {
             <label htmlFor="education_level" className={labelClass}>{t("educationLevel")}</label>
             <div className="relative">
               <FieldIcon icon={GraduationCap} />
-              <select id="education_level" {...register("education_level")} className={inputClass}>
+              <select id="education_level" {...register("education_level")} className={`${inputClass} appearance-none cursor-pointer pr-10`}>
                 <option value="">{t("selectPlaceholder")}</option>
                 {educationLevels.map((e) => (
                   <option key={e.value} value={e.value}>{e.label}</option>
                 ))}
               </select>
+              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted pointer-events-none" strokeWidth={1.5} />
             </div>
             {errors.education_level && <p className={errorClass}>{errors.education_level.message}</p>}
           </div>

@@ -7,7 +7,7 @@ import { createClient } from "@/lib/supabase/client";
 import { motion } from "framer-motion";
 import type { Application, ApplicationStatusHistory } from "@/types/database";
 import { Search, Hash, Mail, ArrowLeft, Building, Wheat, Fish, Palette, Check } from "lucide-react";
-import { SmoothInput } from "@/components/ui/SmoothInput";
+import { Input } from "@/components/ui/SmoothInput";
 
 const STATUS_COLORS: Record<string, { color: string; bg: string }> = {
   new: { color: "text-text-muted", bg: "bg-glass-bg-strong0/10" },
@@ -102,7 +102,7 @@ export default function SuiviPage() {
               </label>
               <div className="relative">
                 <Hash className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" strokeWidth={1.5} />
-                <SmoothInput
+                <Input
                   id="reference"
                   type="text"
                   value={reference}
@@ -121,7 +121,7 @@ export default function SuiviPage() {
               </label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" strokeWidth={1.5} />
-                <SmoothInput
+                <Input
                   id="email-track"
                   type="email"
                   value={email}

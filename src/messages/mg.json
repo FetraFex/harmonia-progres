@@ -290,8 +290,7 @@
     "continue": "Hanohy",
     "districts": [
       { "value": "manakara", "label": "Manakara" },
-      { "value": "vohipeno", "label": "Vohipeno" },
-      { "value": "autre", "label": "Hafa" }
+      { "value": "vohipeno", "label": "Vohipeno" }
     ]
   },
   "candidaterProfil": {
@@ -314,12 +313,10 @@
       { "value": "autre", "label": "Hafa" }
     ],
     "educationLevels": [
-      { "value": "none", "label": "Tsy manana diplaoma" },
-      { "value": "primary", "label": "Fototra" },
-      { "value": "secondary", "label": "Ambaratonga faharoa" },
-      { "value": "vocational", "label": "Fiofanana arak'asa" },
-      { "value": "bachelor", "label": "Licence / Bachelor" },
+      { "value": "bachelier", "label": "Bachelier" },
+      { "value": "licence", "label": "Licence" },
       { "value": "master", "label": "Master" },
+      { "value": "phd", "label": "Doctorat" },
       { "value": "other", "label": "Hafa" }
     ]
   },
@@ -440,12 +437,10 @@
       "autre": "Hafa"
     },
     "educationLabels": {
-      "none": "Tsy manana diplaoma",
-      "primary": "Fototra",
-      "secondary": "Ambaratonga faharoa",
-      "vocational": "Fiofanana arak'asa",
-      "bachelor": "Licence / Bachelor",
+      "bachelier": "Bachelier",
+      "licence": "Licence",
       "master": "Master",
+      "phd": "Doctorat",
       "other": "Hafa"
     },
     "sectorLabels": {

@@ -3,7 +3,7 @@
 import { Logo } from "@/components/ui/Logo";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
-import { Check, Eye } from "lucide-react";
+import { Check, Eye, ArrowLeft } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
 
@@ -20,12 +20,12 @@ export function CandidateHeader() {
 
   return (
     <header className="border-b border-glass-border bg-void/80 backdrop-blur-xl sticky top-0 z-50">
-      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3">
           <Logo
-            width={140}
-            height={36}
-            className="h-7 w-auto object-contain"
+            width={160}
+            height={40}
+            className="h-9 w-auto object-contain"
           />
         </Link>
 
@@ -58,13 +58,22 @@ export function CandidateHeader() {
           </div>
         )}
 
-        <Link
-          href="/candidater/suivi"
-          className="rounded-xl bg-green/10 border border-teal/30 px-3.5 py-1.5 text-xs font-semibold text-teal hover:bg-green hover:text-on-void transition flex items-center gap-1.5"
-        >
-          <Eye className="w-3.5 h-3.5" />
-          <span>{t("track")}</span>
-        </Link>
+        <div className="flex items-center gap-2">
+          <Link
+            href="/account"
+            className="rounded-xl glass px-3.5 py-1.5 text-xs font-semibold text-text-muted hover:text-text-primary transition flex items-center gap-1.5 border border-glass-border"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Mon espace</span>
+          </Link>
+          <Link
+            href="/candidater/suivi"
+            className="rounded-xl bg-green/10 border border-teal/30 px-3.5 py-1.5 text-xs font-semibold text-teal hover:bg-green hover:text-on-void transition flex items-center gap-1.5"
+          >
+            <Eye className="w-3.5 h-3.5" />
+            <span>{t("track")}</span>
+          </Link>
+        </div>
 
         <LanguageSwitcher className="hidden sm:inline-flex" />
         <ThemeToggle className="h-9 w-9 p-2 rounded-full glass" />

@@ -52,12 +52,10 @@ const STATUS_CONFIG: Record<string, { label: string; color: string; bg: string; 
 };
 
 const EDUCATION: Record<string, string> = {
-  none: "Aucun diplôme",
-  primary: "Primaire",
-  secondary: "Secondaire",
-  vocational: "Formation professionnelle",
-  bachelor: "Licence / Bac+3",
+  bachelier: "Bachelier",
+  licence: "Licence / Bac+3",
   master: "Master / Bac+5",
+  phd: "Doctorat",
   other: "Autre",
 };
 

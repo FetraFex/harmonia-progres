@@ -21,7 +21,7 @@ const inputWrapperClassName = cn(
 );
 
 const inputClassName =
-  "w-full bg-transparent outline-none placeholder:text-gray-500";
+  "w-full bg-transparent outline-none placeholder:text-gray-500 [&::selection]:bg-transparent";
 
 type InputFieldProps = ComponentPropsWithoutRef<"input"> & {
   wrapperClassName?: string;
@@ -161,8 +161,9 @@ const SmoothInput = ({
   };
 
   const getCaretIndex = (target: HTMLInputElement) => {
-    const selectionStart = target.selectionStart ?? 0;
-    const selectionEnd = target.selectionEnd ?? 0;
+    const len = target.value.length;
+    const selectionStart = target.selectionStart ?? len;
+    const selectionEnd = target.selectionEnd ?? len;
 
     if (selectionStart === selectionEnd) {
       return selectionStart;
@@ -174,8 +175,9 @@ const SmoothInput = ({
   };
 
   const updateCaretFromInput = (target: HTMLInputElement) => {
-    const selectionStart = target.selectionStart ?? 0;
-    const selectionEnd = target.selectionEnd ?? 0;
+    // selectionStart can be null for email/number/date inputs — treat as end of text
+    const selectionStart = target.selectionStart ?? target.value.length;
+    const selectionEnd = target.selectionEnd ?? target.value.length;
     const hasSelection = selectionStart !== selectionEnd;
     const caretIndex = getCaretIndex(target);
     const isPassword = target.type === "password";
@@ -250,7 +252,22 @@ const SmoothInput = ({
       });
     };
 
+    // Chrome fires this animation when autofill populates an input.
+    // Clear the selection highlight and override the autofill background color.
+    const handleAutoFill = (e: AnimationEvent) => {
+      if (e.animationName === "onAutoFillStart") {
+        requestAnimationFrame(() => {
+          input.style.backgroundColor = "transparent";
+          input.style.webkitBoxShadow = "none";
+          input.style.boxShadow = "none";
+          const len = input.value.length;
+          input.setSelectionRange(len, len);
+        });
+      }
+    };
+
     document.addEventListener("selectionchange", handleSelectionChange);
+    input.addEventListener("animationstart", handleAutoFill);
     if (typeof document.fonts !== "undefined") {
       document.fonts.addEventListener("loadingdone", updateCaretIfFocused);
       void document.fonts.ready.then(updateCaretIfFocused);
@@ -264,6 +281,7 @@ const SmoothInput = ({
 
     return () => {
       document.removeEventListener("selectionchange", handleSelectionChange);
+      input.removeEventListener("animationstart", handleAutoFill);
       if (typeof document.fonts !== "undefined") {
         document.fonts.removeEventListener("loadingdone", updateCaretIfFocused);
       }

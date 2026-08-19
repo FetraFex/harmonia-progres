@@ -10,7 +10,7 @@ import { FormStepLayout } from "@/components/candidate/FormStepLayout";
 import { FormNavigation } from "@/components/candidate/FormNavigation";
 import { personalInfoSchema, type PersonalInfoData } from "@/types/schemas";
 import { createClient } from "@/lib/supabase/client";
-import { User, Phone, Mail, MapPin, Calendar, Home } from "lucide-react";
+import { User, Phone, Mail, MapPin, Calendar, Home, ChevronDown } from "lucide-react";
 import { SmoothInput } from "@/components/ui/SmoothInput";
 
 const inputWrapperClass =
@@ -130,11 +130,12 @@ export default function InformationsPage() {
               <label htmlFor="district" className={labelClass}>{t("district")}</label>
               <div className="relative">
                 <FieldIcon icon={MapPin} />
-                <select id="district" {...register("district")} className={inputClass}>
+                <select id="district" {...register("district")} className={`${inputWrapperClass} ${inputClass} w-full appearance-none cursor-pointer pr-10`}>                  
                   {districts.map((d) => (
                     <option key={d.value} value={d.value}>{d.label}</option>
                   ))}
                 </select>
+                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted pointer-events-none" strokeWidth={1.5} />
               </div>
             </div>
             <div>

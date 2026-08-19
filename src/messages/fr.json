@@ -290,8 +290,7 @@
     "continue": "Continuer",
     "districts": [
       { "value": "manakara", "label": "Manakara" },
-      { "value": "vohipeno", "label": "Vohipeno" },
-      { "value": "autre", "label": "Autre" }
+      { "value": "vohipeno", "label": "Vohipeno" }
     ]
   },
   "candidaterProfil": {
@@ -314,12 +313,10 @@
       { "value": "autre", "label": "Autre" }
     ],
     "educationLevels": [
-      { "value": "none", "label": "Aucun diplôme" },
-      { "value": "primary", "label": "Primaire" },
-      { "value": "secondary", "label": "Secondaire" },
-      { "value": "vocational", "label": "Formation professionnelle" },
-      { "value": "bachelor", "label": "Licence / Bachelor" },
+      { "value": "bachelier", "label": "Bachelier" },
+      { "value": "licence", "label": "Licence" },
       { "value": "master", "label": "Master" },
+      { "value": "phd", "label": "Doctorat" },
       { "value": "other", "label": "Autre" }
     ]
   },
@@ -440,12 +437,10 @@
       "autre": "Autre"
     },
     "educationLabels": {
-      "none": "Aucun diplôme",
-      "primary": "Primaire",
-      "secondary": "Secondaire",
-      "vocational": "Formation professionnelle",
-      "bachelor": "Licence / Bachelor",
+      "bachelier": "Bachelier",
+      "licence": "Licence",
       "master": "Master",
+      "phd": "Doctorat",
       "other": "Autre"
     },
     "sectorLabels": {

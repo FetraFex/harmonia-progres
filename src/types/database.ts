@@ -19,12 +19,10 @@ export type ApplicationStatus =
 export type Sector = "artisanat" | "halieutique" | "agriculture";
 
 export type EducationLevel =
-  | "none"
-  | "primary"
-  | "secondary"
-  | "vocational"
-  | "bachelor"
+  | "bachelier"
+  | "licence"
   | "master"
+  | "phd"
   | "other";
 
 export type District = "manakara" | "vohipeno";

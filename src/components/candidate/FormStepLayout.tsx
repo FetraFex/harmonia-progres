@@ -21,7 +21,7 @@ export function FormStepLayout({
   const t = useTranslations("candidate");
 
   return (
-    <div className="max-w-6xl mx-auto px-6 py-8 lg:py-12 flex flex-col justify-center lg:min-h-[calc(100vh-64px)]">
+    <div className="max-w-7xl mx-auto px-6 py-8 lg:py-12 flex flex-col justify-center lg:min-h-[calc(100vh-64px)]">
       <div className="mb-8">
         <span className="font-['JetBrains_Mono'] text-[11px] font-semibold text-text-muted uppercase tracking-widest">
           {t("stepLabel", { stepNumber })}

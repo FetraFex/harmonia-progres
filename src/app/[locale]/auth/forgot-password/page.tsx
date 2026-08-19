@@ -10,6 +10,7 @@ import { motion } from "framer-motion";
 import { Mail, Loader2, CheckCircle2, ArrowLeft } from "lucide-react";
 import { SmoothInput } from "@/components/ui/SmoothInput";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { Logo } from "@/components/ui/Logo";
 
 const schema = z.object({
   email: z.string().email("Adresse email invalide"),
@@ -94,10 +95,12 @@ export default function ForgotPasswordPage() {
       >
         <div className="mb-10 text-center">
           <Link href="/" className="inline-block mb-6">
-            <span className="font-['Space_Grotesk'] text-2xl font-bold tracking-tight">
-              <span className="text-text-primary">H</span>
-              <span className="text-teal">ARMONIA</span>
-            </span>
+            <Logo
+              width={160}
+              height={40}
+              priority
+              className="h-10 w-auto mx-auto object-contain"
+            />
           </Link>
           <h1 className="font-['Space_Grotesk'] text-3xl font-bold text-text-primary">
             Mot de passe oublié

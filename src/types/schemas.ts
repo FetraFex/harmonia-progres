@@ -31,7 +31,7 @@ export const profileSchema = z.object({
   situation: z.enum(["etudiant", "salarie", "chomeur", "independant", "retraite", "autre"], {
     message: "Veuillez sélectionner votre situation",
   }),
-  education_level: z.enum(["none", "primary", "secondary", "vocational", "bachelor", "master", "other"], {
+  education_level: z.enum(["bachelier", "licence", "master", "phd", "other"], {
     message: "Veuillez sélectionner votre niveau d'études",
   }),
   experience_professionnelle: z.string().optional(),

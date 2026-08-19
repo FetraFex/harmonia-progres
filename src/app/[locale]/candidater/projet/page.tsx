@@ -9,7 +9,7 @@ import { CandidateLayout } from "@/components/candidate/CandidateLayout";
 import { FormStepLayout } from "@/components/candidate/FormStepLayout";
 import { FormNavigation } from "@/components/candidate/FormNavigation";
 import { projectSchema, type ProjectData, ACTIVITY_TYPES } from "@/types/schemas";
-import { Wheat, Palette, Fish, Sprout, PenTool, Anchor, ShoppingBag } from "lucide-react";
+import { Wheat, Palette, Fish, Sprout, PenTool, Anchor, ShoppingBag, ChevronDown } from "lucide-react";
 import { SmoothInput } from "@/components/ui/SmoothInput";
 
 const inputWrapperClass =
@@ -124,12 +124,13 @@ export default function ProjetPage() {
               <label htmlFor="activity_type" className={labelClass}>{t("selectActivity")}</label>
               <div className="relative">
                 <FieldIcon icon={Sprout} />
-                <select id="activity_type" {...register("activity_type")} className={inputClass}>
+                <select id="activity_type" {...register("activity_type")} className={`${inputWrapperClass} ${inputClass} w-full appearance-none cursor-pointer pr-10`}>                  
                   <option value="">{t("selectPlaceholder")}</option>
                   {activities.map((a) => (
                     <option key={a.value} value={a.value}>{activityLabels[a.value] || a.label}</option>
                   ))}
                 </select>
+                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted pointer-events-none" strokeWidth={1.5} />
               </div>
               {errors.activity_type && <p className={errorClass}>{errors.activity_type.message}</p>}
             </div>

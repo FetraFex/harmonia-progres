@@ -78,6 +78,18 @@
   --breakpoint-3xl: 1920px;
 }
 
+/* Make pasted/selected text highlight transparent — outside @layer so it wins */
+input::selection,
+textarea::selection {
+  background: transparent !important;
+  color: inherit !important;
+}
+
+/* Chrome autofill selection highlight */
+input::-webkit-autofill::selection {
+  background: transparent !important;
+}
+
 /* ── Responsive page scaling: 1536×900 → 1920×1080 ── */
 /* At screens ≤1680px wide (incl. 1536px laptops), scale layout
    so it looks like a 1920×1080 design. Scale factor ≈ 0.8. */
@@ -153,6 +165,39 @@
   * {
     @apply border-border outline-ring/50;
   }
+
+  /* Fix browser autofill background color */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active,
+  input:autofill,
+  input:autofill:hover,
+  input:autofill:focus,
+  input:autofill:active {
+    -webkit-text-fill-color: var(--text-primary) !important;
+    color: var(--text-primary) !important;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+
+  /* Select element dark mode fix */
+  .dark select {
+    background-color: transparent !important;
+    color: var(--text-primary) !important;
+  }
+
+  /* Option styling for Firefox */
+  select option {
+    background-color: var(--bg-void-2);
+    color: var(--text-primary);
+  }
+
+  .dark select option {
+    background-color: #1a1f2e;
+    color: var(--text-primary);
+  }
+
+
 }
 
 @layer components {
