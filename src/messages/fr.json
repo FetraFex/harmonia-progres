@@ -42,7 +42,7 @@
     "kicker": "NOTRE ENGAGEMENT",
     "titleBefore": "HARMONIA PROGRES",
     "titleAccent": "pour les jeunes entrepreneurs",
-    "paragraph1": "À travers le projet MIASA Jeunes Entrepreneurs, nous créons des passerelles entre les talents, les ressources et les opportunités afin de permettre aux jeunes de transformer leurs compétences en activités génératrices de revenus durables. De l'identification des porteurs de projets à l'accès aux marchés, nous les accompagnons dans le renforcement de leurs compétences et la structuration de leurs initiatives.",
+    "paragraph1": "À travers nos actions, nous créons des passerelles entre les talents, les ressources et les opportunités afin de permettre aux jeunes de transformer leurs compétences en activités génératrices de revenus durables. De l'identification des porteurs de projets à l'accès aux marchés, nous les accompagnons dans le renforcement de leurs compétences et la structuration de leurs initiatives.",
     "paragraph2": "Notre ambition : faire de l'entrepreneuriat un levier de développement local en valorisant les savoir-faire et les ressources des secteurs agricole, artisanal et halieutique de la région Fitovinany.",
     "leftNodes": ["Artisans", "Pêcheurs", "Agriculteurs"],
     "hub": "HARMONIA PROGRES",
@@ -207,13 +207,13 @@
         ]
       }
     ],
-    "copyright": "© 2026 HARMONIA PROGRES — MIASA Jeunes Entrepreneurs"
+    "copyright": "© 2026 HARMONIA PROGRES"
   },
   "candidaterLanding": {
-    "kicker": "MIASA Jeunes Entrepreneurs",
+    "kicker": "HARMONIA PROGRÈS",
     "title1": "Votre projet peut devenir",
     "title2": "votre avenir.",
-    "paragraph": "Rejoignez MIASA Jeunes Entrepreneurs et bénéficiez d'un accompagnement pour transformer votre idée ou votre activité en une opportunité durable.",
+    "paragraph": "Rejoignez Harmonia Progrès et bénéficiez d'un accompagnement pour transformer votre idée ou votre activité en une opportunité durable.",
     "locations": ["MANAKARA", "VOHIPENO", "FITOVINANY"],
     "sectors": ["AGRICULTURE", "ARTISANAT", "HALIEUTIQUE"],
     "ctaApply": "Candidater",
@@ -269,7 +269,7 @@
     "notEligibleText": "Les critères actuels du programme sont limités à certaines zones et certains secteurs d'intervention. Nous vous encourageons à suivre nos actualités pour de futures opportunités.",
     "backToSite": "Retour au site",
     "eligibleTitle": "Vous pouvez commencer votre candidature.",
-    "eligibleText": "Vous êtes éligible pour le programme MIASA Jeunes Entrepreneurs. Complétez votre candidature en quelques étapes simples.",
+    "eligibleText": "Vous êtes éligible pour le programme Harmonia Progrès. Complétez votre candidature en quelques étapes simples.",
     "start": "Commencer",
     "previous": "Précédent"
   },
@@ -407,7 +407,7 @@
     "motivation": "Votre motivation",
     "documents": "Documents",
     "documentsVerified": "Documents joints vérifiés",
-    "consent": "Je certifie que les informations fournies sont exactes et j'accepte que mes informations soient utilisées dans le cadre de la gestion de ma candidature au programme MIASA Jeunes Entrepreneurs.",
+    "consent": "Je certifie que les informations fournies sont exactes et j'accepte que mes informations soient utilisées dans le cadre de la gestion de ma candidature au programme Harmonia Progrès.",
     "consentError": "Vous devez accepter les conditions pour soumettre votre candidature.",
     "docsWarning": "Votre candidature a été enregistrée, mais un problème est survenu lors de l'enregistrement des documents. Contactez-nous avec votre référence.",
     "previous": "Précédent",
@@ -480,7 +480,7 @@
   },
   "candidaterSuivi": {
     "title": "Suivi de candidature",
-    "subtitle": "Consultez l'état de votre candidature au programme MIASA.",
+    "subtitle": "Consultez l'état de votre candidature au programme Harmonia Progrès.",
     "referenceLabel": "Référence de candidature",
     "emailLabel": "Email",
     "searching": "Recherche...",
@@ -511,7 +511,7 @@
   },
   "candidaterConfirmation": {
     "title": "Candidature soumise",
-    "paragraph": "Merci pour votre intérêt envers MIASA Jeunes Entrepreneurs. Votre dossier a été transmis à l'équipe HARMONIA PROGRES.",
+    "paragraph": "Merci pour votre intérêt envers Harmonia Progrès. Votre dossier a été transmis à l'équipe HARMONIA PROGRES.",
     "referenceLabel": "Votre numéro de référence",
     "copy": "Copier",
     "keep": "Conservez ce numéro pour suivre l'état de votre candidature.",

@@ -231,7 +231,7 @@ export function HeroSection() {
       </div>
 
       {/* ── Content Grid (pushed to bottom) ── */}
-      <div className="relative z-10 flex-1 flex flex-col justify-end px-6 sm:px-16 lg:px-[var(--page-px)] py-10 md:py-14 lg:py-16">
+      <div className="relative z-10 flex-1 flex flex-col justify-end px-6 sm:px-16 lg:px-[var(--page-px)] pt-28 pb-10 sm:py-10 md:py-14 lg:py-16">
         <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end">
           {/* LEFT: Content */}
           <div data-hero-content className="lg:col-span-7 space-y-6">

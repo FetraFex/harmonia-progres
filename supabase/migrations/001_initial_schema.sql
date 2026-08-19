@@ -1,6 +1,6 @@
 -- ──────────────────────────────────────────────
 -- HARMONIA PROGRES — Database Schema
--- MIASA Jeunes Entrepreneurs
+-- HARMONIA PROGRES
 -- Run this in Supabase SQL Editor
 -- ──────────────────────────────────────────────
 

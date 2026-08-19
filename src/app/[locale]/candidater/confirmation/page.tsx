@@ -11,7 +11,7 @@ import { Suspense, useState } from "react";
 function ConfirmationContent() {
   const searchParams = useSearchParams();
   const t = useTranslations("candidaterConfirmation");
-  const ref = searchParams.get("ref") || "MIASA-2026-XXXX";
+  const ref = searchParams.get("ref") || "HARMONIA-2026-XXXX";
   const [copied, setCopied] = useState(false);
 
   function handleCopy() {

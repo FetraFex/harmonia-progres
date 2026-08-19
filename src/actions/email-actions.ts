@@ -45,7 +45,7 @@ function emailTemplate({
       <div style="max-width: 560px; margin: 0 auto; background-color: #FFFFFF; border-radius: 12px; overflow: hidden; border: 1px solid #E2E8F0;">
         <div style="background-color: #0F766E; padding: 24px 32px;">
           <p style="margin: 0; color: #FFFFFF; font-size: 18px; font-weight: 700;">Harmonia Progrès</p>
-          <p style="margin: 4px 0 0; color: #99F6E4; font-size: 12px;">MIASA Jeunes Entrepreneurs</p>
+
         </div>
         <div style="padding: 32px;">
           <h1 style="margin: 0 0 8px; color: #0F172A; font-size: 20px; font-weight: 700;">${title}</h1>
@@ -79,7 +79,7 @@ export async function sendCandidatureStatusEmail({
 
   const messageByStatus: Record<string, string> = {
     accepted: "Félicitations ! Votre candidature a été acceptée. Notre équipe vous contactera très prochainement pour la suite du processus.",
-    rejected: "Nous vous remercions pour l'intérêt que vous avez porté au programme MIASA. Après un examen attentif, nous ne sommes malheureusement pas en mesure de retenir votre candidature cette année.",
+    rejected: "Nous vous remercions pour l'intérêt que vous avez porté au programme Harmonia Progrès. Après un examen attentif, nous ne sommes malheureusement pas en mesure de retenir votre candidature cette année.",
     interview: "Excellente nouvelle ! Vous avez été retenu(e) pour un entretien. Notre équipe vous contactera pour convenir d'une date.",
     shortlisted: "Votre candidature a été présélectionnée ! Vous serez bientôt contacté(e) pour les prochaines étapes du processus.",
     under_review: "Votre candidature est actuellement en cours d'évaluation par notre comité de sélection.",
@@ -93,7 +93,7 @@ export async function sendCandidatureStatusEmail({
   const { data, error } = await getResend().emails.send({
     from: DEFAULT_FROM,
     to: [email],
-    subject: `MIASA — Candidature ${referenceNumber} : ${label}`,
+    subject: `Harmonia Progrès — Candidature ${referenceNumber} : ${label}`,
     html: emailTemplate({
       title: `Statut de votre candidature : ${label}`,
       subtitle: `Référence : ${referenceNumber}`,
@@ -131,13 +131,13 @@ export async function sendRecruitmentEmail({
   const { data, error } = await getResend().emails.send({
     from: DEFAULT_FROM,
     to: [email],
-    subject: `MIASA — Recrutement confirmé : ${referenceNumber}`,
+    subject: `Harmonia Progrès — Recrutement confirmé : ${referenceNumber}`,
     html: emailTemplate({
       title: "Félicitations, vous êtes recruté(e) !",
       subtitle: `Référence : ${referenceNumber}`,
       paragraphs: [
         `Bonjour ${fullName},`,
-        `Nous avons le plaisir de vous informer que votre projet « ${projectName} » a été approuvé et que vous avez été sélectionné(e) pour rejoindre la cohorte MIASA Jeunes Entrepreneurs.`,
+        `Nous avons le plaisir de vous informer que votre projet « ${projectName} » a été approuvé et que vous avez été sélectionné(e) pour rejoindre l'équipe Harmonia Progrès.`,
         customMessage,
         `Votre numéro de référence : ${referenceNumber}. Conservez-le précieusement — il vous sera demandé pour toute correspondance future.`,
       ],
@@ -168,13 +168,13 @@ export async function sendCandidatureSubmissionEmail({
   const { data, error } = await getResend().emails.send({
     from: DEFAULT_FROM,
     to: [email],
-    subject: `MIASA — Candidature ${referenceNumber} confirmée`,
+    subject: `Harmonia Progrès — Candidature ${referenceNumber} confirmée`,
     html: emailTemplate({
       title: "Candidature soumise avec succès",
       subtitle: `Référence : ${referenceNumber}`,
       paragraphs: [
         `Bonjour ${fullName},`,
-        `Votre candidature au programme MIASA Jeunes Entrepreneurs a bien été enregistrée.`,
+        `Votre candidature au programme Harmonia Progrès a bien été enregistrée.`,
         `Votre projet « ${projectName} » est maintenant en cours de traitement. Notre équipe l'examinera et vous tiendra informé(e) de son avancement.`,
         `Conservez précieusement votre numéro de référence : ${referenceNumber}.`,
       ],

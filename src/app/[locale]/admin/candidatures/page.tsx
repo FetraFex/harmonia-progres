@@ -167,7 +167,7 @@ export default function AdminCandidaturesPage() {
               Candidatures
             </h1>
             <p className="mt-1.5 text-sm text-text-muted">
-              Consultez, filtrez et traitez les <strong className="text-text-primary">{filtered.length}</strong> demandes déposées au programme MIASA.
+              Consultez, filtrez et traitez les <strong className="text-text-primary">{filtered.length}</strong> demandes déposées.
             </p>
           </div>
 

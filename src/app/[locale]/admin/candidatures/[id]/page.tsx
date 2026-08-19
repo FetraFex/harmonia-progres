@@ -302,7 +302,7 @@ export default function CandidatureDetailPage() {
   }
 
   const RECRUIT_TEMPLATE =
-    `Nous sommes heureux de vous accueillir dans le programme MIASA Jeunes Entrepreneurs. Votre projet « ${application?.project_name || ""} » a été retenu par notre comité de sélection.` +
+    `Nous sommes heureux de vous accueillir chez Harmonia Progrès. Votre projet « ${application?.project_name || ""} » a été retenu par notre comité de sélection.` +
     `\n\nProchaines étapes :` +
     `\n1. Confirmez votre participation en répondant à cet email` +
     `\n2. Vous serez invité(e) à une session d'introduction et formation initiale` +

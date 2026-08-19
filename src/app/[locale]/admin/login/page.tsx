@@ -102,7 +102,7 @@ export default function AdminLoginPage() {
             Espace Administration
           </h1>
           <p className="text-text-muted text-xs mt-1.5">
-            Accès réservé aux administrateurs et membres du jury MIASA
+            Accès réservé aux administrateurs et membres du jury
           </p>
         </div>
 

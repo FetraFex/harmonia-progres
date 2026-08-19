@@ -173,7 +173,7 @@ export default function AdminDashboardPage() {
               Vue d&apos;ensemble
             </h1>
             <p className="mt-1.5 text-sm text-text-muted max-w-lg">
-              Suivez l&apos;activité globale, les candidatures et la progression du programme MIASA en temps réel.
+              Suivez l&apos;activité globale, les candidatures et la progression du programme en temps réel.
             </p>
           </div>
 

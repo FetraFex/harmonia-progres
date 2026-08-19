@@ -151,7 +151,7 @@ export default function SignupPage() {
             Créer un compte
           </h1>
           <p className="mt-2 text-text-muted">
-            Rejoignez le programme MIASA Jeunes Entrepreneurs
+            Rejoignez le programme Harmonia Progrès
           </p>
         </div>
 

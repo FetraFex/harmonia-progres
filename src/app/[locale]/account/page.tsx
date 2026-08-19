@@ -154,7 +154,7 @@ export default function AccountPage() {
                 Bonjour, {profile?.full_name?.split(" ")[0] || user.email?.split("@")[0] || "Candidat"} 👋
               </h1>
               <p className="mt-1 text-sm text-text-muted">
-                Gérez votre profil et suivez en temps réel l'avancement de vos candidatures MIASA.
+                Gérez votre profil et suivez en temps réel l'avancement de vos candidatures.
               </p>
             </div>
 
@@ -266,7 +266,7 @@ export default function AccountPage() {
                   Aucune candidature trouvée
                 </h3>
                 <p className="text-sm text-text-muted max-w-md mx-auto leading-relaxed">
-                  Vous n'avez pas encore soumis de projet au programme MIASA Jeunes Entrepreneurs. Lancez-vous dès aujourd'hui !
+                  Vous n'avez pas encore soumis de projet au programme Harmonia Progrès. Lancez-vous dès aujourd'hui !
                 </p>
                 <div className="pt-2">
                   <Link

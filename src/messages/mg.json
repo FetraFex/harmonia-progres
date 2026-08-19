@@ -42,7 +42,7 @@
     "kicker": "NY FANOLORAN-TENAY",
     "titleBefore": "HARMONIA PROGRES",
     "titleAccent": "ho an'ny tanora mpandraharaha",
-    "paragraph1": "Amin'ny alalan'ny tetikasa MIASA Tanora Mpandraharaha, dia mamorona tetezana eo amin'ny fahaizana, ny harena ary ny fahafahana izahay, mba ahafahan'ny tanora manova ny fahaizany ho asa mamokatra sy maharitra. Avy amin'ny famantarana ny mpitondra tetikasa ka hatramin'ny fidirana eny amin'ny tsena, dia manohana azy ireo amin'ny fanamafisana ny fahaizany sy ny fandrindrana ny hetsika ataony izahay.",
+    "paragraph1": "Amin'ny alalan'ny tetikasanay, dia mamorona tetezana eo amin'ny fahaizana, ny harena ary ny fahafahana izahay, mba ahafahan'ny tanora manova ny fahaizany ho asa mamokatra sy maharitra. Avy amin'ny famantarana ny mpitondra tetikasa ka hatramin'ny fidirana eny amin'ny tsena, dia manohana azy ireo amin'ny fanamafisana ny fahaizany sy ny fandrindrana ny hetsika ataony izahay.",
     "paragraph2": "Ny tanjonay: ny hanao ny fandraharahana ho anton-drà fampandrosoana ifotony, amin'ny fanomezana lanja ny fahaizana sy ny haren'ny sektora fambolena, asa tanana ary jono ao amin'ny faritra Fitovinany.",
     "leftNodes": ["Mpanao asa tanana", "Mpanjono", "Tantsaha"],
     "hub": "HARMONIA PROGRES",
@@ -207,13 +207,13 @@
         ]
       }
     ],
-    "copyright": "© 2026 HARMONIA PROGRES — MIASA Tanora Mpandraharaha"
+    "copyright": "© 2026 HARMONIA PROGRES"
   },
   "candidaterLanding": {
-    "kicker": "MIASA Tanora Mpandraharaha",
+    "kicker": "HARMONIA PROGRÈS",
     "title1": "Ny tetikasanao dia mety ho tonga",
     "title2": "ny hoavinao.",
-    "paragraph": "Mikambana amin'ny MIASA Tanora Mpandraharaha ary mahazoa fanohanana hamovana ny hevinao na ny asanao ho fahafahana maharitra.",
+    "paragraph": "Mikambana amin'ny Harmonia Progrès ary mahazoa fanohanana hamovana ny hevinao na ny asanao ho fahafahana maharitra.",
     "locations": ["MANAKARA", "VOHIPENO", "FITOVINANY"],
     "sectors": ["FAMBOLENA", "ASA TANANA", "JONO"],
     "ctaApply": "Misoratra",
@@ -269,7 +269,7 @@
     "notEligibleText": "Ny fepetran'ny fandaharana amin'izao fotoana izao dia voafetra amin'ny faritra sy sektora sasany. Manentana anao izahay hanaraka ny vaovao aminay mba hahafantarana ny fahafahana ho avy.",
     "backToSite": "Hiverina amin'ny tranokala",
     "eligibleTitle": "Azonao atao ny manomboka ny fangatahanao.",
-    "eligibleText": "Mahafeno fepetra amin'ny fandaharana MIASA Tanora Mpandraharaha ianao. Fenoy ny fangatahanao amin'ny dingana vitsivitsy.",
+    "eligibleText": "Mahafeno fepetra amin'ny fandaharana Harmonia Progrès ianao. Fenoy ny fangatahanao amin'ny dingana vitsivitsy.",
     "start": "Manomboka",
     "previous": "Hiverina"
   },
@@ -407,7 +407,7 @@
     "motivation": "Ny antony manosika anao",
     "documents": "Antontan-taratasy",
     "documentsVerified": "Antontan-taratasy nalefa voamarina",
-    "consent": "Manamarina aho fa marina ny fampahalalana nomena ary manaiky aho fa hampiasaina amin'ny fitantanana ny fangatahako amin'ny fandaharana MIASA Tanora Mpandraharaha ny fampahalalana momba ahy.",
+    "consent": "Manamarina aho fa marina ny fampahalalana nomena ary manaiky aho fa hampiasaina amin'ny fitantanana ny fangatahako amin'ny fandaharana Harmonia Progrès ny fampahalalana momba ahy.",
     "consentError": "Tsy maintsy ekenao ny fepetra vao afaka hametraka ny fangatahanao.",
     "docsWarning": "Voarakitra ny fangatahanao, fa nisy olana tamin'ny fanoratana ny antontan-taratasy. Mifandraisa aminay miaraka amin'ny laharan'ny fangatahanao.",
     "previous": "Hiverina",
@@ -480,7 +480,7 @@
   },
   "candidaterSuivi": {
     "title": "Fanaraha-maso ny fangatahana",
-    "subtitle": "Jereo ny toeran'ny fangatahanao amin'ny fandaharana MIASA.",
+    "subtitle": "Jereo ny toeran'ny fangatahanao amin'ny fandaharana Harmonia Progrès.",
     "referenceLabel": "Laharan'ny fangatahana",
     "emailLabel": "Mailaka",
     "searching": "Karohina ...",
@@ -511,7 +511,7 @@
   },
   "candidaterConfirmation": {
     "title": "Voaray ny fangatahana",
-    "paragraph": "Misaotra ny fahaliananao amin'ny MIASA Tanora Mpandraharaha. Nampitaina tamin'ny ekipan'ny HARMONIA PROGRES ny dosieonao.",
+    "paragraph": "Misaotra ny fahaliananao amin'ny Harmonia Progrès. Nampitaina tamin'ny ekipan'ny HARMONIA PROGRES ny dosieonao.",
     "referenceLabel": "Ny laharan'ny fangatahanao",
     "copy": "Adikao",
     "keep": "Tahio ity laharan-tohana ity mba hanarahana ny toeran'ny fangatahanao.",
