@@ -328,8 +328,12 @@ input::-webkit-autofill::selection {
     border: 1px solid rgba(255, 255, 255, 0.14);
     border-radius: 22px;
     background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(20px) saturate(150%);
     -webkit-backdrop-filter: blur(20px) saturate(150%);
+    backdrop-filter: blur(20px) saturate(150%);
+    isolation: isolate;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    will-change: transform, backdrop-filter;
     padding: 20px 24px;
     min-width: 140px;
     transition: background 0.25s ease, border-color 0.25s ease;
