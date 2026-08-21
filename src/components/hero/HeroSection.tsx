@@ -152,7 +152,7 @@ export function HeroSection() {
 
           <div className="flex items-center gap-3">
             <LanguageSwitcher className="hidden md:inline-flex" />
-            <ThemeToggle className="hidden md:inline-flex h-10 w-10 p-2 rounded-full glass text-white" />
+            <ThemeToggle className="hidden md:inline-flex h-10 w-10 p-2 rounded-full glass" />
             {loading ? null : user ? (
               <Link
                 href={profile?.role === "admin" ? "/admin" : "/account"}

@@ -167,7 +167,24 @@ export default function CandidatureDetailPage() {
       const docsData = (docsRes.data as ApplicationDocument[]) || [];
       setHistory((histRes.data as ApplicationStatusHistory[]) || []);
       setDocuments(docsData);
-      setEvaluations((evalRes.data as ApplicationEvaluation[]) || []);
+      const evalsData = (evalRes.data as ApplicationEvaluation[]) || [];
+      setEvaluations(evalsData);
+
+      // Pre-fill evaluation form from the most recent saved evaluation
+      if (evalsData.length > 0) {
+        const latest = evalsData[0];
+        setEvalScores({
+          pertinence: latest.pertinence ?? 4,
+          faisabilite: latest.faisabilite ?? 4,
+          motivation_score: latest.motivation_score ?? 4,
+          potentiel_economique: latest.potentiel_economique ?? 4,
+          impact_local: latest.impact_local ?? 4,
+        });
+        setEvalStrengths(latest.strengths ?? "");
+        setEvalWeaknesses(latest.weaknesses ?? "");
+        setEvalRecommendation(latest.recommendation ?? "Favorable");
+        setEvalNotes(latest.notes ?? "");
+      }
 
       // Generate signed URLs for each document (bucket is private)
       const urls: Record<string, string> = {};
@@ -286,27 +303,72 @@ export default function CandidatureDetailPage() {
       notes: evalNotes || null,
     };
 
-    const { data, error } = await supabase
+    // Check if an evaluation already exists for this application to UPSERT
+    const { data: existingEval } = await supabase
       .from("application_evaluations")
-      .insert(newEvalPayload)
-      .select()
+      .select("id")
+      .eq("application_id", id)
+      .order("created_at", { ascending: false })
+      .limit(1)
       .single();
 
+    let data: ApplicationEvaluation | null = null;
+    let error = null;
+
+    if (existingEval) {
+      // Update existing evaluation
+      const result = await supabase
+        .from("application_evaluations")
+        .update({
+          ...newEvalPayload,
+          updated_at: new Date().toISOString(),
+        })
+        .eq("id", existingEval.id)
+        .select()
+        .single();
+      data = result.data as ApplicationEvaluation | null;
+      error = result.error;
+    } else {
+      // Insert new evaluation
+      const result = await supabase
+        .from("application_evaluations")
+        .insert(newEvalPayload)
+        .select()
+        .single();
+      data = result.data as ApplicationEvaluation | null;
+      error = result.error;
+    }
+
     if (!error && data) {
-      setEvaluations((prev) => [data as ApplicationEvaluation, ...prev]);
+      setEvaluations((prev) => {
+        const updated = prev.map((e) => (e.id === data!.id ? data! : e));
+        if (!updated.some((e) => e.id === data!.id)) {
+          return [data!, ...prev];
+        }
+        return updated;
+      });
       setEvalSuccess(true);
     }
     setEvalSubmitting(false);
   }
 
-  const RECRUIT_TEMPLATE =
-    `Nous sommes heureux de vous accueillir chez Harmonia Progrès. Votre projet « ${application?.project_name || ""} » a été retenu par notre comité de sélection.` +
-    `\n\nProchaines étapes :` +
-    `\n1. Confirmez votre participation en répondant à cet email` +
-    `\n2. Vous serez invité(e) à une session d'introduction et formation initiale` +
-    `\n3. La planification de votre mentorat personnalisé débutera` +
-    `\n\nNotre équipe vous contactera très prochainement pour organiser la rencontre d'accueil.` +
-    `\n\nNous avons hâte de collaborer avec vous !`;
+  const RECRUIT_TEMPLATE = [
+    `Nous avons le plaisir de vous informer que votre candidature au programme d'accompagnement de HARMONIA PROGRÈS a été retenue. Votre projet « ${application?.project_name || ""} » a été sélectionné par notre comité.`,
+    `\n\nNous vous adressons toutes nos félicitations pour cette sélection et vous remercions pour l'intérêt que vous avez porté à notre initiative.`,
+    `\n\nD'une durée de 24 mois, le programme a pour ambition d'accompagner les jeunes entrepreneurs dans la structuration et le développement de leurs activités, tout en favorisant les relations durables avec les producteurs et acteurs locaux des filières agricoles, halieutiques, d'élevage et artisanales.`,
+    `\n\nLes principales composantes du programme :`,
+    `\n1. Identification et sélection — Identification des jeunes porteurs de projets et sélection des profils présentant un potentiel entrepreneurial et un réel ancrage dans les activités locales.`,
+    `\n2. Formation — Renforcement de vos compétences à travers des formations adaptées à l'entrepreneuriat, à la gestion, à la commercialisation et au développement de votre activité.`,
+    `\n3. Incubation — Un accompagnement personnalisé pour structurer votre projet, améliorer votre modèle économique et développer une activité viable et durable.`,
+    `\n4. Appui et financement — Mise à disposition d'un accompagnement technique et, selon les conditions et critères du programme, d'un appui permettant de contribuer au développement et à la consolidation de votre activité.`,
+    `\n5. Accès au marché — Création de liens avec les agriculteurs, éleveurs, pêcheurs, artisans et autres producteurs locaux afin de faciliter l'accès aux produits, développer des partenariats et créer de nouvelles opportunités commerciales.`,
+    `\n6. Suivi-évaluation — Un suivi régulier de votre progression, de vos résultats et des difficultés rencontrées afin de vous accompagner dans la durée et de mesurer l'impact du programme.`,
+    `\n\nUne dynamique fondée sur la collaboration`,
+    `\nAu-delà de l'accompagnement individuel, l'initiative vise à créer un véritable réseau entre jeunes entrepreneurs et producteurs locaux. L'objectif est de favoriser la collecte, la valorisation et la commercialisation des produits agricoles, halieutiques, d'élevage et artisanaux, tout en créant des opportunités économiques durables pour les communautés locales.`,
+    `\n\nNous vous invitons à rester attentif(ve) aux prochaines communications de notre équipe concernant les prochaines étapes de votre intégration au programme, notamment les modalités de démarrage, les séances de formation et les démarches administratives nécessaires.`,
+    `\n\nEncore toutes nos félicitations pour votre sélection. Nous sommes heureux de vous compter parmi les bénéficiaires de cette initiative et vous souhaitons pleine réussite dans cette nouvelle étape de votre parcours entrepreneurial.`,
+    `\n\nCordialement,\nL'équipe HARMONIA PROGRÈS\nAccompagner les jeunes, valoriser les ressources locales, construire un avenir durable.`,
+  ].join("");
 
   function handleOpenRecruitModal() {
     setRecruitMessage(RECRUIT_TEMPLATE);
@@ -742,6 +804,17 @@ export default function CandidatureDetailPage() {
                   </div>
                 </div>
 
+                <div>
+                  <label className="font-medium text-text-muted block mb-1">Notes internes</label>
+                  <textarea
+                    rows={2}
+                    value={evalNotes}
+                    onChange={(e) => setEvalNotes(e.target.value)}
+                    placeholder="Remarques privées, observations complémentaires..."
+                    className="w-full rounded-xl bg-void-2/60 border border-glass-border p-3 text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-1 focus:ring-teal"
+                  />
+                </div>
+
                 <button
                   type="submit"
                   disabled={evalSubmitting}
@@ -960,44 +1033,56 @@ export default function CandidatureDetailPage() {
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            transition={{ duration: 0.25 }}
-            className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[85vh] flex flex-col overflow-hidden"
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="rounded-3xl shadow-2xl w-full max-w-2xl max-h-[85vh] flex flex-col overflow-hidden border border-glass-border-strong bg-void-2"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Header */}
-            <div className="flex items-center justify-between gap-3 px-6 py-4 border-b border-gray-200">
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-green/10 flex items-center justify-center text-teal">
-                  <UserPlus className="w-5 h-5" />
+            {/* Header — dark gradient band */}
+            <div className="relative px-6 py-5 border-b border-glass-border overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-teal/15 via-green/8 to-transparent" />
+              <div className="relative flex items-center justify-between gap-3">
+                <div className="flex items-center gap-3.5">
+                  <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-green/25 to-teal/15 flex items-center justify-center ring-1 ring-teal/20">
+                    <UserPlus className="w-5 h-5" style={{ color: '#5ea314' }} />
+                  </div>
+                  <div>
+                    <h2 className="font-['Space_Grotesk'] font-bold text-base text-text-primary tracking-tight">
+                      Envoyer l&apos;email de recrutement
+                    </h2>
+                    <p className="text-[11px] text-text-muted mt-0.5">
+                      <span className="font-medium text-text-secondary">{application.email}</span>
+                      <span className="mx-1.5 opacity-40">•</span>
+                      {application.reference_number}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h2 className="text-sm font-bold text-gray-900">
-                    Envoyer l&apos;email de recrutement
-                  </h2>
-                  <p className="text-[11px] text-gray-500">
-                    {application.email} • {application.reference_number}
-                  </p>
-                </div>
+                <button
+                  onClick={() => !recruitSending && setRecruitModalOpen(false)}
+                  className="p-2 rounded-xl text-text-muted hover:bg-glass-bg-strong hover:text-text-primary transition"
+                  title="Fermer"
+                >
+                  <X className="w-4 h-4" />
+                </button>
               </div>
-              <button
-                onClick={() => !recruitSending && setRecruitModalOpen(false)}
-                className="p-2 rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-700 transition"
-                title="Fermer"
-              >
-                <X className="w-4 h-4" />
-              </button>
             </div>
 
             {/* Body */}
             <div className="flex-1 overflow-auto px-6 py-5 space-y-4">
               {recruitSuccess ? (
                 <div className="flex flex-col items-center gap-4 py-12">
-                  <div className="w-16 h-16 rounded-full bg-green/10 flex items-center justify-center">
-                    <CheckCircle2 className="w-8 h-8 text-teal" />
-                  </div>
+                  <motion.div
+                    initial={{ scale: 0.5, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ type: 'spring', stiffness: 300, damping: 20, delay: 0.1 }}
+                    className="w-16 h-16 rounded-full bg-gradient-to-br from-green/20 to-teal/10 flex items-center justify-center ring-1 ring-teal/20"
+                  >
+                    <CheckCircle2 className="w-8 h-8" style={{ color: '#5ea314' }} />
+                  </motion.div>
                   <div className="text-center">
-                    <p className="text-sm font-bold text-gray-900">Email envoyé avec succès !</p>
-                    <p className="text-xs text-gray-500 mt-1">
+                    <p className="font-['Space_Grotesk'] font-bold text-base text-text-primary">
+                      Email envoyé avec succès !
+                    </p>
+                    <p className="text-xs text-text-muted mt-1.5">
                       La candidature de {application.first_name} a été approuvée.
                     </p>
                   </div>
@@ -1005,23 +1090,23 @@ export default function CandidatureDetailPage() {
               ) : (
                 <>
                   <div>
-                    <label className="text-xs font-semibold text-gray-700 flex items-center gap-1.5 mb-2">
-                      <MessageSquare className="w-3.5 h-3.5 text-teal" />
+                    <label className="text-xs font-semibold text-text-secondary flex items-center gap-1.5 mb-2">
+                      <MessageSquare className="w-3.5 h-3.5" style={{ color: '#5ea314' }} />
                       Message personnalisé
                     </label>
                     <textarea
                       value={recruitMessage}
                       onChange={(e) => setRecruitMessage(e.target.value)}
                       rows={14}
-                      className="w-full rounded-xl border border-gray-200 bg-gray-50 p-4 text-sm text-gray-900 leading-relaxed resize-none focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal transition placeholder:text-gray-400 font-['Inter']"
+                      className="w-full rounded-2xl border border-glass-border bg-glass-bg p-4 text-sm text-text-primary leading-relaxed resize-none focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal/50 transition placeholder:text-text-muted font-['Inter']"
                       placeholder="Rédigez votre message de recrutement..."
                     />
                   </div>
 
-                  <div className="rounded-xl bg-amber-50 border border-amber-200 p-3 flex gap-2.5">
+                  <div className="rounded-2xl bg-amber-500/8 border border-amber-500/20 p-3.5 flex gap-2.5">
                     <AlertTriangle className="w-4 h-4 text-amber-500 mt-0.5 shrink-0" />
-                    <div className="text-xs text-amber-700 leading-relaxed">
-                      <p className="font-semibold">Attention</p>
+                    <div className="text-xs text-amber-600 leading-relaxed">
+                      <p className="font-semibold text-amber-700">Attention</p>
                       <p className="mt-0.5">
                         En envoyant ce email, le statut de la candidature sera automatiquement changé en « Accepté ».
                       </p>
@@ -1033,18 +1118,18 @@ export default function CandidatureDetailPage() {
 
             {/* Footer */}
             {!recruitSuccess && (
-              <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-200 bg-gray-50">
+              <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-glass-border bg-glass-bg">
                 <button
                   onClick={() => !recruitSending && setRecruitModalOpen(false)}
                   disabled={recruitSending}
-                  className="rounded-xl px-5 py-2.5 text-xs font-semibold text-gray-600 hover:bg-gray-200 transition disabled:opacity-50"
+                  className="rounded-xl px-5 py-2.5 text-xs font-semibold text-text-muted hover:bg-glass-bg-strong hover:text-text-primary transition disabled:opacity-50"
                 >
                   Annuler
                 </button>
                 <button
                   onClick={handleSendRecruitEmail}
                   disabled={recruitSending || !recruitMessage.trim()}
-                  className="rounded-xl bg-green px-6 py-2.5 font-['Space_Grotesk'] font-bold text-sm text-on-void transition hover:scale-[1.01] hover:shadow-lg hover:shadow-green/30 flex items-center gap-2 disabled:opacity-50 disabled:hover:scale-100"
+                  className="rounded-xl bg-gradient-to-r from-green to-teal px-6 py-2.5 font-['Space_Grotesk'] font-bold text-sm text-on-void transition hover:scale-[1.01] hover:shadow-lg hover:shadow-green/25 flex items-center gap-2 disabled:opacity-50 disabled:hover:scale-100"
                 >
                   {recruitSending ? (
                     <>

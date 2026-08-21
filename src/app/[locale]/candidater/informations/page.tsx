@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useRouter } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
@@ -23,13 +23,25 @@ function FieldIcon({ icon: Icon }: { icon: React.ElementType }) {
   return <Icon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" strokeWidth={1.5} />;
 }
 
+function getStoredPersonal(): Partial<PersonalInfoData> {
+  if (typeof window === "undefined") return {};
+  try {
+    const raw = sessionStorage.getItem("candidater_personal");
+    return raw ? JSON.parse(raw) : {};
+  } catch {
+    return {};
+  }
+}
+
 export default function InformationsPage() {
   const router = useRouter();
   const t = useTranslations("candidaterInformations");
   const [userId, setUserId] = useState<string | null>(null);
-  const supabase = createClient();
+  const supabase = useMemo(() => createClient(), []);
 
   const districts = t.raw("districts") as { value: string; label: string }[];
+
+  const stored = useMemo(() => getStoredPersonal(), []);
 
   const {
     register,
@@ -38,7 +50,16 @@ export default function InformationsPage() {
     setValue,
   } = useForm<PersonalInfoData>({
     resolver: zodResolver(personalInfoSchema),
-    defaultValues: { district: "manakara" },
+    defaultValues: {
+      first_name: stored.first_name || "",
+      last_name: stored.last_name || "",
+      date_of_birth: stored.date_of_birth || "",
+      phone: stored.phone || "",
+      email: stored.email || "",
+      district: stored.district || "manakara",
+      commune: stored.commune || "",
+      address: stored.address || "",
+    },
   });
 
   useEffect(() => {
@@ -49,15 +70,16 @@ export default function InformationsPage() {
         return;
       }
       setUserId(user.id);
-      if (user.email) setValue("email", user.email);
-      if (user.user_metadata?.full_name) {
+      // Only pre-fill from user metadata when fields are still empty
+      if (user.email && !stored.email) setValue("email", user.email);
+      if (user.user_metadata?.full_name && !stored.first_name && !stored.last_name) {
         const parts = user.user_metadata.full_name.split(" ");
         setValue("first_name", parts[0] || "");
         setValue("last_name", parts.slice(1).join(" ") || "");
       }
     }
     load();
-  }, [supabase, router, setValue]);
+  }, [supabase, router, setValue, stored.email, stored.first_name, stored.last_name]);
 
   function onSubmit(data: PersonalInfoData) {
     sessionStorage.setItem("candidater_personal", JSON.stringify(data));

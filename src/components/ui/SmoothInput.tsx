@@ -320,6 +320,22 @@ const SmoothInput = ({
             caretOpacityRef.current.set(0);
             onBlur?.(e);
           }}
+          onKeyDown={(e) => {
+            props.onKeyDown?.(e);
+            const navKeys = [
+              "ArrowLeft",
+              "ArrowRight",
+              "ArrowUp",
+              "ArrowDown",
+              "Home",
+              "End",
+            ];
+            if (navKeys.includes(e.key)) {
+              requestAnimationFrame(() => {
+                updateCaretRef.current(e.target as HTMLInputElement);
+              });
+            }
+          }}
         />
         <span
           ref={measureRef}

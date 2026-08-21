@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useRouter } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
@@ -28,11 +28,23 @@ const SECTOR_ICONS: Record<string, React.ElementType> = {
   halieutique: Fish,
 };
 
+function getStoredProject(): Partial<ProjectData> {
+  if (typeof window === "undefined") return {};
+  try {
+    const raw = sessionStorage.getItem("candidater_project");
+    return raw ? JSON.parse(raw) : {};
+  } catch {
+    return {};
+  }
+}
+
 export default function ProjetPage() {
   const router = useRouter();
   const t = useTranslations("candidaterProjet");
   const tVerif = useTranslations("candidaterVerification");
   const [selectedSector, setSelectedSector] = useState<string>("");
+
+  const stored = useMemo(() => getStoredProject(), []);
 
   const {
     register,
@@ -41,7 +53,15 @@ export default function ProjetPage() {
     formState: { errors },
   } = useForm<ProjectData>({
     resolver: zodResolver(projectSchema),
-    defaultValues: { sector: "agriculture" },
+    defaultValues: {
+      project_name: stored.project_name || "",
+      sector: stored.sector || "agriculture",
+      activity_type: stored.activity_type || "",
+      project_description: stored.project_description || "",
+      problem_identified: stored.problem_identified || "",
+      solution_proposed: stored.solution_proposed || "",
+      target_market: stored.target_market || "",
+    },
   });
 
   const watchedSector = watch("sector");

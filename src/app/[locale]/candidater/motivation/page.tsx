@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import { useRouter } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { useForm, Controller } from "react-hook-form";
@@ -13,10 +14,22 @@ import { Check } from "lucide-react";
 const labelClass = "block text-sm font-medium text-text-primary mb-1.5";
 const errorClass = "text-xs text-red-400 mt-1";
 
+function getStoredMotivation(): Partial<MotivationData> {
+  if (typeof window === "undefined") return {};
+  try {
+    const raw = sessionStorage.getItem("candidater_motivation");
+    return raw ? JSON.parse(raw) : {};
+  } catch {
+    return {};
+  }
+}
+
 export default function MotivationPage() {
   const router = useRouter();
   const t = useTranslations("candidaterMotivation");
   const NEED_OPTIONS = t.raw("needOptions") as { value: string; label: string }[];
+
+  const stored = useMemo(() => getStoredMotivation(), []);
 
   const {
     register,
@@ -25,7 +38,11 @@ export default function MotivationPage() {
     formState: { errors },
   } = useForm<MotivationData>({
     resolver: zodResolver(motivationSchema),
-    defaultValues: { needs: [] },
+    defaultValues: {
+      motivation: stored.motivation || "",
+      needs: stored.needs || [],
+      accomplishments: stored.accomplishments || "",
+    },
   });
 
   function onSubmit(data: MotivationData) {

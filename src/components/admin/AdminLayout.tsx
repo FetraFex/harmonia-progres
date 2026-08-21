@@ -5,7 +5,7 @@ import { Logo } from "@/components/ui/Logo";
 import { usePathname, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   LayoutDashboard,
   FileText,
@@ -34,13 +34,23 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [adminUser, setAdminUser] = useState<{ email: string; name?: string; role?: string } | null>(null);
+  const [adminUser, setAdminUser] = useState<{ email: string; name?: string; role?: string } | null>(() => {
+    if (typeof window === "undefined") return null;
+    try {
+      const raw = localStorage.getItem("admin_user");
+      return raw ? JSON.parse(raw) : null;
+    } catch {
+      return null;
+    }
+  });
   const [checkingAuth, setCheckingAuth] = useState(true);
   const [currentTime, setCurrentTime] = useState(new Date());
   const supabase = createClient();
+  const authChecked = useRef(false);
 
   useEffect(() => {
     async function checkAdminAuth() {
+      if (authChecked.current) return;
       try {
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) {
@@ -54,20 +64,24 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
           .eq("id", user.id)
           .single();
 
-        setAdminUser({
+        const userData = {
           email: user.email || "",
           name: profile?.full_name || user.email?.split("@")[0] || "Admin",
           role: profile?.role || "admin",
-        });
+        };
+        setAdminUser(userData);
+        localStorage.setItem("admin_user", JSON.stringify(userData));
       } catch (err) {
         console.error("Auth check error:", err);
       } finally {
+        authChecked.current = true;
         setCheckingAuth(false);
       }
     }
 
     checkAdminAuth();
-  }, [router, supabase]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Live clock
   useEffect(() => {
@@ -76,20 +90,12 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
   }, []);
 
   async function handleLogout() {
+    localStorage.removeItem("admin_user");
     await supabase.auth.signOut();
     router.push("/admin/login");
   }
 
-  if (checkingAuth) {
-    return (
-      <div className="min-h-screen bg-void flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <Loader2 className="w-8 h-8 text-teal animate-spin" />
-          <p className="text-xs text-text-muted font-medium">Vérification de l&apos;autorisation…</p>
-        </div>
-      </div>
-    );
-  }
+  // No full-page gate — sidebar stays visible during auth check
 
   const initials = adminUser?.name
     ?.split(" ")
@@ -122,27 +128,25 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
         </div>
 
         {/* User Card */}
-        {adminUser && (
-          <div className="px-4 py-4 border-b border-glass-border">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal/20 to-teal/5 border border-teal/20 flex items-center justify-center text-teal shrink-0 font-['Space_Grotesk'] font-bold text-xs">
-                {initials}
-              </div>
-              <div className="min-w-0 flex-1">
-                <p className="text-xs font-semibold text-text-primary truncate">
-                  {adminUser.name}
-                </p>
-                <p className="text-[11px] text-text-muted truncate">
-                  {adminUser.email}
-                </p>
-                <span className="inline-flex items-center gap-1 mt-1 text-[9px] font-['JetBrains_Mono'] uppercase tracking-widest text-teal/70">
-                  <Shield className="w-2.5 h-2.5" />
-                  {adminUser.role}
-                </span>
-              </div>
+        <div className="px-4 py-4 border-b border-glass-border">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal/20 to-teal/5 border border-teal/20 flex items-center justify-center text-teal shrink-0 font-['Space_Grotesk'] font-bold text-xs">
+              {initials}
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-xs font-semibold text-text-primary truncate">
+                {adminUser?.name || "Admin"}
+              </p>
+              <p className="text-[11px] text-text-muted truncate">
+                {adminUser?.email || ""}
+              </p>
+              <span className="inline-flex items-center gap-1 mt-1 text-[9px] font-['JetBrains_Mono'] uppercase tracking-widest text-teal/70">
+                <Shield className="w-2.5 h-2.5" />
+                {adminUser?.role || "admin"}
+              </span>
             </div>
           </div>
-        )}
+        </div>
 
         {/* Navigation */}
         <nav className="flex-1 px-3 py-6 space-y-6 overflow-y-auto">
@@ -279,7 +283,16 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
 
         {/* Page Content */}
         <main className="flex-1 p-6 lg:p-10 max-w-[1400px] w-full mx-auto">
-          {children}
+          {checkingAuth ? (
+            <div className="flex items-center justify-center min-h-[400px]">
+              <div className="flex flex-col items-center gap-3">
+                <Loader2 className="w-6 h-6 text-teal animate-spin" />
+                <p className="text-xs text-text-muted">Chargement…</p>
+              </div>
+            </div>
+          ) : (
+            children
+          )}
         </main>
       </div>
     </div>

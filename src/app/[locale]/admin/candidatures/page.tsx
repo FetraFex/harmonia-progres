@@ -20,10 +20,8 @@ import {
   ChevronLeft,
   ChevronRight,
   RotateCcw,
-  Plus,
   MapPin,
   Clock,
-  Users,
   Loader2,
 } from "lucide-react";
 
@@ -139,12 +137,15 @@ export default function AdminCandidaturesPage() {
     ]);
 
     const csvContent =
-      "data:text/csv;charset=utf-8," +
       [headers.join(","), ...rows.map((e) => e.join(","))].join("\n");
 
-    const encodedUri = encodeURI(csvContent);
+    // Prepend UTF-8 BOM so Excel opens the file with correct encoding
+    const blob = new Blob(["\uFEFF", csvContent], {
+      type: "text/csv;charset=utf-8;",
+    });
+    const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
+    link.setAttribute("href", url);
     link.setAttribute(
       "download",
       `candidatures_harmonia_${new Date().toISOString().split("T")[0]}.csv`
@@ -152,6 +153,7 @@ export default function AdminCandidaturesPage() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   }
 
   return (
@@ -180,14 +182,7 @@ export default function AdminCandidaturesPage() {
               <Download className="w-3.5 h-3.5 text-teal" />
               <span>Exporter CSV</span>
             </button>
-            <Link
-              href="/candidater"
-              target="_blank"
-              className="rounded-xl bg-green px-4 py-2.5 text-xs font-bold text-on-void transition hover:scale-[1.02] hover:shadow-lg hover:shadow-green/20 flex items-center gap-1.5"
-            >
-              <Plus className="w-3.5 h-3.5" />
-              <span>Nouvelle candidature</span>
-            </Link>
+
           </div>
         </div>
 

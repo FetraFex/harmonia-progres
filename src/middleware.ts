@@ -34,9 +34,34 @@ export async function middleware(request: NextRequest) {
     },
   });
 
-  await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  // 2. Resolve the locale and route the request to the [locale] segment
+  // 2. Admin route protection — check session + role before any page renders
+  const pathname = request.nextUrl.pathname;
+  const isAdminRoute = /\/admin(\/|$)/.test(pathname);
+  const isAdminLogin = /\/admin\/login(\/|$)/.test(pathname);
+
+  if (isAdminRoute && !isAdminLogin) {
+    if (!user) {
+      const loginUrl = new URL("/admin/login", request.url);
+      return NextResponse.redirect(loginUrl);
+    }
+
+    // Verify the user has an admin or evaluator role
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .single();
+
+    if (!profile || (profile.role !== "admin" && profile.role !== "evaluator")) {
+      return NextResponse.redirect(new URL("/", request.url));
+    }
+  }
+
+  // 3. Resolve the locale and route the request to the [locale] segment
   const intlResponse = intlMiddleware(request);
 
   // 3. Copy ALL Supabase cookies to the intl response individually

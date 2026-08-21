@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
+import { useTheme } from "@/contexts/ThemeContext";
 
 const territories = [
   {
@@ -18,6 +19,7 @@ const territories = [
 
 export function TerritorySection() {
   const { ref, isRevealed } = useRevealOnScroll<HTMLDivElement>();
+  const { isDark } = useTheme();
 
   return (
     <section
@@ -67,9 +69,9 @@ export function TerritorySection() {
                 {/* Madagascar outline (from Natural Earth geographic data) */}
                 <path
                   d="M166.7 41.7Q166.7 41.7 170.1 47.0Q173.4 52.3 176.4 60.5Q179.5 68.8 181.5 83.8Q183.5 98.8 186.8 104.6Q190 110.4 188.8 116.4Q187.5 122.4 185.3 126.0Q183.1 129.7 178.8 122.4Q174.6 115.1 172.3 118.8Q170 122.5 172.3 131.7Q174.7 140.9 173.6 146.2Q172.5 151.5 169.1 154.4Q165.6 157.3 164.8 167.9Q164.1 178.4 159.1 192.9Q154.2 207.4 148.1 224.6Q141.9 241.8 134.3 265.4Q126.6 289 121.8 306.3Q117 323.6 111.3 338.1Q105.7 352.5 95.6 355.4Q85.5 358.4 74.6 363.7Q63.7 369 56.5 365.8Q49.4 362.6 39.5 358.1Q29.6 353.7 26.1 347.1Q22.7 340.6 21.9 329.6Q21.1 318.5 16.7 308.6Q12.3 298.6 11.2 289.6Q10 280.7 12.3 271.7Q14.5 262.7 20.2 260.5Q25.9 258.4 25.9 254.3Q26 250.1 31.9 240.6Q37.9 231.2 39.0 223.3Q40.2 215.3 37.3 209.4Q34.4 203.5 32.0 195.7Q29.7 187.8 28.7 176.3Q27.7 164.8 32.0 157.9Q36.4 150.9 38.0 143.0Q39.7 135.1 45.9 134.6Q52.1 134.2 59.0 131.6Q66 129.1 70.7 126.8Q75.3 124.5 80.8 124.3Q86.2 124.2 93.3 117.1Q100.4 110 110.7 102.3Q120.9 94.7 124.7 88.4Q128.4 82.1 126.7 76.8Q125 71.5 130.3 73.0Q135.6 74.5 142.4 65.8Q149.3 57.1 149.6 49.7Q149.8 42.2 153.9 36.6Q158.1 31 162.4 36.4Q166.7 41.7 166.7 41.7Z"
-                  stroke="rgba(255,255,255,0.12)"
+                  stroke={isDark ? "rgba(255,255,255,0.12)" : "rgba(15,23,42,0.15)"}
                   strokeWidth="1.5"
-                  fill="rgba(255,255,255,0.03)"
+                  fill={isDark ? "rgba(255,255,255,0.03)" : "rgba(15,23,42,0.04)"}
                 />
 
                 {/* Fitovinany region highlight */}
@@ -115,13 +117,13 @@ export function TerritorySection() {
                 </text>
 
                 {/* Antananarivo reference dot */}
-                <circle cx="117" cy="203" r="3" fill="rgba(255,255,255,0.25)" />
+                <circle cx="117" cy="203" r="3" fill={isDark ? "rgba(255,255,255,0.25)" : "rgba(15,23,42,0.2)"} />
                 <text
                   x="128"
                   y="206"
                   fontSize="8"
                   fontFamily="Inter, sans-serif"
-                  fill="rgba(255,255,255,0.25)"
+                  fill={isDark ? "rgba(255,255,255,0.25)" : "rgba(15,23,42,0.3)"}
                 >
                   Tana
                 </text>
@@ -135,7 +137,7 @@ export function TerritorySection() {
           {territories.map((t, idx) => (
             <div
               key={t.city}
-              className={`group p-8 rounded-3xl border border-white/[0.06] hover:border-teal/20 bg-white/[0.02] transition-all duration-500 ${
+              className={`group p-8 rounded-3xl border border-glass-border hover:border-teal/20 bg-glass-bg transition-all duration-500 ${
                 isRevealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
               }`}
               style={{ transitionDelay: `${400 + idx * 150}ms` }}

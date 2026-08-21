@@ -141,7 +141,7 @@ export default function MessagesPage() {
         </div>
 
         {/* Summary Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -154,21 +154,6 @@ export default function MessagesPage() {
               </div>
             </div>
             <p className="font-['Space_Grotesk'] text-2xl font-bold text-text-primary">{messages.length}</p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.05 }}
-            className="rounded-2xl glass p-5 border border-glass-border"
-          >
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-medium text-text-muted">Non lus</span>
-              <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400">
-                <MailOpen className="w-4 h-4" />
-              </div>
-            </div>
-            <p className="font-['Space_Grotesk'] text-2xl font-bold text-blue-400">{unreadCount}</p>
           </motion.div>
 
           <motion.div
@@ -234,58 +219,108 @@ export default function MessagesPage() {
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
           {/* Message List */}
           <div className="lg:col-span-2 rounded-2xl glass border border-glass-border overflow-hidden">
-            <div className="divide-y divide-glass-border max-h-[600px] overflow-y-auto">
+            {/* List header */}
+            <div className="px-4 py-3 border-b border-glass-border flex items-center justify-between">
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-text-muted">
+                {filtered.length} message{filtered.length !== 1 ? "s" : ""}
+              </span>
+              {unreadCount > 0 && (
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-blue-500/15 text-[10px] font-bold text-blue-400">
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
+                  {unreadCount} non lu{unreadCount > 1 ? "s" : ""}
+                </span>
+              )}
+            </div>
+
+            <div className="max-h-[580px] overflow-y-auto custom-scrollbar">
               {loading ? (
-                <div className="p-12 flex items-center justify-center">
+                <div className="p-12 flex flex-col items-center justify-center gap-3">
                   <Loader2 className="w-6 h-6 text-teal animate-spin" />
+                  <span className="text-[11px] text-text-muted">Chargement…</span>
                 </div>
               ) : filtered.length === 0 ? (
                 <div className="p-10 text-center">
-                  <div className="w-12 h-12 mx-auto rounded-xl bg-green/10 flex items-center justify-center text-teal mb-3">
+                  <div className="w-14 h-14 mx-auto rounded-2xl bg-gradient-to-br from-green/15 to-teal/10 flex items-center justify-center text-teal mb-3 ring-1 ring-teal/15">
                     <MessageSquare className="w-6 h-6" strokeWidth={1.5} />
                   </div>
-                  <p className="text-xs text-text-muted">
+                  <p className="text-xs font-medium text-text-primary mb-0.5">Aucun message</p>
+                  <p className="text-[11px] text-text-muted">
                     {messages.length === 0
                       ? "Aucun message reçu pour le moment."
                       : "Aucun message ne correspond à vos critères."}
                   </p>
                 </div>
               ) : (
-                filtered.map((msg) => (
-                  <button
-                    key={msg.id}
-                    onClick={() => {
-                      setSelectedMessage(msg);
-                      if (!msg.is_read) markAsRead(msg.id);
-                    }}
-                    className={`w-full text-left p-4 transition hover:bg-glass-bg ${
-                      selectedMessage?.id === msg.id ? "bg-glass-bg-strong border-l-2 border-teal" : "border-l-2 border-transparent"
-                    }`}
-                  >
-                    <div className="flex items-start justify-between gap-2 mb-1">
-                      <div className="flex items-center gap-2 min-w-0">
-                        {!msg.is_read && (
-                          <div className="w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0" />
-                        )}
-                        <span className={`text-xs font-semibold truncate ${msg.is_read ? "text-text-muted" : "text-text-primary"}`}>
-                          {msg.name}
-                        </span>
+                filtered.map((msg, idx) => {
+                  const initials = msg.name.split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase();
+                  const isToday = (() => {
+                    const d = new Date(msg.created_at);
+                    const now = new Date();
+                    return d.getDate() === now.getDate() && d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+                  })();
+                  const timeStr = isToday
+                    ? new Date(msg.created_at).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })
+                    : new Date(msg.created_at).toLocaleDateString("fr-FR", { day: "numeric", month: "short" });
+                  const isSelected = selectedMessage?.id === msg.id;
+
+                  return (
+                    <motion.button
+                      key={msg.id}
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.2, delay: Math.min(idx * 0.03, 0.3) }}
+                      onClick={() => {
+                        setSelectedMessage(msg);
+                        if (!msg.is_read) markAsRead(msg.id);
+                      }}
+                      className={`w-full text-left px-4 py-3.5 transition-all duration-200 group relative border-l-[3px] ${
+                        isSelected
+                          ? "bg-gradient-to-r from-green/8 to-transparent border-l-teal"
+                          : "border-l-transparent hover:bg-glass-bg hover:border-l-green/30"
+                      }`}
+                    >
+                      <div className="flex items-start gap-3">
+                        {/* Avatar */}
+                        <div className={`relative shrink-0 w-10 h-10 rounded-xl flex items-center justify-center text-xs font-bold transition-transform duration-200 group-hover:scale-105 ${
+                          isSelected
+                            ? "bg-gradient-to-br from-green/25 to-teal/15 text-teal ring-1 ring-teal/25"
+                            : msg.is_read
+                              ? "bg-glass-bg-strong text-text-muted"
+                              : "bg-gradient-to-br from-blue-500/15 to-blue-400/10 text-blue-400 ring-1 ring-blue-400/20"
+                        }`}>
+                          {initials}
+                          {!msg.is_read && (
+                            <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-blue-400 ring-2 ring-white/80 dark:ring-void-2" />
+                          )}
+                        </div>
+
+                        {/* Content */}
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center justify-between gap-2 mb-0.5">
+                            <span className={`text-[13px] font-semibold truncate ${
+                              msg.is_read ? "text-text-muted" : "text-text-primary"
+                            }`}>
+                              {msg.name}
+                            </span>
+                            <span className={`text-[10px] shrink-0 tabular-nums ${
+                              msg.is_read ? "text-text-muted/60" : "text-text-muted"
+                            }`}>
+                              {timeStr}
+                            </span>
+                          </div>
+                          <p className={`text-[12px] font-medium truncate mb-0.5 ${
+                            msg.is_read ? "text-text-muted" : "text-text-primary"
+                          }`}>
+                            {msg.subject}
+                          </p>
+                          <p className="text-[11px] text-text-muted/70 truncate leading-relaxed">
+                            {msg.message.slice(0, 90)}…
+                          </p>
+                        </div>
                       </div>
-                      <span className="text-[10px] text-text-muted shrink-0">
-                        {new Date(msg.created_at).toLocaleDateString("fr-FR", {
-                          day: "numeric",
-                          month: "short",
-                        })}
-                      </span>
-                    </div>
-                    <p className={`text-[11px] font-medium mb-0.5 truncate ${msg.is_read ? "text-text-muted" : "text-text-primary"}`}>
-                      {msg.subject}
-                    </p>
-                    <p className="text-[10px] text-text-muted truncate leading-relaxed">
-                      {msg.message.slice(0, 80)}…
-                    </p>
-                  </button>
-                ))
+                    </motion.button>
+                  );
+                })
               )}
             </div>
           </div>
@@ -327,33 +362,6 @@ export default function MessagesPage() {
                         </span>
                       </div>
                     </div>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    {selectedMessage.is_read ? (
-                      <button
-                        onClick={() => markAsUnread(selectedMessage.id)}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold glass text-text-muted hover:text-text-primary transition border border-glass-border"
-                      >
-                        <EyeOff className="w-3 h-3" />
-                        Marquer non lu
-                      </button>
-                    ) : (
-                      <button
-                        onClick={() => markAsRead(selectedMessage.id)}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold glass text-text-muted hover:text-text-primary transition border border-glass-border"
-                      >
-                        <Eye className="w-3 h-3" />
-                        Marquer lu
-                      </button>
-                    )}
-                    <a
-                      href={`mailto:${selectedMessage.email}?subject=Re: ${selectedMessage.subject}`}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold bg-green text-on-void transition hover:scale-[1.02]"
-                    >
-                      <Mail className="w-3 h-3" />
-                      Répondre par email
-                    </a>
                   </div>
                 </div>
 

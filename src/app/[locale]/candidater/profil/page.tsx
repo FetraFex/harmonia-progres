@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import { useRouter } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
@@ -19,6 +20,16 @@ function FieldIcon({ icon: Icon }: { icon: React.ElementType }) {
   return <Icon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" strokeWidth={1.5} />;
 }
 
+function getStoredProfile(): Partial<ProfileData> {
+  if (typeof window === "undefined") return {};
+  try {
+    const raw = sessionStorage.getItem("candidater_profile");
+    return raw ? JSON.parse(raw) : {};
+  } catch {
+    return {};
+  }
+}
+
 export default function ProfilPage() {
   const router = useRouter();
   const t = useTranslations("candidaterProfil");
@@ -26,12 +37,20 @@ export default function ProfilPage() {
   const situations = t.raw("situations") as { value: string; label: string }[];
   const educationLevels = t.raw("educationLevels") as { value: string; label: string }[];
 
+  const stored = useMemo(() => getStoredProfile(), []);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<ProfileData>({
     resolver: zodResolver(profileSchema),
+    defaultValues: {
+      situation: stored.situation || undefined,
+      education_level: stored.education_level || undefined,
+      experience_professionnelle: stored.experience_professionnelle || "",
+      experience_entrepreneuriale: stored.experience_entrepreneuriale || "",
+    },
   });
 
   function onSubmit(data: ProfileData) {
